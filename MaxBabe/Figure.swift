@@ -110,7 +110,7 @@ class Figure
                 let y = rs.stringForColumn("path")
                 let z = rs.stringForColumn("md5")
                 list.append(Chosen(id: b.toInt(), comment: x, path: y, md5: z))
-                println("x = \(x); y = \(y); z = \(z)")
+//                println("x = \(x); y = \(y); z = \(z)")
             }
         } else {
             println("select failed: \(database.lastErrorMessage())")

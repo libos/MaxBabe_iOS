@@ -15,11 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let center: Center = Center.getInstance
-
+    let baiduManager:BMKMapManager = BMKMapManager()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 //       self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //       self.window?.rootViewController =
         
+        var ret:Bool = baiduManager.start("oKOBpr25adybS8iK7Z9AzssS", generalDelegate: nil)
+        if (!ret) {
+            println("manager start failed!")
+        }else{
+            println("manager start succ!")
+        }
         self.window?.makeKeyAndVisible()
         //        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //        self.window.rootViewController = [[WXController alloc] init];

@@ -19,82 +19,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-MaxBabe-LBBlurredImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-Mantle.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-MaxBabe-NCChineseConverter.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMAddressBar.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMBadgeView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMCategories.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMCircleProgressView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMGradientView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMHUDView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMLabel.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMLoadingView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMRateLimit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMTextView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SAMWebView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-MaxBabe-SwiftTryCatch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -112,107 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1A55ACDBC720139F1AEE9440</key>
+		<key>34765993424D5AE309BA24E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3A8BA53EC9972CBAB4DE39BD</key>
+		<key>8CF3D698B7008CA4156C5538</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4C420B845ACF9EDDE056CA82</key>
+		<key>96D42E68D6D2741D330E1A86</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>724F8E9CC6A58424E3BA232D</key>
+		<key>B217DC98E18A0893509FAE51</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8576A88D822F147CF9A0736A</key>
+		<key>E8F622C3C8DB0012162D9C13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86E3CC24216A857C3FD57C21</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9DC047B57B063E806026F8D5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9EA3260C9E7983913B0BB587</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A1034EA0D83F398928F0306A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A4F0424445CEAD87212F676B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AA66342C3DDFA9ABB8B91174</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AF5FAC1C8308CC2125C1B241</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B4C07B30EA7FD5AD3E7B1A7D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BC8BC18B34B3809C8714B6E0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BD9F99E81EF09617FB9BEF1D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C2EEB8F45AC69F355C5FBB68</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E7667AED64F01739CCDD7330</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E8094BE2EB6A28BA4BFA08D5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EEB891A5D04C634E18CF4545</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EFC750E065AFA3C3A833B002</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3770EC5AD7B948C0372F5B7</key>
+		<key>F8D225342F0DF07FFB2DEDAB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

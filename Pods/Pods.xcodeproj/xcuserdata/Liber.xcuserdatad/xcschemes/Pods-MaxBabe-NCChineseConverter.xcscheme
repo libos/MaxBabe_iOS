@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B4C07B30EA7FD5AD3E7B1A7D"
+               BlueprintIdentifier = "E8F622C3C8DB0012162D9C13"
                BuildableName = "libPods-MaxBabe-NCChineseConverter.a"
                BlueprintName = "Pods-MaxBabe-NCChineseConverter"
                ReferencedContainer = "container:Pods.xcodeproj">

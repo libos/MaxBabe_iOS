@@ -78,7 +78,7 @@ class Oneword
                     x = x.stringByReplacingOccurrencesOfString("<br>", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 }
                 list.append(Chosen(id: b.toInt(), comment: x, path: "", md5: ""))
-                println("x = \(x);b= \(b);")
+//                println("x = \(x);b= \(b);")
             }
         } else {
             println("select failed: \(database.lastErrorMessage())")

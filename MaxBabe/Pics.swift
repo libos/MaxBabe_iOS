@@ -19,10 +19,11 @@ class Pics {
     }
     let data:PicsData!
     let wea:Weather!
+    var city:String?
     init(){
         wea = Weather.getInstance
         data = PicsData()
-        self.updateSelf()
+
     }
     
     class var getInstance:Pics {
@@ -35,8 +36,7 @@ class Pics {
     
     func updateSelf()
     {
-        var city = "北京"
-        var auth : String =  city +  ". maxtain . mybabe "
+        var auth:String =  city! +  ". maxtain . mybabe "
         let reso = "xx"
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -48,7 +48,7 @@ class Pics {
         let temp = "\(wea.getTemp()!)"
         let weather = "\(wea.getWeather()!)"
         
-        var params:Dictionary = ["id":city,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,"weather":weather,"reso":reso]
+        var params:Dictionary = ["id":city!,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,"weather":weather,"reso":reso]
         
         println(params.description)
         let manager = AFHTTPRequestOperationManager()

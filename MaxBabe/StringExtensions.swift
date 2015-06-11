@@ -25,7 +25,51 @@ extension String{
         
         return String(format: hash as String)
     }
+    
     func contains(find: String) -> Bool{
         return self.rangeOfString(find) != nil
     }
+    
+    func cleanCity() -> String{
+        var ret_name:String = self
+        for wd in ["市","市辖区","自治区", "自治州", "盟", "地区", "特别行政区"] {
+            ret_name = ret_name.stringByReplacingOccurrencesOfString(wd, withString: "")
+        }
+        return ret_name
+    }
+    
+    func startWith(prefix:String) -> Bool {
+        if prefix.endIndex > self.endIndex {
+            return false
+        }
+        if prefix.endIndex == self.endIndex{
+            if self == prefix{
+                return true
+            }else{
+                return false
+            }
+        }
+//        let idx = min(prefix.endIndex,self.endIndex)
+        if self.substringToIndex(prefix.endIndex) == prefix {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func stringByTrimmingLeadingAndTrailingWhitespace() -> String {
+        let leadingAndTrailingWhitespacePattern = "(?:^\\s+)|(?:\\s+$)"
+        
+        if let regex = NSRegularExpression(pattern: leadingAndTrailingWhitespacePattern, options: .CaseInsensitive, error: nil) {
+            let range = NSMakeRange(0, count(self))
+            let trimmedString = regex.stringByReplacingMatchesInString(self, options: .ReportProgress, range:range, withTemplate:"$1")
+            
+            return trimmedString
+        } else {
+            return self
+        }
+    }
+    
+      
+
 }

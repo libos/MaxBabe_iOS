@@ -23,6 +23,9 @@ class WeatherController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func goBack(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }
 

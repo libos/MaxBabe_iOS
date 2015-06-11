@@ -26,12 +26,12 @@ class PendingOperations {
         return queue
         }()
 
-    lazy var idleQueue:NSOperationQueue = {
-        var queue = NSOperationQueue()
-        queue.name = "Idle Waiting queue"
-        queue.maxConcurrentOperationCount = 1
-        return queue
-        }()
+//    lazy var idleQueue:NSOperationQueue = {
+//        var queue = NSOperationQueue()
+//        queue.name = "Idle Waiting queue"
+//        queue.maxConcurrentOperationCount = 1
+//        return queue
+//        }()
     
     lazy var forcastQueue:NSOperationQueue = {
         var queue = NSOperationQueue()

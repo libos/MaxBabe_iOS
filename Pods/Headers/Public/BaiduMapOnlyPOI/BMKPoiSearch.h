@@ -1,0 +1,1 @@
+../../../BaiduMapOnlyPOI/Framework/BaiduMapAPI.framework/Headers/BMKPoiSearch.h

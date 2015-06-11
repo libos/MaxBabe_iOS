@@ -9,15 +9,18 @@
 #ifndef MaxBabe_BridgingHeader_h
 #define MaxBabe_BridgingHeader_h
 
-#import <SSToolkit/SSToolkit.h>
+//#import <SSToolkit/SSToolkit.h>
 #import <AFNetworking/AFNetworking.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import "FMDB.h"
-#import "UIImageView+LBBlurredImage.h"
-#import "SwiftTryCatch.h"
 
 #import "TSMessage.h"
 #import "TSMessageView.h"
 #import "NCChineseConverter.h"
 
+//#import <ReactiveCocoa/ReactiveCocoa.h>
+//#import <CoreLocation/CoreLocation.h>
+//#import <MapKit/MapKit.h>
+
+#import <BaiduMapAPI/BMapKit.h>
 #endif

@@ -13,9 +13,10 @@ class SplashController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Center.getInstance.start()
+        City.getInstance
+
         addBackgroundImage()
-//        addLogo()
+
         // Show the home screen after a bit. Calls the show() function.
         let timer = NSTimer.scheduledTimerWithTimeInterval(
             0.5, target: self, selector: Selector("show"), userInfo: nil, repeats: false
@@ -34,7 +35,7 @@ class SplashController: UIViewController {
     func addBackgroundImage() {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
-        let bg = UIImage(named: "splash.png")
+        let bg = UIImage(named: "splash")
         let bgView = UIImageView(image: bg)
         
         bgView.frame = CGRectMake(0, 0, screenSize.width, screenSize.height)

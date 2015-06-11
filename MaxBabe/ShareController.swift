@@ -24,5 +24,8 @@ class ShareController: UIViewController {
     }
 
 
+    @IBAction func goBack(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 

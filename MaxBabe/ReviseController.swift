@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class ReviseController: UIViewController {
+class ReviseController: UIQueryController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,9 @@ class ReviseController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func goBack(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }
 

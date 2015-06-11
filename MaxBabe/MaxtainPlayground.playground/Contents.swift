@@ -114,5 +114,6 @@ NSLocale.preferredLanguages()[0]
 NSLocale.preferredLanguages()
 
 
+"error".substringToIndex("err".endIndex) == "err"
 
 

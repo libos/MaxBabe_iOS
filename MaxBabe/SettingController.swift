@@ -24,5 +24,17 @@ class SettingController: UIViewController {
     }
 
 
+    @IBAction func goBack(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    @IBAction func loggedUnwindSegue(segue:UIStoryboardSegue){
+        
+    }
+    
+    @IBAction func cancelledUnwindSegue(segue:UIStoryboardSegue){
+        
+    }
 }
 
