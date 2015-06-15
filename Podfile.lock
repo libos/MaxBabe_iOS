@@ -28,6 +28,7 @@ PODS:
     - FMDB/common
   - HexColors (2.2.1)
   - NCChineseConverter (1.0.3)
+  - TBXML (1.5)
   - TSMessages (0.9.12):
     - HexColors
 
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - BaiduMapOnlyPOI
   - FMDB
   - NCChineseConverter
+  - TBXML
   - TSMessages
 
 SPEC CHECKSUMS:
@@ -44,6 +46,7 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   NCChineseConverter: a8928afce6012994d25f2e183233f1111476a4a3
+  TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
 
 COCOAPODS: 0.37.2

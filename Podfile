@@ -15,6 +15,10 @@ pod 'NCChineseConverter'
 #pod 'ReactiveCocoa'
 #pod 'BaiduMapAPI'
 pod 'BaiduMapOnlyPOI'
+pod 'TBXML'
+pod 'UMengSocial'
+pod 'UMengAnalytics-NO-IDFA'
+pod 'UMengFeedback'
 #pod 'MONActivityIndicatorView'
 end
 

@@ -44,7 +44,11 @@ class Pics {
         let hour = String(format: "%02d",  components.hour)
         let month = String(format: "%02d", components.month)
         let week  = String(format: "%02d", components.weekday-1)
-        let aqi = "\(wea.data.aqi!)"
+        
+        var aqi = ""
+        if wea.data.aqi != nil {
+            aqi = "\(wea.data.aqi!)"
+        }
         let temp = "\(wea.getTemp()!)"
         let weather = "\(wea.getWeather()!)"
         

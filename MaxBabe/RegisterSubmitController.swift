@@ -84,6 +84,7 @@ class RegisterSubmitController: UIQueryController {
                     st.setObject("女", forKey: Global.ACCOUNT_SEX)
                 }
                 st.synchronize()
+                Center.getInstance.login()
                 // delegate set value kill
                 // dismiss
                 self.performSegueWithIdentifier(identifier, sender: sender)

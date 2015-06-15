@@ -267,6 +267,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             }else if weather.dailyState == ".Downloaded" {
                 self.dailyData = self.weather.getDailyNoStateChange()
                 self.clockSetup()
+            }else{
+//                self.weather.getDaily()
             }
         }else if keyPath == "weekState" {
             if weather.state == ".Stored" {
@@ -276,6 +278,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
                 }else if weather.weekState == ".Downloaded"{
                     self.weekData = self.weather.getWeekNoStateChange()
                     self.lineChartSetup()
+                }else{
+//                    self.weather.getWeek()
                 }
             }
         }
@@ -286,7 +290,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             return
         }
         self.weather.city_name = city.cleanCityName()
-        if weather.state != ".Stored" {
+        if weather.state == ".Idle" || weather.state == ".Stored"{
             self.weather.updateSelf()
         }else{
             self.updateView()
@@ -475,11 +479,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.lbWind.hidden = true
         }
         
+        var st = NSUserDefaults.standardUserDefaults()
         
         let cb:Chosen? = Background.getOne()
         let cf:Chosen? = Figure.getOne()
         let co:Chosen? = Oneword.getOne()
         if let word = co?.comment{
+            st.setValue(word, forKey: Global.THE_WORD)
             let oRange = NSMakeRange(0, count(word))
             var words = NSMutableAttributedString(string: word)
             words.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
@@ -496,16 +502,22 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.lbWord.attributedText = words
         }
         if let pathBack = cb?.path {
-            self.mBackground.image = UIImage(contentsOfFile: center.getPath(pathBack))
+            let tmp_path = center.getPath(pathBack)
+            self.mBackground.image = UIImage(contentsOfFile: tmp_path)
+            self.mBackground.contentMode = UIViewContentMode.ScaleAspectFit
+            st.setValue(tmp_path, forKey: Global.THE_BACKGROUND)
         }
         if let pathFig = cf?.path {
-            println("Test:\(center.getPath(pathFig))\n")
-            //            if NSFileManager.defaultManager().fileExistsAtPath(pathFig){
-            self.mFigure.image = UIImage(contentsOfFile: center.getPath(pathFig))
             
+//            println("Test:\(center.getPath(pathFig))\n")
+            //            if NSFileManager.defaultManager().fileExistsAtPath(pathFig){
+            let tmp_path = center.getPath(pathFig)
+            self.mFigure.image = UIImage(contentsOfFile: tmp_path)
+            st.setValue(tmp_path, forKey: Global.THE_FIGURE)
             //            self.mFigure.
             //            }
         }
+        st.synchronize()
 //        let cTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "clockSetup:", userInfo: nil, repeats: false)
 //        cTimer.fire()
 //        
@@ -1079,7 +1091,7 @@ extension ViewController:PassValueDelegate{
     func setValue(dict: NSDictionary) {
         let from:String = dict.valueForKey("from") as! String
         if from == "city"{
-            let city_display = dict.valueForKey("city_display_name") as? String
+            let city_display:String = (dict.valueForKey("city_display_name") as! String)
             if city_display != "" {
                 self.lbLocation.text = city_display
                 isClockSetup = false

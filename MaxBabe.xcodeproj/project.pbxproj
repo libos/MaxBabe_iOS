@@ -16,6 +16,13 @@
 		1D3C16961B1AB06F0026929F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C16951B1AB06F0026929F /* StringExtensions.swift */; };
 		1D3C16981B1AB3BF0026929F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C16971B1AB3BF0026929F /* City.swift */; };
 		1D3C169C1B1BDE1B0026929F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C169B1B1BDE1B0026929F /* Global.swift */; };
+		1D3CC0211B2BD30F00D0C3FB /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC0201B2BD30F00D0C3FB /* UIViewExtensions.swift */; };
+		1D3CC0231B2BD3C000D0C3FB /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC0221B2BD3C000D0C3FB /* UIViewControllerExtensions.swift */; };
+		1D3CC0291B2C2FFB00D0C3FB /* UIImageSamsaraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC0281B2C2FFB00D0C3FB /* UIImageSamsaraView.swift */; };
+		1D3CC02B1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC02A1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift */; };
+		1D3CC0301B2D85CF00D0C3FB /* UIShareTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC02F1B2D85CF00D0C3FB /* UIShareTheme.swift */; };
+		1D3CC0331B2DDD7900D0C3FB /* theme01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1D3CC0321B2DDD7900D0C3FB /* theme01.xml */; };
+		1D3CC0351B2ECFDA00D0C3FB /* theme02.xml in Resources */ = {isa = PBXBuildFile; fileRef = 1D3CC0341B2ECFDA00D0C3FB /* theme02.xml */; };
 		1D4DD9741B28D36400F05EFE /* QueryReg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DD9731B28D36400F05EFE /* QueryReg.swift */; };
 		1D4DF1EB1B1462C900EDCDCF /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DF1EA1B1462C900EDCDCF /* SplashController.swift */; };
 		1D5184261B28F19F00AF1F53 /* UIQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5184251B28F19F00AF1F53 /* UIQueryController.swift */; };
@@ -99,6 +106,13 @@
 		1D3C16951B1AB06F0026929F /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1D3C16971B1AB3BF0026929F /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		1D3C169B1B1BDE1B0026929F /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		1D3CC0201B2BD30F00D0C3FB /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		1D3CC0221B2BD3C000D0C3FB /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		1D3CC0281B2C2FFB00D0C3FB /* UIImageSamsaraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageSamsaraView.swift; sourceTree = "<group>"; };
+		1D3CC02A1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
+		1D3CC02F1B2D85CF00D0C3FB /* UIShareTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareTheme.swift; sourceTree = "<group>"; };
+		1D3CC0321B2DDD7900D0C3FB /* theme01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = theme01.xml; sourceTree = "<group>"; };
+		1D3CC0341B2ECFDA00D0C3FB /* theme02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = theme02.xml; sourceTree = "<group>"; };
 		1D4DD9731B28D36400F05EFE /* QueryReg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryReg.swift; sourceTree = "<group>"; };
 		1D4DF1E21B1431D500EDCDCF /* MaxBabe.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MaxBabe.xcodeproj; sourceTree = "<group>"; };
 		1D4DF1EA1B1462C900EDCDCF /* SplashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
@@ -119,8 +133,6 @@
 		1D7FE8361B14302100EFE79C /* MaxBabeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxBabeTests.swift; sourceTree = "<group>"; };
 		1D8442F01B25DC910092D7A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1D8442F21B2671070092D7A3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1D8442F41B2673B60092D7A3 /* BaiduMapAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI.framework; path = MaxBabe/BaiduMapAPI.framework; sourceTree = "<group>"; };
-		1D8442F61B2677630092D7A3 /* BaiduMapAPI */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = BaiduMapAPI; path = MaxBabe/BaiduMapAPI.framework/BaiduMapAPI; sourceTree = "<group>"; };
 		1D8AA1E91B154AC7005F419D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1DB73CFE1B1FE1E200485BD7 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DB73CFF1B1FE1E200485BD7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -150,6 +162,7 @@
 		1DE62F331B1CB4CB00649E9D /* PendingOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingOperations.swift; sourceTree = "<group>"; };
 		1DEA53B11B17649C002C4844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		47A1493EDAB618AB74D6A5BB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		501A9C921B57E6357A74EB9A /* Pods-MaxBabe.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaxBabe.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods-MaxBabe/Pods-MaxBabe.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		C574903E49101D438B0C5738 /* Pods-MaxBabe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaxBabe.release.xcconfig"; path = "Pods/Target Support Files/Pods-MaxBabe/Pods-MaxBabe.release.xcconfig"; sourceTree = "<group>"; };
 		FB34594A0187310E7EF63585 /* Pods-MaxBabe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaxBabe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MaxBabe/Pods-MaxBabe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,8 +200,35 @@
 				1D3C16951B1AB06F0026929F /* StringExtensions.swift */,
 				1DB73D131B2186DC00485BD7 /* DictionaryExtensions.swift */,
 				1DB73D191B220A1500485BD7 /* UIColorExtension.swift */,
+				1D3CC0201B2BD30F00D0C3FB /* UIViewExtensions.swift */,
+				1D3CC0221B2BD3C000D0C3FB /* UIViewControllerExtensions.swift */,
+				1D3CC02A1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		1D3CC0261B2BD42F00D0C3FB /* ShareTheme */ = {
+			isa = PBXGroup;
+			children = (
+				1D3CC02F1B2D85CF00D0C3FB /* UIShareTheme.swift */,
+			);
+			name = ShareTheme;
+			sourceTree = "<group>";
+		};
+		1D3CC0271B2C2FDA00D0C3FB /* UIViewClass */ = {
+			isa = PBXGroup;
+			children = (
+				1D3CC0281B2C2FFB00D0C3FB /* UIImageSamsaraView.swift */,
+			);
+			name = UIViewClass;
+			sourceTree = "<group>";
+		};
+		1D3CC02C1B2C3F7E00D0C3FB /* UIViewControllerClass */ = {
+			isa = PBXGroup;
+			children = (
+				1D5184251B28F19F00AF1F53 /* UIQueryController.swift */,
+			);
+			name = UIViewControllerClass;
 			sourceTree = "<group>";
 		};
 		1D4DF1E31B1431D500EDCDCF /* Products */ = {
@@ -239,6 +279,8 @@
 				1DD48D561B169DBB00D758E4 /* Model */,
 				1DD48D551B169DB200D758E4 /* Controller */,
 				1D7FE81D1B14302100EFE79C /* AppDelegate.swift */,
+				1D3CC0321B2DDD7900D0C3FB /* theme01.xml */,
+				1D3CC0341B2ECFDA00D0C3FB /* theme02.xml */,
 				1D7FE8241B14302100EFE79C /* Main.storyboard */,
 				1DEA53B01B17649C002C4844 /* LaunchScreen.xib */,
 				1D7FE8271B14302100EFE79C /* Images.xcassets */,
@@ -297,20 +339,20 @@
 		1DD48D551B169DB200D758E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1D3CC02C1B2C3F7E00D0C3FB /* UIViewControllerClass */,
 				1D7FE8221B14302100EFE79C /* ViewController.swift */,
 				1D4DF1EA1B1462C900EDCDCF /* SplashController.swift */,
 				1DD12EE31B157E53003EC218 /* LoginChooseController.swift */,
 				1DD12EE71B158C9E003EC218 /* CityController.swift */,
 				1DD12EDF1B156907003EC218 /* AboutusController.swift */,
-				1D5184251B28F19F00AF1F53 /* UIQueryController.swift */,
 				1DD12EE51B157EE3003EC218 /* RegisterController.swift */,
 				1DD48D531B161FB900D758E4 /* RegisterSubmitController.swift */,
 				1DD12EDD1B1567D6003EC218 /* LoginController.swift */,
 				1D5184271B290A1700AF1F53 /* ForgetPasswordController.swift */,
 				1D5184291B290A2B00AF1F53 /* EmailSendController.swift */,
+				1DD12ED91B1566FA003EC218 /* SettingController.swift */,
 				1DD12EDB1B1567C7003EC218 /* AccountController.swift */,
 				1DD12EED1B158D87003EC218 /* ReviseController.swift */,
-				1DD12ED91B1566FA003EC218 /* SettingController.swift */,
 				1DD12EE11B156BB1003EC218 /* WeatherController.swift */,
 				1DD12EE91B158CB9003EC218 /* ShareController.swift */,
 				1DD12EEB1B158D0B003EC218 /* ShareEditController.swift */,
@@ -331,6 +373,8 @@
 		1DD48D571B169DC700D758E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D3CC0271B2C2FDA00D0C3FB /* UIViewClass */,
+				1D3CC0261B2BD42F00D0C3FB /* ShareTheme */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -362,8 +406,6 @@
 		1F7A5F83049EE98BF62D0EDC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1D8442F61B2677630092D7A3 /* BaiduMapAPI */,
-				1D8442F41B2673B60092D7A3 /* BaiduMapAPI.framework */,
 				1D8442F21B2671070092D7A3 /* MapKit.framework */,
 				1D8442F01B25DC910092D7A3 /* CoreLocation.framework */,
 				1D1138481B2596F300ABD496 /* UIKit.framework */,
@@ -380,6 +422,7 @@
 			children = (
 				FB34594A0187310E7EF63585 /* Pods-MaxBabe.debug.xcconfig */,
 				C574903E49101D438B0C5738 /* Pods-MaxBabe.release.xcconfig */,
+				501A9C921B57E6357A74EB9A /* Pods-MaxBabe.ad hoc distribution.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -454,6 +497,7 @@
 				TargetAttributes = {
 					1D7FE8171B14302100EFE79C = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 5CT4R5BCK8;
 					};
 					1D7FE82F1B14302100EFE79C = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -498,7 +542,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D7FE8261B14302100EFE79C /* Main.storyboard in Resources */,
+				1D3CC0351B2ECFDA00D0C3FB /* theme02.xml in Resources */,
 				1DEA53B21B17649C002C4844 /* LaunchScreen.xib in Resources */,
+				1D3CC0331B2DDD7900D0C3FB /* theme01.xml in Resources */,
 				1DE62F2D1B1C4DF600649E9D /* com.maxtain.maxbabe.sqlite in Resources */,
 				1D7FE8281B14302100EFE79C /* Images.xcassets in Resources */,
 			);
@@ -563,6 +609,8 @@
 				1D5A13091B2886650080C2F8 /* PassValueDelegate.swift in Sources */,
 				1D3C168D1B1A99140026929F /* Oneword.swift in Sources */,
 				1DD12EE81B158C9E003EC218 /* CityController.swift in Sources */,
+				1D3CC0211B2BD30F00D0C3FB /* UIViewExtensions.swift in Sources */,
+				1D3CC0301B2D85CF00D0C3FB /* UIShareTheme.swift in Sources */,
 				1DE62F341B1CB4CB00649E9D /* PendingOperations.swift in Sources */,
 				1DD12EDA1B1566FA003EC218 /* SettingController.swift in Sources */,
 				1DB73D141B2186DC00485BD7 /* DictionaryExtensions.swift in Sources */,
@@ -584,6 +632,7 @@
 				1DE62F321B1CB49E00649E9D /* ImageDownloader.swift in Sources */,
 				1D7FE81E1B14302100EFE79C /* AppDelegate.swift in Sources */,
 				1DD12EEE1B158D87003EC218 /* ReviseController.swift in Sources */,
+				1D3CC0231B2BD3C000D0C3FB /* UIViewControllerExtensions.swift in Sources */,
 				1D3C169C1B1BDE1B0026929F /* Global.swift in Sources */,
 				1D3C16931B1AA6180026929F /* Pics.swift in Sources */,
 				1DD12EEC1B158D0B003EC218 /* ShareEditController.swift in Sources */,
@@ -593,8 +642,10 @@
 				1DD12EEA1B158CB9003EC218 /* ShareController.swift in Sources */,
 				1DE62F301B1CB47700649E9D /* WeatherDownloader.swift in Sources */,
 				1D4DD9741B28D36400F05EFE /* QueryReg.swift in Sources */,
+				1D3CC0291B2C2FFB00D0C3FB /* UIImageSamsaraView.swift in Sources */,
 				1D51842A1B290A2B00AF1F53 /* EmailSendController.swift in Sources */,
 				1DD12EE21B156BB1003EC218 /* WeatherController.swift in Sources */,
+				1D3CC02B1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +790,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Libo Liu (83V9D49H9R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Libo Liu (83V9D49H9R)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MaxBabe",
@@ -746,11 +799,9 @@
 				INFOPLIST_FILE = MaxBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MaxBabe/BaiduMapAPI.framework",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5bf14589-044a-4ea7-89b4-02aaf3f7a0ef";
 				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
 			};
 			name = Debug;
@@ -761,6 +812,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MaxBabe",
@@ -768,11 +821,9 @@
 				INFOPLIST_FILE = MaxBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MaxBabe/BaiduMapAPI.framework",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b502c48c-7d68-4dcb-9460-42ff9f0cb58d";
 				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
 			};
 			name = Release;
@@ -811,9 +862,99 @@
 			};
 			name = Release;
 		};
+		1D93D61F1B2B53A40057CBC9 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "ad hoc distribution";
+		};
+		1D93D6201B2B53A40057CBC9 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 501A9C921B57E6357A74EB9A /* Pods-MaxBabe.ad hoc distribution.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MaxBabe",
+				);
+				INFOPLIST_FILE = MaxBabe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b502c48c-7d68-4dcb-9460-42ff9f0cb58d";
+				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
+			};
+			name = "ad hoc distribution";
+		};
+		1D93D6211B2B53A40057CBC9 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MaxBabeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MaxBabe.app/MaxBabe";
+			};
+			name = "ad hoc distribution";
+		};
+		1D93D6221B2B53A40057CBC9 /* ad hoc distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b502c48c-7d68-4dcb-9460-42ff9f0cb58d";
+				SKIP_INSTALL = YES;
+			};
+			name = "ad hoc distribution";
+		};
 		1DB73D0C1B1FE1E200485BD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Libo Liu (83V9D49H9R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Libo Liu (83V9D49H9R)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -822,6 +963,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -829,10 +971,13 @@
 		1DB73D0D1B1FE1E200485BD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b502c48c-7d68-4dcb-9460-42ff9f0cb58d";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -845,6 +990,7 @@
 			buildConfigurations = (
 				1D7FE8381B14302100EFE79C /* Debug */,
 				1D7FE8391B14302100EFE79C /* Release */,
+				1D93D61F1B2B53A40057CBC9 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -854,6 +1000,7 @@
 			buildConfigurations = (
 				1D7FE83B1B14302100EFE79C /* Debug */,
 				1D7FE83C1B14302100EFE79C /* Release */,
+				1D93D6201B2B53A40057CBC9 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -863,6 +1010,7 @@
 			buildConfigurations = (
 				1D7FE83E1B14302100EFE79C /* Debug */,
 				1D7FE83F1B14302100EFE79C /* Release */,
+				1D93D6211B2B53A40057CBC9 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -872,6 +1020,7 @@
 			buildConfigurations = (
 				1DB73D0C1B1FE1E200485BD7 /* Debug */,
 				1DB73D0D1B1FE1E200485BD7 /* Release */,
+				1D93D6221B2B53A40057CBC9 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

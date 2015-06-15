@@ -295,12 +295,11 @@ class Weather:NSObject {
     
     // every hour async update daily
     // if have wrong download
-    
     func getDaily() -> Dictionary<Int,(Int,String)>?{
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let now = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: now)
+        var now = NSDate()
+        var calendar = NSCalendar.currentCalendar()
+        var components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: now)
         let year = String(format: "%02d",  components.year)
         let month = String(format: "%02d", components.month)
         let day  = String(format: "%02d", components.day)
@@ -339,6 +338,14 @@ class Weather:NSObject {
                 x.updateValue((data["t"]!.toInt()!,data["w"]!), forKey: hour.toInt()!)
             }
         }
+        
+        if x.isEmpty {
+            self.dailyState = ".Idle"
+            st.setObject("", forKey: Global.dailyUpdateTime)
+            st.synchronize()
+            return nil
+        }
+        
         var defv = x[x.keys.first!]
         
         for (hour:String,data:Dictionary<String,String>) in ret{
@@ -368,6 +375,12 @@ class Weather:NSObject {
             }else{
                 x.updateValue((data["t"]!.toInt()!,data["w"]!), forKey: hour.toInt()!)
             }
+        }
+        if x.isEmpty {
+            self.dailyState = ".Idle"
+            st.setObject("", forKey: Global.dailyUpdateTime)
+            st.synchronize()
+            return nil
         }
         var defv = x[x.keys.first!]
         

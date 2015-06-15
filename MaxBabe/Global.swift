@@ -84,12 +84,29 @@ final class Global {
     static let noti_icon_daytime_snow_idx = 13
     
     
+    static let SETTING_SWITCH_PUSH_NOTICE = "SETTING_SWITCH_PUSH_NOTICE"
+    static let SETTING_SWITCH_AUTOUPDATE = "SETTING_SWITCH_AUTOUPDATE"
+    static let SETTING_SWITCH_ONLYWIFI = "SETTING_SWITCH_ONLYWIFI"
+    static let SETTING_SWITCH_NOTIFICATION = "SETTING_SWITCH_NOTIFICATION"
+    static let SETTING_SWITCH_GPS_LOCATING = "SETTING_SWITCH_GPS_LOCATING"
+    static let SETTING_SWITCH_NEGATIVE = "SETTING_SWITCH_NEGATIVE"
+    
+    static let THE_WORD = "THE_WORD_CHOOSED"
+    static let THE_BACKGROUND = "THE_BACKGROUND_CHOOSED"
+    static let THE_FIGURE = "THE_FIGURE_CHOOSED"
+    
+    static let SHARE_CARD_WIDTH_RATION:CGFloat = 0.82
+    static let SHARE_CARD_HEIGHT_RATION:CGFloat = 0.66
+    
     static func isValidEmail(testStr:String) -> Bool {
+        if  testStr.stringByTrimmingLeadingAndTrailingWhitespace() == "" {
+            return false
+        }
         // println("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(testStr)
+        return emailTest.evaluateWithObject(testStr.stringByTrimmingLeadingAndTrailingWhitespace())
     }
     
     static func isValidPhoneNumber(value: String) -> Bool {

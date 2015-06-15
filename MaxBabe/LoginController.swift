@@ -99,6 +99,13 @@ class LoginController: UIQueryController {
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "to_account_view_from_login"{
+//            var dest:AccountController = segue.destinationViewController as! AccountController
+//            dest.email =
+        }
+    }
+    
     @IBAction func unwindToSegue(segue : UIStoryboardSegue){
         var sourceViewController:UIViewController = segue.sourceViewController as! UIViewController
         if sourceViewController.isKindOfClass(EmailSendController){

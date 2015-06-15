@@ -12,15 +12,29 @@ import UIKit
 
 class SettingController: UIViewController {
 
+    @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var loginImage: UIImageView!
+    @IBOutlet weak var accountBtn: UIButton!
+    
+    let center = Center.getInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib.
+        if center.isLogin() {
+            loginBtn.hidden = true
+            loginImage.hidden = true
+            accountBtn.hidden = false
+        }else{
+            loginBtn.hidden = false
+            loginImage.hidden = false
+            accountBtn.hidden = true
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 
@@ -29,12 +43,39 @@ class SettingController: UIViewController {
     }
     
     
-    @IBAction func loggedUnwindSegue(segue:UIStoryboardSegue){
-        
+    @IBAction func loggedBackUnwindSegue(segue:UIStoryboardSegue){
+        if center.isLogin() {
+            loginBtn.hidden = true
+            loginImage.hidden = true
+            accountBtn.hidden = false
+        }else{
+            loginBtn.hidden = false
+            loginImage.hidden = false
+            accountBtn.hidden = true
+        }
+
     }
-    
-    @IBAction func cancelledUnwindSegue(segue:UIStoryboardSegue){
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        println("hhh")
+        return true
+    }
+    @IBAction func LogoutUnwindSegue(segue:UIStoryboardSegue){
+        var source:UIViewController = segue.sourceViewController as! UIViewController
         
+        if source.isKindOfClass(AccountController){
+            center.logout()
+        }
+        
+        if center.isLogin() {
+            loginBtn.hidden = true
+            loginImage.hidden = true
+            accountBtn.hidden = false
+        }else{
+            loginBtn.hidden = false
+            loginImage.hidden = false
+            accountBtn.hidden = true
+        }
+
     }
 }
 

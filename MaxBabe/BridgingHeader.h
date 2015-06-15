@@ -22,5 +22,7 @@
 //#import <CoreLocation/CoreLocation.h>
 //#import <MapKit/MapKit.h>
 
+#import "TBXML.h"
+
 #import <BaiduMapAPI/BMapKit.h>
 #endif

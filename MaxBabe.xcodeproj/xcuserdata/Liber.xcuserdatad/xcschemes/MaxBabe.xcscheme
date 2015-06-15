@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "34765993424D5AE309BA24E0"
+               BuildableName = "libPods-MaxBabe.a"
+               BlueprintName = "Pods-MaxBabe"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D7FE8171B14302100EFE79C"
                BuildableName = "MaxBabe.app"
                BlueprintName = "MaxBabe"
@@ -106,7 +120,8 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "ad hoc distribution"
+      customArchiveName = "MaxBabe"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MaxBabe-TBXML.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MaxBabe-TSMessages.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>34765993424D5AE309BA24E0</key>
+		<key>0D9CD7A876C53DF54BE24008</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CF3D698B7008CA4156C5538</key>
+		<key>391A2B9A7EA52F5046A6CBE2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>96D42E68D6D2741D330E1A86</key>
+		<key>4AEF600A5675154516CF524B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B217DC98E18A0893509FAE51</key>
+		<key>51AD4A7A0F16A78C667173CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E8F622C3C8DB0012162D9C13</key>
+		<key>80F20257467980C399EE6530</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F8D225342F0DF07FFB2DEDAB</key>
+		<key>EC2C4AC300394EC52C946652</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F6CFF01745F56F41ECC94D40</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,12 +14,28 @@ struct Chosen{
     var path:String?
     var md5:String?
 }
+struct WeatherSetting {
+    var pushNotice:Bool
+    var autoUpdate:Bool
+    var onlyWifi:Bool
+    var gpsLocate:Bool
+    var openNotifcation:Bool
+    var useNegative:Bool
+}
 class Center :NSObject{
     let database:FMDatabase!
     let isAlreadyInit : Bool = false
     let documentsFolder = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     let converter:NCChineseConverter = NCChineseConverter.sharedInstance()
     let default_lang: AnyObject?  = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages")?.objectAtIndex(0)
+    
+    var account_email:String?
+    var account_phone:String?
+    var account_nickname:String?
+    var account_sex:String?
+    
+    var weather_setting:WeatherSetting
+    
     
     class var getInstance:Center {
         struct Singleton {
@@ -30,6 +46,7 @@ class Center :NSObject{
     
     override init() {
         let path = documentsFolder.stringByAppendingPathComponent("com.maxtain.maxbabe.sqlite")
+        let st = NSUserDefaults.standardUserDefaults()
         let storeURL:NSURL  = NSURL.fileURLWithPath(path)!
         if !NSFileManager.defaultManager().fileExistsAtPath(storeURL.path!){
             let preloadURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("com.maxtain.maxbabe", ofType: "sqlite")!)
@@ -39,6 +56,14 @@ class Center :NSObject{
             {
                 println("Oops, could copy preloaded data")
             }
+
+            st.setBool(true, forKey: Global.SETTING_SWITCH_PUSH_NOTICE)
+            st.setBool(true, forKey: Global.SETTING_SWITCH_AUTOUPDATE)
+            st.setBool(false, forKey: Global.SETTING_SWITCH_ONLYWIFI)
+            st.setBool(true, forKey: Global.SETTING_SWITCH_NOTIFICATION)
+            st.setBool(false, forKey: Global.SETTING_SWITCH_GPS_LOCATING)
+            st.setBool(false, forKey: Global.SETTING_SWITCH_NEGATIVE)
+            st.synchronize()
         }
         println(storeURL.path!)
         database = FMDatabase(path: storeURL.path)
@@ -57,6 +82,8 @@ class Center :NSObject{
         } else {
             println("select failed: \(database.lastErrorMessage())")
         }
+        
+        weather_setting = WeatherSetting(pushNotice: st.boolForKey(Global.SETTING_SWITCH_PUSH_NOTICE), autoUpdate: st.boolForKey(Global.SETTING_SWITCH_AUTOUPDATE), onlyWifi: st.boolForKey(Global.SETTING_SWITCH_ONLYWIFI), gpsLocate: st.boolForKey(Global.SETTING_SWITCH_GPS_LOCATING), openNotifcation: st.boolForKey(Global.SETTING_SWITCH_NOTIFICATION), useNegative: st.boolForKey(Global.SETTING_SWITCH_NEGATIVE))
         super.init()
     }
     
@@ -388,5 +415,48 @@ class Center :NSObject{
         }
     }
     
+    func getUserName() ->String {
+        if isLogin(){
+            return self.account_nickname!
+        }else{
+            return "麦宝"
+        }
+    }
     
+    func isLogin() -> Bool {
+        let st = NSUserDefaults.standardUserDefaults()
+        self.account_email = st.stringForKey(Global.ACCOUNT_EMAIL)
+        self.account_phone = st.stringForKey(Global.ACCOUNT_PHONE)
+        self.account_nickname = st.stringForKey(Global.ACCOUNT_NICKNAME)
+        self.account_sex = st.stringForKey(Global.ACCOUNT_SEX)
+        
+        if self.account_email != nil && self.account_phone != nil && self.account_nickname != nil && self.account_sex != nil && Global.isValidEmail(self.account_email!) {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func login() {
+        let st = NSUserDefaults.standardUserDefaults()
+        self.account_email = st.stringForKey(Global.ACCOUNT_EMAIL)
+        self.account_phone = st.stringForKey(Global.ACCOUNT_PHONE)
+        self.account_nickname = st.stringForKey(Global.ACCOUNT_NICKNAME)
+        self.account_sex = st.stringForKey(Global.ACCOUNT_SEX)
+    }
+    
+    func logout() {
+        self.account_email = nil
+        self.account_nickname = nil
+        self.account_phone = nil
+        self.account_sex = nil
+        
+        let st = NSUserDefaults.standardUserDefaults()
+        st.setObject("", forKey: Global.ACCOUNT_EMAIL)
+        st.setObject("", forKey:Global.ACCOUNT_PHONE)
+        st.setObject("", forKey:Global.ACCOUNT_NICKNAME)
+        st.setObject("", forKey:Global.ACCOUNT_SEX)
+        st.synchronize()
+        
+    }
 }

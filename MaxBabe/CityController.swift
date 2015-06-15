@@ -66,10 +66,10 @@ class CityController: UIViewController,CLLocationManagerDelegate,BMKGeoCodeSearc
         var dict:NSMutableDictionary = NSMutableDictionary()
         dict.setValue("city", forKey: "from")
         if located {
-            dict.setValue(cityLocatedName.text, forKey: "city_display_name")
-            city.setCityName(self.city_name)
-            city.district = self.district
-            city.province = self.province
+            dict.setValue(cityLocatedName.text!, forKey: "city_display_name")
+            city.setCityName(self.city_name!)
+            city.district = self.district!
+            city.province = self.province!
             city.save_city()
         }else{
             dict.setValue("", forKey: "city_display_name")
@@ -156,12 +156,12 @@ extension CityController:UITableViewDataSource{
             }
 
         }else{
-            lb.text = city_name
+            lb.text = city_name!
         }
         if city_detail == nil {
-            cell.textLabel?.text = "\(city_name):\(city_name):\(city_name)"
+            cell.textLabel?.text = "\(city_name!):\(city_name!):\(city_name!)"
         }else{
-            cell.textLabel!.text = city_detail;
+            cell.textLabel!.text = city_detail!;
         }
         cell.imageView!.image = nil;
     }
@@ -210,16 +210,16 @@ extension CityController:UITableViewDelegate {
         dict.setValue("city", forKey: "from")
         
         let dett:String? = cell?.textLabel?.text
-        var detail:[String] =  dett!.componentsSeparatedByString(":")
+        var detail:[String]! =  dett!.componentsSeparatedByString(":")
         
         city.setCityName(detail[1])
         city.district = detail[0]
         city.province = detail[2]
         city.save_city()
         if city.district != nil && city.district != "" {
-            dict.setValue(city.district, forKey: "city_display_name")
+            dict.setValue(city.district!, forKey: "city_display_name")
         }else if city.city_name != nil{
-            dict.setValue(city.city_name, forKey: "city_display_name")
+            dict.setValue(city.city_name!, forKey: "city_display_name")
         }
         
         self.delegate?.setValue(dict)

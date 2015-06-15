@@ -71,14 +71,15 @@ class QueryReg {
                         if state == "login" {
                             var st = NSUserDefaults.standardUserDefaults()
                             st.setObject(json?.valueForKey("email"), forKey: Global.ACCOUNT_EMAIL)
-                            st.setObject(json?.valueForKey("phone"), forKey: Global.ACCOUNT_EMAIL)
-                            st.setObject(json?.valueForKey("nickname"), forKey: Global.ACCOUNT_EMAIL)
+                            st.setObject(json?.valueForKey("phone"), forKey: Global.ACCOUNT_PHONE)
+                            st.setObject(json?.valueForKey("nickname"), forKey: Global.ACCOUNT_NICKNAME)
                             if json!.valueForKey("sex")!.isEqualToString("1") {
                                 st.setObject("男", forKey: Global.ACCOUNT_SEX)
                             }else{
                                 st.setObject("女", forKey: Global.ACCOUNT_SEX)
                             }
                             st.synchronize()
+                            Center.getInstance.login()
                             axs = ACCOUNT_STATUS.LOGON
                         }
                         if state == "done" {

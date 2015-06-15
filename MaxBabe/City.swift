@@ -82,7 +82,9 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
     }
     func loadFromDefaults(){
         let st = NSUserDefaults.standardUserDefaults()
-        self.setCityName((st.valueForKey(Global.cityCityName) as? String))
+        if let x = st.valueForKey(Global.cityCityName) as? String {
+            self.setCityName(x)
+        }
         self.province = st.valueForKey(Global.cityProvince) as? String
         self.district = st.valueForKey(Global.cityDistrict) as? String
     }
@@ -129,10 +131,12 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         }
     }
 
-    func setCityName(name:String?){
-        self.willChangeValueForKey("city_name")
-        self.city_name = name
-        self.didChangeValueForKey("city_name")
+    func setCityName(name:String){
+        if (name != ""){
+            self.willChangeValueForKey("city_name")
+            self.city_name = name
+            self.didChangeValueForKey("city_name")
+        }
     }
     func save_city(){
         
