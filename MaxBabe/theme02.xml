@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <root id="root">
-    <div id="wrapper" width="full:root:0" height="full%:root:0.75" margin_left="root:0" margin_top="root:0" >
+	<p id="cityname" color="#000" horizon="centerX:root:0" width="full:root:0" height="30" align="center" font="HelveticaNeue:10.0">{Y}/{m}/{d} · {city}</p>
+	 
+    <div id="wrapper" width="full:root:-16" height="full%:root:0.70" margin_left="root:8"  belowOf="cityname:0">
         <background id="background" width="full:wrapper:0" height="full:wrapper:0" horizon="centerX:wrapper:0" vertical="centerY:wrapper:0"></background>
-        <figure id="figure" width="full:wrapper:0" height="full:wrapper:0" horizon="centerX:wrapper:0" vertical="centerY:wrapper:-20"></figure>
-        <temperature id="temp" margin_bottom="wrapper:-8" margin_left="wrapper:20" color="#fff" align="center" font="HelveticaNeue-UltraLight:72.0" shadow="default"></temperature>
-        <weatherIcon id="icon" width="32" height="32" margin_bottom="wrapper:-10" rightOf="temp:-10"></weatherIcon>
-        <weather id="weatext" margin_bottom="wrapper:-18" rightOf="icon:5" font="default:12.0" shadow="default" color="#fff" align="center"></weather>
+        <figure id="figure" width="full:wrapper:0" height="full:wrapper:0" horizon="centerX:wrapper:0" vertical="centerY:wrapper:-40"></figure>
+        <temperature id="temp" margin_bottom="wrapper:4" margin_left="wrapper:15" color="#fff" align="center" font="HelveticaNeue-UltraLight:64.0" shadow="default"></temperature>
+        <weatherIcon id="icon" width="32" height="32" margin_bottom="wrapper:5" rightOf="temp:-10"></weatherIcon>
+        <weather id="weatext" margin_bottom="wrapper:13" rightOf="icon:3" font="default:11.0" shadow="default" color="#fff" align="center"></weather>
     </div>
-    <div id="footer"  width="full:root:0" belowOf="wrapper:-10">
-        <word id="word" color="#000" align="left" margin_left="footer:20" margin_right="footer:20" margin_top="footer:20" lineHeight="1.67" font="HelveticaNeue:12.0" ></word>
-        <p id="at" color="#000" width="full:footer:0" align="right" margin_right="footer:-20" belowOf="word:-10" font="HelveticaNeue:12.0">——{name}，记于{m}月{d}日，{city}</p>
+	
+	
+<div id="footer"  width="full:root:0" belowOf="wrapper:-10">
+        <word id="word" color="#000" align="left" margin_left="footer:16" margin_right="footer:16" margin_top="footer:10" lineHeight="1.6" font="HelveticaNeue:11.0" ></word>
+        <p id="at" color="#000" width="full:footer:0" align="right" margin_right="footer:20" belowOf="word:0" font="HelveticaNeue:10.0">── {name}</p>
     </div>
+	
 </root>

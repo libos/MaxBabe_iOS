@@ -56,6 +56,9 @@ extension String{
             return false
         }
     }
+    func trim() ->String{
+        return self.stringByTrimmingLeadingAndTrailingWhitespace().stringByReplacingOccurrencesOfString("\r", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
     
     func stringByTrimmingLeadingAndTrailingWhitespace() -> String {
         let leadingAndTrailingWhitespacePattern = "(?:^\\s+)|(?:\\s+$)"

@@ -16,7 +16,7 @@ class SplashController: UIViewController {
         City.getInstance
 
         addBackgroundImage()
-
+        
         // Show the home screen after a bit. Calls the show() function.
         let timer = NSTimer.scheduledTimerWithTimeInterval(
             0.5, target: self, selector: Selector("show"), userInfo: nil, repeats: false
@@ -29,7 +29,17 @@ class SplashController: UIViewController {
     }
 
     func show() {
-        self.performSegueWithIdentifier("showApp", sender: self)
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey(Global.isFirstStart){
+//        if false{
+           self.performSegueWithIdentifier("showApp", sender: self)
+        }else{
+
+            self.performSegueWithIdentifier("toFirstStart", sender: self)
+        }
+
+
+        
     }
 
     func addBackgroundImage() {

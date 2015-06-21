@@ -17,4 +17,23 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func removeAllSubviews(){
+        self.subviews.map { $0.removeFromSuperview() }
+    }
+}
+
+
+extension UISwitch{
+    
+    func uiProper(){
+        self.tintColor = UIColor.clearColor()
+        if !self.on {
+            self.backgroundColor = UIColor(white: 255, alpha: 0.4)
+            self.layer.cornerRadius = 16.0
+        }else{
+            self.backgroundColor = UIColor.clearColor()
+        }
+    }
+    
 }

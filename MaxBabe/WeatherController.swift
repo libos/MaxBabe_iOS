@@ -29,20 +29,55 @@ class WeatherController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        swPushNotice.on = st.boolForKey(Global.SETTING_SWITCH_PUSH_NOTICE)
+        swAutoUpdate.on = st.boolForKey(Global.SETTING_SWITCH_AUTOUPDATE)
+        swNotification.on = st.boolForKey(Global.SETTING_SWITCH_NOTIFICATION)
+        swOnlyWifi.on = st.boolForKey(Global.SETTING_SWITCH_ONLYWIFI)
+        swGPSLocating.on = st.boolForKey(Global.SETTING_SWITCH_GPS_LOCATING)
+        
+        swPushNotice.uiProper()
+        swAutoUpdate.uiProper()
+        swNotification.uiProper()
+        swOnlyWifi.uiProper()
+        swNegative.uiProper()
+        swGPSLocating.uiProper()
+
         viewNegtive.hidden = true
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+ 
     @IBAction func goBack(sender: AnyObject) {
         st.synchronize()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
+//        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    @IBAction func uiUpdate(sender: UISwitch) {
+        sender.tintColor = UIColor.clearColor()
+
+        if !sender.on {
+            sender.backgroundColor = UIColor(white: 255, alpha: 0.4)
+            sender.layer.cornerRadius = 16.0
+        }else{
+            sender.backgroundColor = UIColor.clearColor()
+        }
     }
 
     @IBAction func swPushChanged(sender: AnyObject) {
         st.setBool(swPushNotice.on, forKey: Global.SETTING_SWITCH_PUSH_NOTICE)
+
     }
     
  

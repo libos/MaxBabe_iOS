@@ -40,7 +40,17 @@ class RegisterSubmitController: UIQueryController {
         super.didReceiveMemoryWarning()
 
     }
+ 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         self.phone = phoneField.text.stringByTrimmingLeadingAndTrailingWhitespace()
         self.nickname = nicknameField.text.stringByTrimmingLeadingAndTrailingWhitespace()
@@ -114,7 +124,8 @@ class RegisterSubmitController: UIQueryController {
     }
     
     @IBAction func goBack(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
+        //        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func boyOnClick(sender: AnyObject) {

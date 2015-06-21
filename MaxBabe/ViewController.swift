@@ -18,6 +18,9 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     @IBOutlet weak var mBackground: UIImageView!
     @IBOutlet weak var mFigure: UIImageView!
     
+    @IBOutlet weak var mFigureAnimation: UIImageView!
+    
+    
     @IBOutlet weak var lbWord: UILabel!
     
     @IBOutlet weak var tvWeather: UILabel!
@@ -29,12 +32,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     @IBOutlet weak var lbLocation: UILabel!
     @IBOutlet weak var lbUpdateTime: UILabel!
     
-    @IBOutlet weak var lbTomoWeather: UILabel!
-    @IBOutlet weak var lbTomoHighTemp: UILabel!
-    @IBOutlet weak var lbTomoLowTemp: UILabel!
+   
+//    @IBOutlet weak var lbTomoWeather: UILabel!
+//    @IBOutlet weak var lbTomoHighTemp: UILabel!
+//    @IBOutlet weak var lbTomoLowTemp: UILabel!
     
-    @IBOutlet weak var ivHazeEnd: UIImageView!
-    @IBOutlet weak var ivHazeBegin: UIImageView!
+//    @IBOutlet weak var ivHazeEnd: UIImageView!
+//    @IBOutlet weak var ivHazeBegin: UIImageView!
     @IBOutlet weak var ivWind: UIImageView!
     @IBOutlet weak var ivWet: UIImageView!
     
@@ -46,6 +50,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     @IBOutlet weak var ivAqi: UIImageView!
     @IBOutlet weak var lbAqi: UILabel!
 
+    @IBOutlet weak var viewLay: UIView!
 
     var screenHeight:CGFloat!
     var screenWidth:CGFloat!
@@ -72,6 +77,9 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 
     var lbTodayWeather:UILabel!
     var ivWeatherIcon:UIImageView!
+    
+    var ivPage2Location:UIImageView!
+    var lbPage2Location:UILabel!
     
     // waves
     var layer_wave:UIView!
@@ -102,18 +110,27 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     var isClockSetup:Bool = false
     var isChartSetup:Bool = false
     var isViewAppeared:Bool = false
-    
+    var part_ten:CGFloat =  0
+    var colorOfhour = Global.colorOfhour()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        self.ivPage2Location = UIImageView(image: UIImage(named: "icon_list_location"))
+        self.ivPage2Location.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.lbPage2Location = UILabel()
+        self.lbPage2Location.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.lbPage2Location.textColor = UIColor.whiteColor()
+        self.lbPage2Location.textAlignment = NSTextAlignment.Left
+        self.lbPage2Location.font = UIFont.systemFontOfSize(15.0)
         if city.city_name != nil {
             if city.district != nil && city.district != "" {
                 lbLocation.text = city.district
+                self.lbPage2Location.text = city.district
             }else if city.city_name != nil{
                 lbLocation.text = city.city_name
+                self.lbPage2Location.text = city.city_name
             }
         }
-        
         city.addObserver(self, forKeyPath: "city_name", options: NSKeyValueObservingOptions.New, context: nil)
         weather.addObserver(self, forKeyPath: "state", options: NSKeyValueObservingOptions.New, context: nil)
         weather.addObserver(self, forKeyPath: "dailyState", options: NSKeyValueObservingOptions.New, context: nil)
@@ -122,17 +139,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         // TODO
         self.screenHeight =  UIScreen.mainScreen().bounds.size.height
         self.screenWidth = UIScreen.mainScreen().bounds.size.width
-        
-        let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(200.0, target: self, selector: "changePublishTime:", userInfo: nil, repeats: true)
-        aTimer.fire()
-//        let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "timerFired:", userInfo: nil, repeats: true)
-//        aTimer.fire()
+        self.part_ten = screenWidth / 10
 
 //        let xxx:UIView = UIView(frame: self.view.frame)
 //        xxx.drawRect(self.view.layer.renderInContext(UIGraphicsGetCurrentContext()))
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: "testRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: "refreshTask:", forControlEvents: UIControlEvents.ValueChanged)
         
 
         self.detailView = UIScrollView(frame: self.view.bounds)
@@ -141,18 +154,20 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.detailView.delegate = self
         self.detailView.pagingEnabled = true
         self.detailView.scrollEnabled = true
-//        self.detailView.userInteractionEnabled = true
+        self.detailView.showsHorizontalScrollIndicator = false
+        self.detailView.showsVerticalScrollIndicator = false
         self.detailView.addSubview(self.refreshControl)
         
         
         self.view.addSubview(self.detailView)
         
-        let nextFrame = UIScreen.mainScreen().bounds
-//        let inset:CGFloat = 20
-        
+//        let nextFrame = UIScreen.mainScreen().bounds
+
+      
         self.page2 = UIView(frame: CGRect(x: 0, y: screenHeight , width: self.view.bounds.size.width, height: screenHeight))
-        self.page2.backgroundColor = UIColor(rgba: "#02a8f3")
-//        self.page2.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.page2.backgroundColor = Global.colorOfhour()
+
+        self.detailView.addSubview(viewLay)
         self.detailView.addSubview(page2)
         
         layer_center = UIView()
@@ -163,18 +178,6 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 
         lbTodayWeather = UILabel()
         lbTodayWeather.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        var strW = "晴"
-        let oRange = NSMakeRange(0, count(strW))
-        var strWeather = NSMutableAttributedString(string: strW)
-        strWeather.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
-        strWeather.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(10), range: oRange)
-        lbTodayWeather.layer.shadowColor = UIColor.blackColor().CGColor
-        lbTodayWeather.layer.shadowRadius = 6.0
-        lbTodayWeather.layer.shadowOpacity = 0.5
-        lbTodayWeather.layer.shadowOffset = CGSizeMake(0, 0)
-        lbTodayWeather.attributedText  = strWeather
-        
         
         layer_number = UIView()
         layer_number.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -198,9 +201,18 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         layer_center.addSubview(layer_icons)
         
         self.page2.addSubview(layer_center)
-        
-        
+        // MARK: ADD Page2 Location
+        self.page2.addSubview(ivPage2Location)
+        self.page2.addSubview(lbPage2Location)
 
+        self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20))
+        self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20))
+        self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 20))
+        self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 30))
+        
+        self.page2.addConstraint(NSLayoutConstraint(item: self.lbPage2Location, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.ivPage2Location, attribute: NSLayoutAttribute.Trailing, multiplier: 1.0, constant: 10))
+       self.page2.addConstraint(NSLayoutConstraint(item: self.lbPage2Location, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.ivPage2Location, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0))
+        
         layer_wave = UIView()
         layer_wave.setTranslatesAutoresizingMaskIntoConstraints(false)
 
@@ -241,15 +253,26 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 
         constraintSetup()
         
+        // MARK: - Timer Setup
+        let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(200.0, target: self, selector: "changePublishTime:", userInfo: nil, repeats: true)
+        aTimer.fire()
+        
+        let weatherDataTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "timerFiredTask:", userInfo: nil, repeats: true)
+        weatherDataTimer.fire()
+
     }
     
-
+    // MARK: - Observer
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if keyPath == "city_name"{
             if city.district != nil && city.district != "" {
                 lbLocation.text = city.district
+                self.lbPage2Location.text = city.district
+
             }else if city.city_name != nil{
                 lbLocation.text = city.city_name
+                self.lbPage2Location.text = city.city_name
+
             }
             city.removeObserver(self, forKeyPath: "city_name")
             retriveData()
@@ -277,9 +300,11 @@ class ViewController: UIViewController,UIScrollViewDelegate{
                     self.lineChartSetup()
                 }else if weather.weekState == ".Downloaded"{
                     self.weekData = self.weather.getWeekNoStateChange()
-                    self.lineChartSetup()
-                }else{
-//                    self.weather.getWeek()
+//                    if self.weekData == nil || self.weekData![0] == nil {
+//                         self.lineChartSetup()
+//                    }
+                }else if weather.weekState == ".Retry" {
+                    self.weekData = self.weather.getWeek()
                 }
             }
         }
@@ -315,15 +340,12 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
         isViewAppeared = true
         if city.city_name != nil {
             if weather.weekState == ".WeekDone" {
                 self.weekData = self.weather.weekData
                 self.lineChartSetup()
-                //            center.waitForWeekWeather(updateViews: { () -> () in
-                //                self.weekData = self.weather.weekData
-                //                self.lineChartSetup()
-                //            })
             }else if weather.weekState == ".Downloaded"{
                 self.weekData = self.weather.getWeek()
                 self.lineChartSetup()
@@ -334,8 +356,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 //        let bTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "timerWeekDataDownloadFired:", userInfo: nil, repeats: true)
 //        bTimer.fire()
     }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.endLogPageView(toString(self.dynamicType))
+    }
     
-    func testRefresh(refreshC:UIRefreshControl){
+    // MARK: - Pull to Refresh Task  000
+    func refreshTask(refreshC:UIRefreshControl){
         //        refreshC.attributedTitle = NSAttributedString(string: "Refreshing data...")
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
             //            NSThread.sleepForTimeInterval(3)
@@ -349,12 +376,14 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         })
     }
     
-    func timerFired(timer:NSTimer){
+    // MARK: - Timer Weather Data  111
+    func timerFiredTask(timer:NSTimer){
         self.center.start(updateViews: {
             self.updateView()
         })
-
     }
+    
+    // MARK: - Week Timer Fetch
     func timerWeekDataDownloadFired(timer:NSTimer){
         if weather.weekState == ".WeekDone" {
             self.weekData = self.weather.weekData
@@ -372,7 +401,6 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     }
     
     func updateView(){
-//        City.getInstance.updateLoction()
         if weather.getTemp() == nil {
             self.mTemp.text = "0°"
         }else{
@@ -382,7 +410,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.tvWeather.text = "晴"
         }else{
             let wwwww = weather.getWeather()!
-            self.tvWeather.text = "\(wwwww)°"
+            self.tvWeather.text = "\(wwwww)"
             self.ivWeather.image = center.getWeatherIcon(wwwww)
         }
         
@@ -391,77 +419,79 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         //
         if let aqi = weather.data.aqi {
             if aqi != 0{
-                self.ivHazeEnd.hidden = false
-                self.ivHazeBegin.hidden = false
+//                self.ivHazeEnd.hidden = false
+//                self.ivHazeBegin.hidden = false
                 self.ivAqi.hidden = false
                 self.lbAqi.hidden = false
                 var aqi_msg: String = "48 超赞"
                 var haze_level = 0
                 // Log.e("err", data.toString())
                 if (aqi <= 50) {
-                    aqi_msg = " \(aqi) 超赞"
+                    aqi_msg = "\(aqi) 超赞"
                     haze_level = 0
                 } else if (aqi > 50 && aqi <= 100) {
-                    aqi_msg = " \(aqi) 还不错"
+                    aqi_msg = "\(aqi) 还不错"
                     haze_level = 1
                 } else if (aqi > 100 && aqi <= 150) {
-                    aqi_msg = " \(aqi) 有点差哦"
+                    aqi_msg = "\(aqi) 有点差哦"
                     haze_level = 2
                 } else if (aqi > 150 && aqi <= 200) {
-                    aqi_msg = " \(aqi) 蛮差的"
+                    aqi_msg = "\(aqi) 蛮差的"
                     haze_level = 3
                 } else if (aqi > 200 && aqi <= 300) {
-                    aqi_msg = " \(aqi) 别出门了"
+                    aqi_msg = "\(aqi) 别出门了"
                     haze_level = 4
                 } else if (aqi > 300) {
-                    aqi_msg = " \(aqi) 已爆表"
+                    aqi_msg = "\(aqi) 已爆表"
                     haze_level = 5
                 }
-                self.ivAqi.image = UIImage(named: Global.haze_leve[haze_level])
+                //Global.haze_leve[haze_level]
+                self.ivAqi.image = UIImage(named: "icon_home_aqi" )
+                self.ivAqi.contentMode = UIViewContentMode.ScaleAspectFit
                 self.lbAqi.text = aqi_msg
                 self.lbAqi.textAlignment = NSTextAlignment.Center
             }
         }else{
-            self.ivHazeEnd.hidden = true
-            self.ivHazeBegin.hidden = true
+//            self.ivHazeEnd.hidden = true
+//            self.ivHazeBegin.hidden = true
             self.ivAqi.hidden = true
             self.lbAqi.hidden = true
         }
         
-        self.lbTomoWeather.text = "明天，\(weather.data.tomo_weather!)"
-        if let tomoTemp = weather.data.tomo_temp {
-            let ttemp:[String] = split(tomoTemp.stringByReplacingOccurrencesOfString("℃", withString: "")){$0 == "~"}
-            var high:Int
-            var low:Int
-            if(ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt() > ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()){
-                high = ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
-                low = ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
-            }else{
-                high = ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
-                low = ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
-            }
-            self.lbTomoHighTemp.text = "\(high)"
-            self.lbTomoLowTemp.text = "\(low)"
-        }else{
-            let night = weather.data.next_night_temp?.stringByReplacingOccurrencesOfString("℃", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            let day = weather.data.next_day_temp?.stringByReplacingOccurrencesOfString("℃", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            if (night != nil && day != nil)  {
-                var high:Int
-                var low:Int
-                if(night!.toInt() > day!.toInt()){
-                    high = night!.toInt()!
-                    low = day!.toInt()!
-                }else{
-                    high = day!.toInt()!
-                    low = night!.toInt()!
-                }
-                self.lbTomoHighTemp.text = "\(high)"
-                self.lbTomoLowTemp.text = "\(low)"
-            }
-        }
+//        self.lbTomoWeather.text = "明天，\(weather.data.tomo_weather!)"
+//        if let tomoTemp = weather.data.tomo_temp {
+//            let ttemp:[String] = split(tomoTemp.stringByReplacingOccurrencesOfString("℃", withString: "")){$0 == "~"}
+//            var high:Int
+//            var low:Int
+//            if(ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt() > ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()){
+//                high = ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
+//                low = ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
+//            }else{
+//                high = ttemp[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
+//                low = ttemp[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()!
+//            }
+//            self.lbTomoHighTemp.text = "\(high)"
+//            self.lbTomoLowTemp.text = "\(low)"
+//        }else{
+//            let night = weather.data.next_night_temp?.stringByReplacingOccurrencesOfString("℃", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+//            let day = weather.data.next_day_temp?.stringByReplacingOccurrencesOfString("℃", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+//            if (night != nil && day != nil)  {
+//                var high:Int
+//                var low:Int
+//                if(night!.toInt() > day!.toInt()){
+//                    high = night!.toInt()!
+//                    low = day!.toInt()!
+//                }else{
+//                    high = day!.toInt()!
+//                    low = night!.toInt()!
+//                }
+//                self.lbTomoHighTemp.text = "\(high)"
+//                self.lbTomoLowTemp.text = "\(low)"
+//            }
+//        }
         let humi = weather.data.humidity
         if humi != nil && humi != "" {
-            self.lbHumi.text = humi
+            self.lbHumi.text = "湿度 " + humi!
             self.ivWet.hidden = false
             self.lbHumi.hidden = false
         }else{
@@ -492,6 +522,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             var linestyle = NSMutableParagraphStyle()
             linestyle.lineHeightMultiple = 1.42
             linestyle.alignment = NSTextAlignment.Center
+            words.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: oRange)
             words.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: oRange)
             //            self.lbWord.shadowColor = UIColor(white: 0, alpha: 0.5)
             //            self.lbWord.shadowOffset = CGSizeMake(6,6)
@@ -502,43 +533,66 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.lbWord.attributedText = words
         }
         if let pathBack = cb?.path {
+            
             let tmp_path = center.getPath(pathBack)
-            self.mBackground.image = UIImage(contentsOfFile: tmp_path)
-            self.mBackground.contentMode = UIViewContentMode.ScaleAspectFit
-            st.setValue(tmp_path, forKey: Global.THE_BACKGROUND)
+            if NSFileManager().fileExistsAtPath(tmp_path){
+                self.mBackground.image = UIImage(contentsOfFile: tmp_path)
+                self.mBackground.contentMode = UIViewContentMode.ScaleAspectFill
+                st.setValue(tmp_path, forKey: Global.THE_BACKGROUND)
+            }
         }
         if let pathFig = cf?.path {
-            
-//            println("Test:\(center.getPath(pathFig))\n")
-            //            if NSFileManager.defaultManager().fileExistsAtPath(pathFig){
-            let tmp_path = center.getPath(pathFig)
-            self.mFigure.image = UIImage(contentsOfFile: tmp_path)
-            st.setValue(tmp_path, forKey: Global.THE_FIGURE)
-            //            self.mFigure.
-            //            }
+
+            var animation:CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "contents")
+            animation.calculationMode = kCAAnimationDiscrete
+            animation.duration =  1.3
+            animation.values = Global.animationArray
+            animation.repeatCount = 1
+            animation.delegate = self
+            self.mFigureAnimation.layer.addAnimation(animation, forKey: "animation")
+
+            self.mFigure.alpha = 0.0
+            let tmp_path = self.center.getPath(pathFig)
+            if NSFileManager().fileExistsAtPath(tmp_path){
+                self.mFigure.image = UIImage(contentsOfFile: tmp_path)
+                st.setValue(tmp_path, forKey: Global.THE_FIGURE)
+            }
         }
         st.synchronize()
-//        let cTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "clockSetup:", userInfo: nil, repeats: false)
-//        cTimer.fire()
-//        
+
+//
 
     }
+    
+
+    override func animationDidStart(anim: CAAnimation!) {
+        println("start")
+        UIView.animateWithDuration(0.01, delay: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            self.mFigure.alpha = 1.0
+            }, completion: { (finished:Bool) -> Void in
+//              self.mFigure.alpha = 1.0
+        })
+    }
+    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+        println("done")
+    }
+
     func chi_week(dayInWeek:Int) -> String {
         var ret:String
         switch dayInWeek {
-        case 7 :
+        case 1 :
             ret = "周日"
-        case 1:
-            ret = "周一"
         case 2:
-            ret = "周二"
+            ret = "周一"
         case 3:
-            ret = "周三"
+            ret = "周二"
         case 4:
-            ret = "周四"
+            ret = "周三"
         case 5:
-            ret = "周五"
+            ret = "周四"
         case 6:
+            ret = "周五"
+        case 7:
             ret = "周六"
         default:
             ret = "周日"
@@ -546,15 +600,28 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         return ret
     }
     
+    deinit{
+        city.removeObserver(self, forKeyPath: "city_name")
+        weather.removeObserver(self, forKeyPath: "state")
+        weather.removeObserver(self, forKeyPath: "dailyState")
+        weather.removeObserver(self, forKeyPath: "weekState")
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        colorOfhour =  Global.colorOfhour()
+        colorOfhour.colorWithAlphaComponent(1)
+        self.page2.backgroundColor = colorOfhour
+        self.viewLay.backgroundColor = colorOfhour
+    }
+    // MARK: - Scroll Percent
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let height:CGFloat = scrollView.bounds.size.height
         let position:CGFloat = max(scrollView.contentOffset.y, 0.0)
         // 2
-        let percent:CGFloat = min(position / height, 1.0)
+        let percent:CGFloat = 1 - min(position / height, 1.0)
         scrollView.bounces = (scrollView.contentOffset.y < 200)
         
         if percent > 0.9 {
@@ -567,17 +634,16 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.view.bringSubviewToFront(openShareBtn)
             self.view.bringSubviewToFront(openSettingBtn)
         }
-        
-        // 3
-        //        self.blurredImageView.alpha = percent
-        //        self.blurredFigureView.alpha = percent
-        //        if percent > 0.3 {
-        //            self.blurredImageView.hidden = false
-        //            self.blurredFigureView.hidden = false
-        //        }else{
-        //            self.blurredImageView.hidden = true
-        //            self.blurredFigureView.hidden = true
-        //        }
+        self.mFigure.alpha = percent
+        self.mFigureAnimation.alpha = percent
+        self.lbWord.alpha = percent
+        self.lbLocation.alpha = percent
+        self.lbUpdateTime.alpha = percent
+        self.openShareBtn.alpha = percent
+        self.openSettingBtn.alpha = percent
+        self.page2.alpha = 1-percent
+        self.viewLay.backgroundColor = self.viewLay.backgroundColor?.colorWithAlphaComponent(1-percent)
+
     }
     
     func getWindDisplay(wind:String) -> String{
@@ -586,23 +652,23 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         
         switch(level){
         case 0:
-            ret = "静悄悄"
+            ret = "静悄悄　　"
         case 1:
-            ret = "没啥风"
+            ret = "没啥风　　"
         case 2:
             ret = "风儿轻轻吹"
         case 3:
-            ret = "小微风"
+            ret = "小微风　　"
         case 4:
             ret = "温柔的风"
         case 5:
-            ret = "小清风"
+            ret = "小清风　　"
         case 6:
-            ret = "刮风了"
+            ret = "刮风了　　"
         case 7:
-            ret = "刮大风了"
+            ret = "刮大风了　"
         case 8:
-            ret = "风好大呀"
+            ret = "风好大呀　"
         case 9:
             ret = "树都挂歪了"
         case 10:
@@ -622,20 +688,48 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         }
         return ret
     }
+    func clockSetupx(timer:NSTimer){
+         isClockSetup = false
+//         clockSetup()
+    }
+    // MARK: - Clock Setup
     func clockSetup(){
         if isClockSetup {
             return
         }
         isClockSetup = true
+        let seconds = 60.0
+        let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
+        var dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            self.isClockSetup = false
+            self.clockSetup()
+        })
+//        let cTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(600.0, target: self, selector: "clockSetupx:", userInfo: nil, repeats: false)
+//        cTimer.fire()
 //        let dailyArray = dailyData!.values.array
+        layer_number.removeAllSubviews()
+        layer_icons.removeAllSubviews()
+        layer_dots.removeAllSubviews()
+        if ivLabelBackground != nil {
+            ivLabelBackground.removeFromSuperview()
+        }
+        lbNumber = []
+        icon_weathers = []
+        ivDots = []
+        
         ivLabelBackground = UIImageView(image: UIImage(named: "white_block17"))
         ivLabelBackground.layer.cornerRadius = ivLabelBackground.frame.size.width/2
         ivLabelBackground.clipsToBounds = true
         ivLabelBackground.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        ivLabelBackground.hidden = true
         layer_number_back.addSubview(ivLabelBackground)
         
         ivLabelBackground.addConstraint(NSLayoutConstraint(item: ivLabelBackground, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:17))
         ivLabelBackground.addConstraint(NSLayoutConstraint(item: ivLabelBackground, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:17))
+
+        layer_center.addConstraint(NSLayoutConstraint(item: ivLabelBackground, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: layer_center, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant:0))
         
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -646,16 +740,34 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         var hour =  components.hour
         var hourx = hour
         var arr_list = Global.arr_morning
-        if hour > 12 {
+        if hour >= 12 {
             hour = hour - 12
             arr_list = Global.arr_afternoon
         }
         if hour == 0{
             arr_list = Global.arr_afternoon
         }
+        
+        // MARK: the Center Image
+        var nowTimeTuple:(Int,String)? = dailyData![hourx]
+        ivWeatherIcon.image = center.getWeatherIconBig(nowTimeTuple!.1,hour:hourx)
+        var strW = nowTimeTuple!.1
+        let oRange = NSMakeRange(0, count(strW))
+        var strWeather = NSMutableAttributedString(string: strW)
+        strWeather.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
+        strWeather.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(10), range: oRange)
+        lbTodayWeather.layer.shadowColor = UIColor.blackColor().CGColor
+        lbTodayWeather.layer.shadowRadius = 6.0
+        lbTodayWeather.layer.shadowOpacity = 0.5
+        lbTodayWeather.layer.shadowOffset = CGSizeMake(0, 0)
+        lbTodayWeather.attributedText  = strWeather
+        
+        var first_ra:CGFloat = 75 //85
+        var second_ra:CGFloat = 110 //120
+        var third_ra:CGFloat = 90 //100
         for idxa in arr_list {
             var idx = idxa
-            if idxa > 12{
+            if idxa >= 12{
                 idx = idxa - 12
             }
             
@@ -663,13 +775,9 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             var numb = NSMutableAttributedString(string: String(format: "%02d",idxa))
             numb.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, 2))
             if hour == idx {
-                numb.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: "#02a8f3"), range: NSMakeRange(0, 2))
+                numb.addAttribute(NSForegroundColorAttributeName, value: Global.colorOfhour(), range: NSMakeRange(0, 2))
             }
             numb.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(10), range: NSMakeRange(0, 2))
-            //            lb.layer.shadowColor = UIColor.blackColor().CGColor
-            //            lb.layer.shadowRadius = 6.0
-            //            lb.layer.shadowOpacity = 0.5
-            //            lb.layer.shadowOffset = CGSizeMake(0, 0)
             lb.attributedText = numb
             
             lb.autoresizesSubviews = true
@@ -677,10 +785,10 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             layer_number.addSubview(lb)
             if idx == 12 || idx == 0 {
                 layer_number.addConstraint(NSLayoutConstraint(item: lb, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_number, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                layer_number.addConstraint(NSLayoutConstraint(item: lb, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_number, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -85))
+                layer_number.addConstraint(NSLayoutConstraint(item: lb, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_number, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -first_ra))
             }else{
-                var horizon =  CGFloat(round(85 * sin( Double(idx) * Double(M_PI) / Double(6.0) )))
-                var vertical = CGFloat(round(85 - (85 * cos(Double(idx) * Double(M_PI) / Double(6.0)) )))
+                var horizon =  CGFloat(round(first_ra * CGFloat(sin( Double(idx) * Double(M_PI) / Double(6.0) ))))
+                var vertical = CGFloat(round(first_ra - (first_ra * CGFloat(cos(Double(idx) * Double(M_PI) / Double(6.0)) ))))
                 layer_number.addConstraint(NSLayoutConstraint(item: lb, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: lbNumber[0], attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: horizon ))
                 layer_number.addConstraint(NSLayoutConstraint(item: lb, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: lbNumber[0], attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: vertical))
             }
@@ -695,74 +803,83 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             if dtuple != nil {
                 var icon = UIImageView(image: center.getWeatherIcon(dtuple!.1,hour:idxa))//UIImage(named: ))
                 icon.setTranslatesAutoresizingMaskIntoConstraints(false)
+                if idx < hour {
+                    icon.alpha = 0.4
+                }
                 layer_icons.addSubview(icon)
                 icon.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:31))
                 icon.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:31))
                 if idx == 12 || idx == 0 {
                     layer_icons.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_icons, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                    layer_icons.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_icons, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -120))
+                    layer_icons.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_icons, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -second_ra))
                 }else{
-                    var horizon =  CGFloat(round(120 * sin( Double(idx) * Double(M_PI) / Double(6.0) )))
-                    var vertical = CGFloat(round(120 - (120 * cos(Double(idx) * Double(M_PI) / Double(6.0)) )))
+                    var horizon =  CGFloat(round(second_ra * CGFloat(sin( Double(idx) * Double(M_PI) / Double(6.0) ))))
+                    var vertical = CGFloat(round(second_ra - (second_ra * CGFloat(cos(Double(idx) * Double(M_PI) / Double(6.0)) ))))
                     layer_icons.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: icon_weathers[0], attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: horizon ))
                     layer_icons.addConstraint(NSLayoutConstraint(item: icon, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: icon_weathers[0], attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: vertical))
                 }
                 icon_weathers.append(icon)
             }
 
-            
             var dot = UIImageView(image: UIImage(named: "white_block"))
             dot.layer.cornerRadius = dot.frame.size.width/2
             dot.clipsToBounds = true
             dot.setTranslatesAutoresizingMaskIntoConstraints(false)
+            if idx < hour {
+                dot.alpha = 0.4
+            }
             layer_dots.addSubview(dot)
             
             dot.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:5))
             dot.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:5))
             if idx == 12 || idx == 0 {
                 layer_dots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_dots, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                layer_dots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_dots, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -100))
+                layer_dots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_dots, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: -third_ra))
             }else{
-                var horizon =  CGFloat(round(100 * sin( Double(idx) * Double(M_PI) / Double(6.0) )))
-                var vertical = CGFloat(round(100 - (100 * cos(Double(idx) * Double(M_PI) / Double(6.0)) )))
+                var horizon =  CGFloat(round(third_ra * CGFloat(sin( Double(idx) * Double(M_PI) / Double(6.0) ))))
+                var vertical = CGFloat(round(third_ra - (third_ra * CGFloat(cos(Double(idx) * Double(M_PI) / Double(6.0)) ))))
                 layer_dots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: ivDots[0], attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: horizon ))
                 layer_dots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: ivDots[0], attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: vertical))
             }
             
             ivDots.append(dot)
         }
+        ivWeatherIcon.layoutIfNeeded()
+        lbTodayWeather.layoutIfNeeded()
+        layer_number.layoutIfNeeded()
+        layer_icons.layoutIfNeeded()
+        layer_dots.layoutIfNeeded()
+        layer_number_back.layoutIfNeeded()
+        layer_center.layoutIfNeeded()
         
     }
-    func lineChartCalc(){
-        var hight_max = highData.reduce(Int.min, combine: { max($0, $1) })
-        var low_min = lowData.reduce(Int.max, combine: { min($0, $1) })
+    // MARK: - Line Chart Calculate
+    func lineChartCalc(#high_baseline:CGFloat,low_baseline:CGFloat){
         
-        var dist = hight_max - low_min
+        self.layer_highWave.layer.sublayers = nil
+        self.layer_lowWave.layer.sublayers = nil
+        
         var wave_layer_height:CGFloat = CGFloat(self.layer_highWave.bounds.size.height)
-        var base_height:CGFloat = CGFloat( CGFloat(wave_layer_height) / CGFloat(hight_max) )
-        var base_width:CGFloat = CGFloat( screenWidth / 10.0 )
-        
+
+        // MARK: high Shape Line
         let higherShape = CAShapeLayer()
         self.layer_highWave.layer.addSublayer(higherShape)
         
         var highPoints:[CGPoint]! = []
-        var y:CGFloat =  CGFloat(wave_layer_height - ( (CGFloat(highData[0])) * base_height)) - 10
+        var y:CGFloat = wave_layer_height - high_baseline
         highPoints.append(CGPointMake(0 , y ))
         for idx in 1...5 {
-            y = CGFloat(wave_layer_height-(CGFloat(highData[idx-1]) * base_height) )
-            highPoints.append(CGPointMake(((2 * CGFloat(idx) - 1) * base_width), y ))
+            highPoints.append(ivWaveHighDots[idx-1].frame.centerPoint())
         }
-        //        y = CGFloat(wave_layer_height - ((CGFloat(highData[4])) * base_height) )
-        highPoints.append(CGPointMake( CGFloat(screenWidth), y-10))
+        highPoints.append(CGPointMake( CGFloat(screenWidth), wave_layer_height-high_baseline))
         highPoints.append(CGPointMake( CGFloat(screenWidth), wave_layer_height))
         
         higherShape.opacity = 0.5
-        //        higherShape.lineWidth = 1
-        higherShape.lineJoin = kCALineCapRound //kCALineJoinMiter //
+        higherShape.lineJoin = kCALineCapRound
         higherShape.fillColor = UIColor(white: 255, alpha: 0.4).CGColor
         
         let higherPath = UIBezierPath()
-        higherPath.moveToPoint(CGPointMake(0, CGFloat(wave_layer_height) ))
+        higherPath.moveToPoint(CGPointMake(0, wave_layer_height))
         
         for point:CGPoint in highPoints {
             higherPath.addLineToPoint(point)
@@ -770,29 +887,23 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         higherPath.closePath()
         higherShape.path = higherPath.CGPath
         
-        //        // ==================
-        //
+        // MARK: low Shape Line
         let lowerShape = CAShapeLayer()
         self.layer_lowWave.layer.addSublayer(lowerShape)
         
-        //        hight_max = lowData.reduce(Int.min, combine: { max($0, $1) })
         wave_layer_height = CGFloat(self.layer_lowWave.bounds.size.height)
-        base_height = CGFloat( CGFloat(wave_layer_height) / CGFloat(hight_max))
         
         var lowPoints:[CGPoint]! = []
-        y =  CGFloat(wave_layer_height - ( (CGFloat(lowData[0]) ) * base_height)) + 10
+        y = wave_layer_height - low_baseline
         lowPoints.append(CGPointMake(0 , y ))
         for idx in 1...5 {
-            y = CGFloat(wave_layer_height-(CGFloat(lowData[idx-1]) * base_height) )
-            lowPoints.append(CGPointMake(((2 * CGFloat(idx) - 1) * base_width), y ))
+            lowPoints.append(ivWaveLowDots[idx-1].frame.centerPoint())
         }
-        y = CGFloat(wave_layer_height - ((CGFloat(lowData[4])) * base_height) )-5
-        lowPoints.append(CGPointMake( CGFloat(screenWidth), y))
+        lowPoints.append(CGPointMake( CGFloat(screenWidth), wave_layer_height-low_baseline))
         lowPoints.append(CGPointMake( CGFloat(screenWidth), wave_layer_height))
         
         lowerShape.opacity = 0.5
-        //        lowerShape.lineWidth = 1
-        lowerShape.lineJoin = kCALineCapRound //kCALineJoinMiter
+        lowerShape.lineJoin = kCALineJoinMiter //kCALineCapRound //
         lowerShape.fillColor = UIColor(white: 255, alpha: 0.3).CGColor
         
         let lowerPath = UIBezierPath()
@@ -805,13 +916,20 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         lowerShape.path = lowerPath.CGPath
     }
     
+    func lineChartSetup(timer:NSTimer){
+        lineChartSetup()
+    }
     func lineChartSetup(){
         isChartSetup = true
-//        if self.weekData == nil {
-//            let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "lineChartSetup:", userInfo: nil, repeats: false)
+        if self.weekData == nil || self.weekData![0] == nil {
+            if weather.weekState == ".WeekDone" || weather.weekState == ".Downloaded" {
+                self.weather.weekState = ".Retry"
+            }
+//            self.weekData = self.weather.getWeek()
+//            let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: Selector("lineChartSetup"), userInfo: nil, repeats: false)
 //            aTimer.fire()
-//            return
-//        }
+            return
+        }
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
         var components = calendar.components(NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitWeekday, fromDate: now)
@@ -820,21 +938,71 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         var dayInWeek = components.weekday
 
 //        let weekArray = [weekData![0],weekData![1],weekData![2],weekData![3],weekData![4]]//weekData!.values.array
-        let part_five = screenWidth / 5
-        let part_ten = screenWidth / 10
+        let part_five = self.part_ten * 2
+        
+        highData = []
+        lowData = []
+        
+        ivWaveHighDots = []
+        ivWaveLowDots = []
+        lybars = []
+        lbBarTime = []
+        ivBarWeather = []
+        lbLowNumber = []
+        lbHighNumber = []
+        
+        layer_waveTop.removeAllSubviews()
+        layer_bar.removeAllSubviews()
+        layer_waveDots.removeAllSubviews()
+        
+        layer_highLabel.removeAllSubviews()
+        layer_lowLabel.removeAllSubviews()
+        
         
         for idx in 1...5 {
             highData.append(weekData![idx-1]!.0)
             lowData.append(weekData![idx-1]!.1)
         }
         
-        var highData_max = highData.reduce(Int.min, combine: { max($0, $1) })
-        var lowData_max = lowData.reduce(Int.min, combine: { max($0, $1) })
-        var high_division:CGFloat = 1.0 / CGFloat(highData_max)
+        // MARK: - Draw New Lines
+        var highAve = highData.average()
+        var lowAve = lowData.average()
+        
+        // MARK: Base Line Calculate
+        var high_baseline:CGFloat = 170         //0.26 * screenHeight //170px
+        var low_baseline:CGFloat = 80           //0.14 * screenHeight  //80px
+        
+        var highMax = highData.reduce(Int.min, combine: { max($0, $1) })
+        var lowMax = highData.reduce(Int.max, combine: { min($0, $1) })
+        var maxDiff = highMax - lowMax
+
+        var high_granularity:CGFloat = 4.5             //0.0075 * screenHeight         // 5px
+        
+        if maxDiff > 10 && maxDiff <= 34 {
+            high_granularity = 2             //0.003 * screenHeight         // 2px
+        }else if maxDiff > 34 {
+            high_granularity = 1             //0.0015 * screenHeight         // 1px
+        }
+        
+        var curveTopBaseLine = high_baseline + high_granularity * 8
+        
+        highMax = lowData.reduce(Int.min, combine: { max($0, $1) })
+        lowMax = lowData.reduce(Int.max, combine: { min($0, $1) })
+        maxDiff = highMax - lowMax
+        
+        var low_granularity:CGFloat = 4.5             //0.0075 * screenHeight         // 5px
+        
+        if maxDiff > 10 && maxDiff <= 34 {
+            low_granularity = 2             //0.003 * screenHeight         // 2px
+        }else if maxDiff > 34 {
+            low_granularity = 1             //0.0015 * screenHeight         // 1px
+        }
+        
         
         for idx in 1...5 {
             var bar:UIView! = UIView()
             bar.setTranslatesAutoresizingMaskIntoConstraints(false)
+            // MARK: The Background Bar
             layer_bar.addSubview(bar)
             bar.addConstraint(NSLayoutConstraint(item: bar, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: part_five))
             layer_bar.addConstraint(NSLayoutConstraint(item: bar, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_bar, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 0))
@@ -847,6 +1015,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             }
             lybars.append(bar)
             
+            // MARK: 获取一周的数据
             let weektuple = weekData![idx-1]!
             var lbtime:UILabel! = UILabel()
             var ivweatherx:UIImageView! = UIImageView(image: center.getWeatherIcon(weektuple.2,hour:12))///UIImage(named:"icon_home_weather_daytime_cloudy01"))
@@ -854,12 +1023,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             lbtime.setTranslatesAutoresizingMaskIntoConstraints(false)
             ivweatherx.setTranslatesAutoresizingMaskIntoConstraints(false)
             
+            // MARK: 日期标签
             var new_date:NSDate
             var str_time = "\(month)/\(day)\n"
             if idx == 1 {
                 str_time = "\(month)/\(day)\n" + "今天"
             }else{
-                new_date = now.dateByAddingTimeInterval(Double(86400 * idx-1))
+                new_date = now.dateByAddingTimeInterval(Double(86400 * (idx-1)))
                 components = calendar.components( NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitWeekday, fromDate: new_date)
                 month = components.month
                 day = components.day
@@ -869,15 +1039,11 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             var range = NSMakeRange(0, count(str_time))
             var str_attribute = NSMutableAttributedString(string: str_time)
             str_attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: range)
-            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: range)
+            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(13), range: range)
             var linestyle = NSMutableParagraphStyle()
             linestyle.lineHeightMultiple = 1.2
             linestyle.alignment = NSTextAlignment.Center
             str_attribute.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: range)
-            //                        lb.layer.shadowColor = UIColor.blackColor().CGColor
-            //                        lb.layer.shadowRadius = 6.0
-            //                        lb.layer.shadowOpacity = 0.5
-            //                        lb.layer.shadowOffset = CGSizeMake(0, 0)
             lbtime.autoresizesSubviews = true
             lbtime.numberOfLines = 2
             lbtime.attributedText = str_attribute
@@ -885,89 +1051,96 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             layer_waveTop.addSubview(lbtime)
             layer_waveTop.addSubview(ivweatherx)
             
-            layer_waveTop.addConstraint(NSLayoutConstraint(item: lbtime, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveTop, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 0))
+ 
             layer_waveTop.addConstraint(NSLayoutConstraint(item: lbtime, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveTop, attribute: NSLayoutAttribute.Left, multiplier: 1.0, constant: CGFloat( CGFloat(part_ten)*(2*CGFloat(idx)-1)) ))
-            layer_waveTop.addConstraint(NSLayoutConstraint(item: ivweatherx, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: lbtime, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 4.0))
+            layer_waveTop.addConstraint(NSLayoutConstraint(item: ivweatherx, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveTop, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: -(curveTopBaseLine+5)))
             layer_waveTop.addConstraint(NSLayoutConstraint(item: ivweatherx, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: lbtime, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
             layer_waveTop.addConstraint(NSLayoutConstraint(item: ivweatherx, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 31))
             layer_waveTop.addConstraint(NSLayoutConstraint(item: ivweatherx, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 31))
             
+           layer_waveTop.addConstraint(NSLayoutConstraint(item: lbtime, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: ivweatherx, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 4))
             lbBarTime.append(lbtime)
             ivBarWeather.append(ivweatherx)
             
-            
-            // Dots start
+            // MARK: High Dots start
             var dot:UIImageView! = UIImageView(image:UIImage(named: "white_block8"))
             dot.layer.cornerRadius = dot.frame.size.width/2
             dot.clipsToBounds = true
             dot.setTranslatesAutoresizingMaskIntoConstraints(false)
             layer_waveDots.addSubview(dot)
             
+            // MARK: ->High Dot Contstraint Height & Width
             dot.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:8))
             dot.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:8))
-            //            highData dots
-            var calc:CGFloat = 1-((high_division)*CGFloat(highData[idx-1]))
-            if calc == 0{
-                layer_waveDots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Top, multiplier: 1 , constant: 0))
-            }else{
-                layer_waveDots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Bottom, multiplier: calc , constant: 0))
-            }
+            // MARK: ->High Data Position Calculates
+            var calc:CGFloat = high_baseline + high_granularity * CGFloat(highData[idx-1] - highAve)
+            layer_waveDots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Bottom, multiplier: 1 , constant: -calc))
+            
+            // MARK: ->High Dot Added
             layer_waveDots.addConstraint(NSLayoutConstraint(item: dot, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Left, multiplier: 1.0 , constant:  CGFloat(CGFloat(part_ten)*(2*CGFloat(idx)-1))))
             ivWaveHighDots.append(dot)
             
+            // MARK: Low Doos start
             var ldot:UIImageView! = UIImageView(image:UIImage(named: "white_block8"))
             ldot.layer.cornerRadius = ldot.frame.size.width/2
             ldot.clipsToBounds = true
             ldot.setTranslatesAutoresizingMaskIntoConstraints(false)
             layer_waveDots.addSubview(ldot)
             
+            // MARK: ->Low Dot Contstraint Height & Width
             ldot.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:8))
             ldot.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:8))
-            //            highData dots
-            calc = 1-((high_division)*CGFloat(lowData[idx-1]))
-            if calc == 0{
-                layer_waveDots.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Top, multiplier: 1 , constant: 0))
-            }else{
-                layer_waveDots.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Bottom, multiplier: calc , constant: 0))
-            }
+            // MARK: ->Low Data Position Calculate
+            calc = low_baseline + low_granularity * CGFloat(lowData[idx-1] - lowAve)
+            layer_waveDots.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Bottom, multiplier: 1 , constant: -calc))
+
+            // MARK: ->Low Dot Added
             layer_waveDots.addConstraint(NSLayoutConstraint(item: ldot, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_waveDots, attribute: NSLayoutAttribute.Left, multiplier: 1.0 , constant:  CGFloat(CGFloat(part_ten)*(2*CGFloat(idx)-1))))
-            
             ivWaveLowDots.append(ldot)
             
-            
+            // MARK: Temperature Label
             var lbhNum:UILabel! = UILabel()
             var lblNum:UILabel! = UILabel()
             lbhNum.setTranslatesAutoresizingMaskIntoConstraints(false)
             lblNum.setTranslatesAutoresizingMaskIntoConstraints(false)
             
+            // MARK: ->High Label Content Attribute String
             range = NSMakeRange(0, count("\(highData[idx - 1])°"))
             str_attribute = NSMutableAttributedString(string: "\(highData[idx - 1])°")
             str_attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: range)
-            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: range)
+            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(12), range: range)
             lbhNum.attributedText = str_attribute
             lbhNum.autoresizesSubviews = true
             
+            // MARK: ->Low Label Content Attribute String
             range = NSMakeRange(0, count("\(lowData[idx - 1])°"))
             str_attribute = NSMutableAttributedString(string: "\(lowData[idx - 1])°")
             str_attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: range)
             
-            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: range)
+            str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(12), range: range)
             lblNum.attributedText = str_attribute
             lblNum.autoresizesSubviews = true
             
             layer_highLabel.addSubview(lbhNum)
             layer_lowLabel.addSubview(lblNum)
-            
+            // MARK: ->Add High & Low Label Below dot
             layer_wave.addConstraint(NSLayoutConstraint(item: lbhNum, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: dot, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
             layer_wave.addConstraint(NSLayoutConstraint(item: lbhNum, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: dot, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: -4))
             
             layer_wave.addConstraint(NSLayoutConstraint(item: lblNum, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: ldot, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
-            layer_wave.addConstraint(NSLayoutConstraint(item: lblNum, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: ldot, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: -4))
+            layer_wave.addConstraint(NSLayoutConstraint(item: lblNum, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: ldot, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 4))
             
             lbLowNumber.append(lblNum)
             lbHighNumber.append(lbhNum)
         }
-        lineChartCalc()
+        layer_waveTop.layoutIfNeeded()
+        layer_bar.layoutIfNeeded()
+        layer_waveDots.layoutIfNeeded()
+        
+        layer_highLabel.layoutIfNeeded()
+        layer_lowLabel.layoutIfNeeded()
+        
+        lineChartCalc(high_baseline:high_baseline,low_baseline: low_baseline)
     }
     func constraintSetup(){
         
@@ -983,7 +1156,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveTop, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
         // layer waveDots
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveDots, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveDots, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: -120))
+        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveDots, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveDots, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_waveDots, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
         // layer highLabel
@@ -1000,12 +1173,12 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         
         // layer_highWave Constraint
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_highWave, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_highWave, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: -120))
+        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_highWave, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_highWave, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_highWave, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
         // layer_lowWave Constraint
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_lowWave, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_lowWave, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: -120))
+        self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_lowWave, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_lowWave, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         self.layer_wave.addConstraint(NSLayoutConstraint(item: layer_lowWave, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: layer_wave, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
         
@@ -1013,7 +1186,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.page2.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
         //        layer_wave.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: ))
         self.page2.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
-        self.page2.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.layer_center, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 30))
+        self.page2.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.layer_center, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         self.page2.addConstraint(NSLayoutConstraint(item: layer_wave, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
         
         //layer center postion
@@ -1021,8 +1194,11 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.page2.addConstraint(NSLayoutConstraint(item: self.layer_center, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
         
         // layer_center top margin
-        self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30))
-        
+        if DeviceType.IS_IPHONE_6P {
+            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30))
+        }else{
+        self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 20))
+        }
         // Center Weather Icon Constrain
         ivWeatherIcon.addConstraint(NSLayoutConstraint(item: ivWeatherIcon, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:62))
         ivWeatherIcon.addConstraint(NSLayoutConstraint(item: ivWeatherIcon, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:62))
@@ -1032,7 +1208,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         layer_center.addConstraint(NSLayoutConstraint(item: ivWeatherIcon, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: layer_center, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
         layer_center.addConstraint(NSLayoutConstraint(item: ivWeatherIcon, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: layer_center, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
         layer_center.addConstraint(NSLayoutConstraint(item: lbTodayWeather, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem:layer_center , attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-        layer_center.addConstraint(NSLayoutConstraint(item: lbTodayWeather, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: ivWeatherIcon, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        layer_center.addConstraint(NSLayoutConstraint(item: lbTodayWeather, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: ivWeatherIcon, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: -1))
         
         // other layer's contraint
         // X
@@ -1067,6 +1243,8 @@ extension ViewController{
             cityCtler.delegate = self
         }
     }
+    
+    // MARK: - Change Publis Timer
     func changePublishTime(aTimer:NSTimer){
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -1086,7 +1264,7 @@ extension ViewController{
     }
 }
 
-
+//                ivLabelBackground.hidden = false
 extension ViewController:PassValueDelegate{
     func setValue(dict: NSDictionary) {
         let from:String = dict.valueForKey("from") as! String
@@ -1094,12 +1272,18 @@ extension ViewController:PassValueDelegate{
             let city_display:String = (dict.valueForKey("city_display_name") as! String)
             if city_display != "" {
                 self.lbLocation.text = city_display
+                self.lbPage2Location.text = city_display
+
                 isClockSetup = false
                 isChartSetup = false
-//                self.center.start(updateViews: {
-//                    self.updateView()
-//                })
+                self.center.start(updateViews: {
+                    self.updateView()
+                })
             }
         }
     }
 }
+
+
+
+

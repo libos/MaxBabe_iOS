@@ -22,6 +22,15 @@ class EmailSendController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
 
     
    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

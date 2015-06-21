@@ -20,22 +20,30 @@ class UIShareTheme: UIView {
     var the_background:String
     var the_figure:String
     var weather = Weather.getInstance
-
+    
+    var hotSpot:UIButton = UIButton()
+    var uiWord:UIView?
+    var filepath:String?
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(xml:String) {
-        itemsize = CGSize(width: screen_size.width *  Global.SHARE_CARD_WIDTH_RATION, height: screen_size.height *  Global.SHARE_CARD_HEIGHT_RATION)
+    init(xml:String,the_word:String?) {
+        filepath = xml
+        itemsize = CGSize(width: screen_size.width *  Global.SHARE_CARD_WIDTH_RATION, height: screen_size.height *  Global.SHARE_CARD_HEIGHT_RATION-36)
         dictOfElements = NSMutableDictionary()
         let st = NSUserDefaults.standardUserDefaults()
-        the_word = st.stringForKey(Global.THE_WORD)!
+        if the_word == nil {
+            self.the_word = st.stringForKey(Global.THE_WORD)!
+        }else{
+            self.the_word = the_word!
+        }
         the_background = st.stringForKey(Global.THE_BACKGROUND)!
         the_figure = st.stringForKey(Global.THE_FIGURE)!
         
         super.init(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: itemsize))
         
-        
+        self.backgroundColor = UIColor.whiteColor()
         self.layer.shadowColor = UIColor.blackColor().CGColor
         self.layer.shadowRadius = 6.0
         self.layer.shadowOpacity = 0.3
@@ -48,12 +56,17 @@ class UIShareTheme: UIView {
         }
         traverseElement( tbxml.rootXMLElement ,parent: self)
         
+        self.addSubview(hotSpot)
         
-        
+//        if uiWord != nil {
+////            let tmp = uiWord?.constraints()
+//                hotSpot.frame = uiWord!.frame
+//        }
 
         
     }
 
+    
     func getId(ele:UnsafeMutablePointer<TBXMLElement>)->String?{
         var attr:UnsafeMutablePointer<TBXMLAttribute> = ele.memory.firstAttribute
         if attr == nil {
@@ -120,10 +133,11 @@ class UIShareTheme: UIView {
     func traverseElement(ele:UnsafeMutablePointer<TBXMLElement>, parent:UIView){
         var element = ele
         do{
-
+            
             var elename = TBXML.elementName(element)
             var new_view:UIView?
             var isLabel:Bool = false
+            var isWord:Bool = false
             var words:NSMutableAttributedString?
             var oRange:NSRange?
             if elename == "root"{
@@ -133,13 +147,15 @@ class UIShareTheme: UIView {
             }else if elename == "word"{
                 new_view  = UILabel()
                 isLabel = true
+                isWord = true
                 var str = the_word
                 if TBXML.textForElement(element) != "" {
-                    str = the_word + processText(TBXML.textForElement(element))
+                    str = the_word + "\n" + processText(TBXML.textForElement(element))
                 }
                 oRange = NSMakeRange(0, count(str))
                 words = NSMutableAttributedString(string: str)
                 (new_view as! UILabel).numberOfLines = 0
+                (new_view as! UILabel).lineBreakMode = NSLineBreakMode.ByCharWrapping
             }else if elename == "background"{
                 new_view =  UIImageView(image: UIImage(contentsOfFile: the_background)!)
                 (new_view as! UIImageView).contentMode = UIViewContentMode.ScaleAspectFill
@@ -224,7 +240,11 @@ class UIShareTheme: UIView {
                 }else if attr_name == "width"{
                     if attr_value.startWith("full") {
                         var xatr = tribleAttr(attr_value)
-                        self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: xatr.1, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: xatr.2))
+                        if xatr.0 == "full%"{
+                            self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: xatr.1, attribute: NSLayoutAttribute.Width, multiplier: xatr.2, constant: 0))
+                        }else{
+                            self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: xatr.1, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: xatr.2))
+                        }
                     }else if attr_value == "wrap"{
                         
                     }else{
@@ -279,10 +299,10 @@ class UIShareTheme: UIView {
                     self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: xatr.0, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: xatr.1))
                 }else if attr_name == "margin_right"{
                     var xatr = doubleAttr(attr_value)
-                    self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: xatr.0, attribute: NSLayoutAttribute.Right, multiplier: 1.0, constant: xatr.1))
+                    self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: xatr.0, attribute: NSLayoutAttribute.Right, multiplier: 1.0, constant: -xatr.1))
                 }else if attr_name == "margin_bottom"{
                     var xatr = doubleAttr(attr_value)
-                    self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: xatr.0, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: xatr.1))
+                    self.addConstraint(NSLayoutConstraint(item: new_view!, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: xatr.0, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: -xatr.1))
                 }
                 
                 if isLabel{
@@ -339,7 +359,9 @@ class UIShareTheme: UIView {
             if isLabel {
                 (new_view as! UILabel).attributedText = words
             }
-        
+            if isWord {
+                uiWord = new_view
+            }
             if element.memory.firstChild != nil{
                 traverseElement(element.memory.firstChild,parent: new_view!)
             }

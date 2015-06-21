@@ -23,6 +23,18 @@
 //#import <MapKit/MapKit.h>
 
 #import "TBXML.h"
+#import "UMSocial.h"
+#import "UMSocialSinaHandler.h"
+#import "UMSocialFacebookHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialInstagramHandler.h"
+
+
+#import "UMFeedback.h"
+#import "UMOpus.h"
+
+#import "MobClick.h"
 
 #import <BaiduMapAPI/BMapKit.h>
 #endif

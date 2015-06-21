@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <root id="root">
     <div id="wrapper" width="full:root:-10" height="full:root:-60" margin_left="root:5" margin_top="root:5" >
         <background id="background" width="full:wrapper:0" height="full:wrapper:0" horizon="centerX:wrapper:0" vertical="centerY:wrapper:0"></background>
         <figure id="figure" width="full:wrapper:0" height="full:wrapper:0" horizon="centerX:wrapper:0" vertical="centerY:wrapper:-40"></figure>
-        <cityName id="cityname"  horizon="centerX:wrapper:0" margin_top="wrapper:20" font="default:12.0" shadow="default" color="#fff" align="center"></cityName>
-        <date id="date"  horizon="centerX:wrapper:0" belowOf="cityname:5" font="default:12.0" shadow="default" color="#fff" align="center">{Y}年{m}月{d}日</date>
-        <word id="word" vertical="centerY:wrapper:80" color="#fff" align="center" margin_left="wrapper:10" margin_right="wrapper:10" lineHeight="1.67" font="HelveticaNeue:12.0" shadow="default">By {name}</word>
-        <temperature id="temp" margin_bottom="wrapper:-10" margin_left="wrapper:20" color="#fff" align="center" font="HelveticaNeue-UltraLight:72.0" shadow="default"></temperature>
-        <weatherIcon id="icon" width="32" height="32" margin_bottom="wrapper:-10" rightOf="temp:-10"></weatherIcon>
-        <weather id="weatext" margin_bottom="wrapper:-18" rightOf="icon:5" font="default:12.0" shadow="default" color="#fff" align="center"></weather>
+        <cityName id="cityname"  horizon="centerX:wrapper:0" margin_top="wrapper:15" font="default:11.0" shadow="default" color="#fff" align="center"></cityName>
+        <date id="date"  horizon="centerX:wrapper:0" belowOf="cityname:3" font="default:10.0" shadow="default" color="#fff" align="center">{m}月{d}日</date>
+        <word id="word" vertical="centerY:wrapper:68" color="#fff" align="center" margin_left="wrapper:10" margin_right="wrapper:10" lineHeight="1.5" font="HelveticaNeue:11.0" shadow="default">By {name}</word>
+        <temperature id="temp" margin_bottom="wrapper:4" margin_left="wrapper:15" color="#fff" align="center" font="HelveticaNeue-UltraLight:50.0" shadow="default"></temperature>
+        <weatherIcon id="icon" width="32" height="32" margin_bottom="wrapper:5" rightOf="temp:-10"></weatherIcon>
+        <weather id="weatext" margin_bottom="wrapper:13" rightOf="icon:3" font="default:11.0" shadow="default" color="#fff" align="center"></weather>
     </div>
     <div id="footer" belowOf="wrapper:2">
-        <appIcon id="appIcon" width="45" height="45" margin_top="footer:5" margin_left="footer:5"></appIcon>
-        <appName id="appName" rightOf="appIcon:10" margin_top="footer:9" font="default:13.0" color="#000" align="center"></appName>
-        <appDescription id="desc" rightOf="appIcon:10" belowOf="appName:3" font="default:11.0"  color="#404040" align="center"></appDescription>
+        <appIcon id="appIcon" width="45" height="45" margin_top="footer:4" margin_left="footer:5"></appIcon>
+        <appName id="appName" rightOf="appIcon:10" margin_top="footer:11" font="default:11.0" color="#000" align="center"></appName>
+        <appDescription id="desc" rightOf="appIcon:10" belowOf="appName:3" font="default:10.0"  color="#404040" align="center"></appDescription>
     </div>
 </root>

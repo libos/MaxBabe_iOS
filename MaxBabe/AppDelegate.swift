@@ -17,9 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let center: Center = Center.getInstance
     let baiduManager:BMKMapManager = BMKMapManager()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-//       self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//       self.window?.rootViewController =
-        
+     
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         var ret:Bool = baiduManager.start("oKOBpr25adybS8iK7Z9AzssS", generalDelegate: nil)
         if (!ret) {
             println("manager start failed!")
@@ -27,16 +26,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("manager start succ!")
         }
         self.window?.makeKeyAndVisible()
-        //        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        self.window.rootViewController = [[WXController alloc] init];
-//        self.window.backgroundColor = [UIColor whiteColor];
-//        [self.window makeKeyAndVisible];
-
+   
         TSMessage.setDefaultViewController(self.window?.rootViewController)
-//        [TSMessage setDefaultViewController: self.window.rootViewController];
+        UMSocialData.setAppKey("55803d1f67e58e9ede002d0e")
+        
+        UMFeedback.setAppkey("55803d1f67e58e9ede002d0e")
+        UMOpus.setAudioEnable(true)   // audio input
+        
+//        MobClick.startWithAppkey("55803d1f67e58e9ede002d0e", reportPolicy: SEND_INTERVAL, channelId: "")
+//        MobClick.setLogSendInterval(90)
+//        MobClick.setAppVersion(NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String)
+//        MobClick.setEncryptEnabled(true)
+//        MobClick.setBackgroundTaskEnabled(true)
+//
+//        MobClick.setCrashReportEnabled(true)
+//        
+        
+        UMSocialSinaHandler.openSSOWithRedirectURL("http://sns.whalecloud.com/sina2/callback")
+        UMSocialWechatHandler.setWXAppId("wx1d3399ae82a092e5", appSecret: "724bb1d966c5f256dfd135290e660dfd", url: "http://maxbabe.maxtain.com")
+        UMSocialQQHandler.setQQWithAppId("1104567255", appKey: "5rCyMo4cwkA3qvXx", url: "http://maxbabe.maxtain.com")
+        
+        UMSocialFacebookHandler.setFacebookAppID("362794367247204", shareFacebookWithURL: "http://maxbabe.maxtain.com")
+        UMSocialInstagramHandler.openInstagramWithScale(false, paddingColor: UIColor.blackColor())
+        
         return true
     }
-
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return UMSocialSnsService.handleOpenURL(url)
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        var result:Bool = UMSocialSnsService.handleOpenURL(url)
+        if !result {
+            
+        }
+        return result
+    }
     func applicationWillResignActive(application: UIApplication) {
              // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

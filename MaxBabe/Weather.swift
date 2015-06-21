@@ -15,6 +15,21 @@ import Foundation
 
 class Weather:NSObject {
     
+    let globalUpdateTimeFlag = "globalUpdateTimeFlag"
+    let globalWeatherTemp = "globalWeatherTemp"
+    let globalWeatherWeather = "globalWeatherWeather"
+    let globalWeatherRTemp = "globalWeatherRTemp"
+    let globalWeatherRWeather = "globalWeatherRWeather"
+    let globalTodayWeather = "globalTodayWeather"
+    let globalDayWeather = "globalDayWeather"
+    let globalNightWeahter = "globalNightWeahter"
+    let globalDayTemp = "globalDayTemp"
+    let globalNightTemp = "globalNightTemp"
+    let globalNextDayWeather = "globalNextDayWeather"
+    let globalNextNightWeather = "globalNextNightWeather"
+    let globalNextDayTemp = "globalNextDayTemp"
+    let globalNextNightTemp = "globalNextNightTemp"
+    
     enum WeatherState {
         case Idle,Start,Downloading,Stored,DailyDone,WeekDone
     }
@@ -167,23 +182,14 @@ class Weather:NSObject {
         return Singleton.instance
     }
     
-//    func setState(st:String){
-//        self.willChangeValueForKey("state")
-//        self.state = st
-//        self.didChangeValueForKey("state")
-//    }
-//    func setDailyState(st:String){
-//        self.willChangeValueForKey("dailyState")
-//        self.dailyState = st
-//        self.didChangeValueForKey("dailyState")
-//    }
-//    func setWeekState(st:String){
-//        self.willChangeValueForKey("weekState")
-//        self.weekState = st
-//        self.didChangeValueForKey("weekState")
-//    }
+    func updateCityName(){
+        if self.city.city_name != nil {
+            self.city_name  = self.city.cleanCityName()!
+        }
+    }
+    
     func updateSelf() {
-        
+        updateCityName()
         // get data
         state = ".Start"
         var auth : String =  self.city_name! +  ". maxtain .all. mybabe "
@@ -196,7 +202,7 @@ class Weather:NSObject {
         let month = String(format: "%02d", components.month)
         let day  = String(format: "%02d", components.day)
         
-        var params:Dictionary = ["id":self.city_name,"auth":auth.md5,"type":"all","user":"1","hour":hour,"month":month,"day":day]
+        var params:Dictionary = ["id":self.city_name!,"auth":auth.md5,"type":"all","user":"1","hour":hour,"month":month,"day":day]
         
         //        println(params.description)
         let manager = AFHTTPRequestOperationManager()
@@ -284,6 +290,27 @@ class Weather:NSObject {
             st.setValue(store_data, forKey: Global.weatherData)
             st.synchronize()
             
+            
+            let now = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: now)
+            
+            st.setValue("\(components.year)\(components.month)\(components.day)\(self.city_name!)", forKey: globalUpdateTimeFlag)
+            st.setValue(self.data.temp, forKey: globalWeatherTemp)
+            st.setValue(self.data.weather, forKey: globalWeatherWeather)
+            st.setValue(self.data.rtemp, forKey: globalWeatherRTemp)
+            st.setValue(self.data.rweather, forKey: globalWeatherRWeather)
+            st.setValue(self.data.today_weather, forKey: globalTodayWeather)
+            st.setValue(self.data.day_temp, forKey: globalDayTemp)
+            st.setValue(self.data.day_weather, forKey: globalDayWeather)
+            st.setValue(self.data.night_temp, forKey: globalNightTemp)
+            st.setValue(self.data.night_weather, forKey: globalNightWeahter)
+            st.setValue(self.data.next_day_temp, forKey: globalNextDayTemp)
+            st.setValue(self.data.next_day_weather, forKey: globalNextDayWeather)
+            st.setValue(self.data.next_night_temp, forKey: globalNextNightTemp)
+            st.setValue(self.data.next_night_weather, forKey: globalNextNightWeather)
+            
+            st.synchronize()
      
             state = ".Stored"
 //            self.setState(".Stored")
@@ -296,6 +323,7 @@ class Weather:NSObject {
     // every hour async update daily
     // if have wrong download
     func getDaily() -> Dictionary<Int,(Int,String)>?{
+        updateCityName()
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         var now = NSDate()
         var calendar = NSCalendar.currentCalendar()
@@ -399,7 +427,7 @@ class Weather:NSObject {
 
     
     func downloadDaily(){
-
+        updateCityName()
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components( .CalendarUnitMonth | .CalendarUnitDay, fromDate: now)
@@ -427,6 +455,7 @@ class Weather:NSObject {
         )
     }
     func updateDaily(json : Dictionary<String,Dictionary<String,String>>?){
+        updateCityName()
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -443,7 +472,8 @@ class Weather:NSObject {
     
     
     func getWeek() -> Dictionary<Int,(Int,Int,String)>?{
-
+        updateCityName()
+        self.weekState = ".Start"
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -501,18 +531,28 @@ class Weather:NSObject {
                 weather = self.data.night_weather!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             }
         }
-        high = self.data.day_temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
-        low = self.data.night_temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+        high = self.data.day_temp?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+        low = self.data.night_temp?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+        
         if high != nil && low != nil {
             if high < low {
                 temp = high
                 high = low
                 low = temp
             }
+            st.setValue(low!, forKey: Global.WeatherLowTemp)
+            st.setValue(high!, forKey: Global.WeatherHighTemp)
+            st.synchronize()
             x.updateValue((high!,low!,weather!), forKey: 0)
+        }else if high != nil {
+            x.updateValue((high!,st.integerForKey(Global.WeatherLowTemp),"晴"), forKey: 0)
+        }else if low != nil{
+            x.updateValue((st.integerForKey(Global.WeatherHighTemp),low!,"晴"), forKey: 0)
         }else{
-//            x.updateValue((30,30,"晴"), forKey: 0)
+            x.updateValue((st.integerForKey(Global.WeatherHighTemp),st.integerForKey(Global.WeatherLowTemp),"晴"), forKey: 0)
         }
+        
+//        x.updateValue((38,-10,"晴"), forKey: 0)
         for (idx:String,data:Dictionary<String,String>) in ret{
             
             day_weather = data["day_weather"]
@@ -537,8 +577,8 @@ class Weather:NSObject {
             }
             
             x.updateValue((high!,low!,weather!), forKey: idx.toInt()!)
-            
         }
+        
         self.weekData = x
         self.weekState = ".WeekDone"
 //        self.setDailyState(".WeekDone")
@@ -575,13 +615,20 @@ class Weather:NSObject {
                 weather = self.data.night_weather!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             }
         }
-        high = self.data.day_temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
-        low = self.data.night_temp!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+        high = self.data.day_temp?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+        low = self.data.night_temp?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
         if high != nil && low != nil {
             if high < low {
                 temp = high
                 high = low
                 low = temp
+            }
+            let chengyaojin = self.getTemp()?.toInt()
+            if  chengyaojin > high {
+                high = chengyaojin
+            }
+            if chengyaojin < low {
+                low = chengyaojin
             }
             x.updateValue((high!,low!,weather!), forKey: 0)
         }else{
@@ -620,7 +667,7 @@ class Weather:NSObject {
     }
 
     func downloadWeek(){
-        
+        updateCityName()
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components( .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitYear, fromDate: now)
@@ -646,6 +693,7 @@ class Weather:NSObject {
         )
     }
     func updateWeek(json : Dictionary<String,Dictionary<String,String>>?){
+        updateCityName()
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()

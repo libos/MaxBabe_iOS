@@ -67,10 +67,9 @@ class CityController: UIViewController,CLLocationManagerDelegate,BMKGeoCodeSearc
         dict.setValue("city", forKey: "from")
         if located {
             dict.setValue(cityLocatedName.text!, forKey: "city_display_name")
-            city.setCityName(self.city_name!)
             city.district = self.district!
             city.province = self.province!
-            city.save_city()
+            city.setCityName(self.city_name!)
         }else{
             dict.setValue("", forKey: "city_display_name")
         }
@@ -84,6 +83,16 @@ class CityController: UIViewController,CLLocationManagerDelegate,BMKGeoCodeSearc
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+ 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
     }
 
 }
@@ -212,10 +221,10 @@ extension CityController:UITableViewDelegate {
         let dett:String? = cell?.textLabel?.text
         var detail:[String]! =  dett!.componentsSeparatedByString(":")
         
-        city.setCityName(detail[1])
         city.district = detail[0]
         city.province = detail[2]
-        city.save_city()
+        city.setCityName(detail[1])
+
         if city.district != nil && city.district != "" {
             dict.setValue(city.district!, forKey: "city_display_name")
         }else if city.city_name != nil{

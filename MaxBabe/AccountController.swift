@@ -41,6 +41,15 @@ class AccountController: UIViewController {
        
         // Do any additional setup after loading the view, typically from a nib.
     }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

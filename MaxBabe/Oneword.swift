@@ -58,7 +58,31 @@ class Oneword
         return false;
     }
     
-    
+    static func getShareEdit() -> [String]{
+        let database:FMDatabase =  Center.getInstance.database!
+        
+        var list = [String]()
+        if let rs = database.executeQuery("select oid,word from oneword Order BY RANDOM() limit 20", withArgumentsInArray: nil) {
+            while rs.next() {
+                let b = rs.stringForColumn("oid")
+                var x:String = rs.stringForColumn("word")
+                
+                if let range = x.rangeOfString("<br>") {
+                    let start = advance(x.startIndex, distance(x.startIndex,range.startIndex))
+                    let end = advance(x.startIndex, distance(x.startIndex,range.endIndex))
+                    
+                    x = x.stringByReplacingCharactersInRange(start..<end, withString: "\n")
+                    x = x.stringByReplacingOccurrencesOfString("<br>", withString: " ")
+                }
+                x = x.trim()
+                list.append(x)
+            }
+        } else {
+            println("select failed: \(database.lastErrorMessage())")
+        }
+        return list
+    }
+
     
     static func select(filter:String) -> [Chosen]{
         let database:FMDatabase =  Center.getInstance.database!
@@ -75,8 +99,9 @@ class Oneword
                     let end = advance(x.startIndex, distance(x.startIndex,range.endIndex))
                     
                     x = x.stringByReplacingCharactersInRange(start..<end, withString: "\n")
-                    x = x.stringByReplacingOccurrencesOfString("<br>", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                    x = x.stringByReplacingOccurrencesOfString("<br>", withString: " ")
                 }
+                x = x.trim()
                 list.append(Chosen(id: b.toInt(), comment: x, path: "", md5: ""))
 //                println("x = \(x);b= \(b);")
             }

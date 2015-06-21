@@ -82,11 +82,11 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
     }
     func loadFromDefaults(){
         let st = NSUserDefaults.standardUserDefaults()
+        self.province = st.valueForKey(Global.cityProvince) as? String
+        self.district = st.valueForKey(Global.cityDistrict) as? String
         if let x = st.valueForKey(Global.cityCityName) as? String {
             self.setCityName(x)
         }
-        self.province = st.valueForKey(Global.cityProvince) as? String
-        self.district = st.valueForKey(Global.cityDistrict) as? String
     }
     
     func updateLoction(){
@@ -136,26 +136,31 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
             self.willChangeValueForKey("city_name")
             self.city_name = name
             self.didChangeValueForKey("city_name")
+            save_city()
         }
     }
+    
+    
     func save_city(){
         
         let st = NSUserDefaults.standardUserDefaults()
-        st.setValue(self.city_name!, forKey: Global.cityCityName)
-        st.setValue(self.district!, forKey: Global.cityDistrict)
-        st.setValue(self.province!, forKey: Global.cityProvince)
+        st.setValue(self.city_name, forKey: Global.cityCityName)
+        st.setValue(self.district, forKey: Global.cityDistrict)
+        st.setValue(self.province, forKey: Global.cityProvince)
         st.synchronize()
+        var stGroup = NSUserDefaults(suiteName: "group.maxtain.MaxBabe")
+        stGroup!.setValue(self.city_name, forKey: Global.cityCityName)
+        stGroup!.setValue(self.district, forKey: Global.cityDistrict)
+        stGroup!.setValue(self.province, forKey: Global.cityProvince)
+        stGroup!.synchronize()
     }
 
     func onGetReverseGeoCodeResult(searcher:BMKGeoCodeSearch,result:BMKReverseGeoCodeResult,errorCode error:BMKSearchErrorCode){
         if error.value == 0 {
             let addr = result.addressDetail
-
-//            self.city_name = addr.cityy
-            setCityName(addr.city)
             self.district = addr.district
             self.province = addr.province
-            save_city()
+            setCityName(addr.city)
           }else {
             println("抱歉，未找到结果")
           }

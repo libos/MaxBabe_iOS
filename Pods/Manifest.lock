@@ -31,6 +31,9 @@ PODS:
   - TBXML (1.5)
   - TSMessages (0.9.12):
     - HexColors
+  - UMengAnalytics-NO-IDFA (3.5.9)
+  - UMengFeedback (2.3.1)
+  - UMengSocial (4.2.3)
 
 DEPENDENCIES:
   - AFNetworking
@@ -39,6 +42,9 @@ DEPENDENCIES:
   - NCChineseConverter
   - TBXML
   - TSMessages
+  - UMengAnalytics-NO-IDFA
+  - UMengFeedback
+  - UMengSocial
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -48,5 +54,8 @@ SPEC CHECKSUMS:
   NCChineseConverter: a8928afce6012994d25f2e183233f1111476a4a3
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  UMengAnalytics-NO-IDFA: c5302a2246061c356641bb3056e89dfbdeb37424
+  UMengFeedback: f073ea4128c20045520870cd481676830a6afefe
+  UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
 
 COCOAPODS: 0.37.2

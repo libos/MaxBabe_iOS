@@ -22,7 +22,6 @@ pod 'UMengFeedback'
 #pod 'MONActivityIndicatorView'
 end
 
-target 'MaxBabeTests' do
+target 'Widget' do
 
 end
-

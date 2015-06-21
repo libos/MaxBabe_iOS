@@ -22,6 +22,7 @@ struct WeatherSetting {
     var openNotifcation:Bool
     var useNegative:Bool
 }
+
 class Center :NSObject{
     let database:FMDatabase!
     let isAlreadyInit : Bool = false
@@ -314,7 +315,18 @@ class Center :NSObject{
         var hour =  components.hour
         return getWeatherIcon(name,hour: hour)
     }
-    
+    func getWeatherIconBig(name:String,hour:Int)->UIImage?{
+        var idx = find(Global.WeatherDefault, name)
+        if idx != nil {
+            if hour >= 19 || hour <= 6 {
+                return UIImage(named: Global.WeatherDefaultNightIcon[idx!]+"_big")
+            }else{
+                return UIImage(named: Global.WeatherDefaultDayIcon[idx!]+"_big")
+            }
+        }else{
+            return stringReverse(name,post: "_big")
+        }
+    }
     func getWeatherIcon(name:String,hour:Int)->UIImage?{
         var idx = find(Global.WeatherDefault, name)
         if idx != nil {
@@ -328,8 +340,11 @@ class Center :NSObject{
         }
     }
     func stringReverse(name:NSString)->UIImage!{
+        return stringReverse(name,post: "")
+    }
+    func stringReverse(name:NSString,post:String)->UIImage!{
         if name == "" {
-            return UIImage(named: Global.weather_icon_home[Global.noti_icon_night_clear_idx])
+            return UIImage(named: Global.weather_icon_home[Global.noti_icon_night_clear_idx] + post)
         }
         var w_1:String = "notpossible"
         var w_2:String = "notpossible"
@@ -385,7 +400,7 @@ class Center :NSObject{
             }
         }
         
-        return UIImage(named: Global.weather_icon_home[w_idx])
+        return UIImage(named: Global.weather_icon_home[w_idx] + post)
 //        int hournow = cal.get(Calendar.HOUR_OF_DAY);
 //        if (w_idx >= CategorySet.noti_wicon_night_start_idx) {
 //            if (hournow > 19 || hournow < 8) {

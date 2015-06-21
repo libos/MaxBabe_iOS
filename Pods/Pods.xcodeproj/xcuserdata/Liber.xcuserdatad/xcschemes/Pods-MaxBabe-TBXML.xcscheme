@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "51AD4A7A0F16A78C667173CA"
+               BlueprintIdentifier = "E6BB9DEEAF0CEFF86C66B463"
                BuildableName = "libPods-MaxBabe-TBXML.a"
                BlueprintName = "Pods-MaxBabe-TBXML"
                ReferencedContainer = "container:Pods.xcodeproj">

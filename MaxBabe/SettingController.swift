@@ -25,12 +25,22 @@ class SettingController: UIViewController {
             loginBtn.hidden = true
             loginImage.hidden = true
             accountBtn.hidden = false
+            accountBtn.setTitle(center.account_nickname, forState: UIControlState.Normal)
         }else{
             loginBtn.hidden = false
             loginImage.hidden = false
             accountBtn.hidden = true
         }
         
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +58,7 @@ class SettingController: UIViewController {
             loginBtn.hidden = true
             loginImage.hidden = true
             accountBtn.hidden = false
+            accountBtn.setTitle(center.account_nickname, forState: UIControlState.Normal)
         }else{
             loginBtn.hidden = false
             loginImage.hidden = false
@@ -70,6 +81,7 @@ class SettingController: UIViewController {
             loginBtn.hidden = true
             loginImage.hidden = true
             accountBtn.hidden = false
+            accountBtn.setTitle(center.account_nickname, forState: UIControlState.Normal)
         }else{
             loginBtn.hidden = false
             loginImage.hidden = false

@@ -37,6 +37,16 @@ class LoginController: UIQueryController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MobClick.beginLogPageView(toString(self.dynamicType))
+    }
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         if identifier == "to_account_view_from_login"{
@@ -115,7 +125,8 @@ class LoginController: UIQueryController {
 
     
     @IBAction func goBack(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+       self.navigationController?.popViewControllerAnimated(true)
+        //self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func prepareRequest() {
