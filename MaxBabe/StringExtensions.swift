@@ -32,7 +32,7 @@ extension String{
     
     func cleanCity() -> String{
         var ret_name:String = self
-        for wd in ["市","市辖区","自治区", "自治州", "盟", "地区", "特别行政区"] {
+        for wd in ["市","市辖区","自治区", "自治州", "地区", "特别行政区"] {
             ret_name = ret_name.stringByReplacingOccurrencesOfString(wd, withString: "")
         }
         return ret_name

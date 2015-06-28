@@ -19,9 +19,8 @@ pod 'TBXML'
 pod 'UMengSocial'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'UMengFeedback'
+pod 'SSPullToRefresh'
+pod 'UICountingLabel'
 #pod 'MONActivityIndicatorView'
 end
 
-target 'Widget' do
-
-end

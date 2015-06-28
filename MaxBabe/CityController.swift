@@ -48,6 +48,10 @@ class CityController: UIViewController,CLLocationManagerDelegate,BMKGeoCodeSearc
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLLocationAccuracyThreeKilometers
         
+        if NSUserDefaults.standardUserDefaults().boolForKey(Global.SETTING_SWITCH_GPS_LOCATING){
+            locationManager.distanceFilter = kCLLocationAccuracyHundredMeters
+        }
+        
         if center.ios8() {
             locationManager.requestAlwaysAuthorization()
         }
@@ -66,7 +70,7 @@ class CityController: UIViewController,CLLocationManagerDelegate,BMKGeoCodeSearc
         var dict:NSMutableDictionary = NSMutableDictionary()
         dict.setValue("city", forKey: "from")
         if located {
-            dict.setValue(cityLocatedName.text!, forKey: "city_display_name")
+            dict.setValue(center.s2t(cityLocatedName.text!), forKey: "city_display_name")
             city.district = self.district!
             city.province = self.province!
             city.setCityName(self.city_name!)
@@ -111,14 +115,14 @@ extension CityController {
             reverseGeoCodeSearchOption.reverseGeoPoint = pt
             var flag:Bool = searcher.reverseGeoCode(reverseGeoCodeSearchOption)
             
-            if(flag)
-            {
-                println("反geo检索发送成功");
-            }
-            else
-            {
-                println("反geo检索发送失败");
-            }
+//            if(flag)
+//            {
+//                println("反geo检索发送成功");
+//            }
+//            else
+//            {
+//                println("反geo检索发送失败");
+//            }
         }
     }
     
@@ -135,7 +139,7 @@ extension CityController {
             }
             located = true
         }else {
-            println("抱歉，未找到结果")
+//            println("抱歉，未找到结果")
         }
     }
     
@@ -156,16 +160,16 @@ extension CityController:UITableViewDataSource{
             let tmp:[String] = city_detail!.componentsSeparatedByString(":")
             if tmp[0] != "" {
                 if tmp[0] == tmp[2]{
-                    lb.text = tmp[0]
+                    lb.text = center.s2t(tmp[0])
                 }else{
-                    lb.text = tmp[0] + " " + tmp[2]
+                    lb.text = center.s2t(tmp[0] + " " + tmp[2])
                 }
             }else{
-                lb.text = tmp[1]
+                lb.text = center.s2t(tmp[1])
             }
 
         }else{
-            lb.text = city_name!
+            lb.text = center.s2t(city_name!)!
         }
         if city_detail == nil {
             cell.textLabel?.text = "\(city_name!):\(city_name!):\(city_name!)"
@@ -191,19 +195,19 @@ extension CityController:UITableViewDataSource{
             cell?.textLabel?.hidden = true //textColor = UIColor.whiteColor()
         
 
-            if center.isTwChinese(){
-                if isDefaultData {
-                     configureCityCell(cell!,lb:lb!,city_name: listData[indexPath.row],city_detail: nil)
-                }else{
-                    configureCityCell(cell!,lb:lb!,city_name: listData[indexPath.row],city_detail: nil)
-                }
-            }else{
+//            if center.isTwChinese(){
+//                if isDefaultData {
+//                    configureCityCell(cell!,lb:lb!,city_name: listData[indexPath.row],city_detail: nil)
+//                }else{
+//                    configureCityCell(cell!,lb:lb!,city_name: nil,city_detail: listData[indexPath.row])
+//                }
+//            }else{
                 if isDefaultData {
                     configureCityCell(cell!,lb:lb!,city_name: listData[indexPath.row],city_detail: nil)
                 }else{
                     configureCityCell(cell!,lb:lb!,city_name: nil,city_detail:listData[indexPath.row] )
                 }
-            }
+//            }
             return cell!;
 //        }
         
@@ -226,9 +230,9 @@ extension CityController:UITableViewDelegate {
         city.setCityName(detail[1])
 
         if city.district != nil && city.district != "" {
-            dict.setValue(city.district!, forKey: "city_display_name")
+            dict.setValue(center.s2t(city.district!)!, forKey: "city_display_name")
         }else if city.city_name != nil{
-            dict.setValue(city.city_name!, forKey: "city_display_name")
+            dict.setValue(center.s2t(city.city_name!)!, forKey: "city_display_name")
         }
         
         self.delegate?.setValue(dict)
@@ -261,7 +265,7 @@ extension CityController:UISearchBarDelegate,UISearchDisplayDelegate {
             }
         }
         searchBar.backgroundColor = self.view.backgroundColor
-        searchBar.placeholder = "输入城市关键词"
+        searchBar.placeholder = center.s2t("输入城市关键词")
         searchBar.becomeFirstResponder()
         autoLocationView.hidden = true
         lbHotCity.hidden = true
@@ -289,9 +293,8 @@ extension CityController:UISearchBarDelegate,UISearchDisplayDelegate {
         
     }
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//        println(searchText)
-        if count(searchText) > 2 && count(searchText) < 10 {
-            listData = City.selectDatabase(searchText)
+        if count(searchText) >= 1 && count(searchText) < 10 {
+            listData = City.selectDatabase(searchText.cleanCity())
             isDefaultData = false
         }else{
             if center.isTwChinese(){

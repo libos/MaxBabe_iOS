@@ -67,7 +67,6 @@ class SettingController: UIViewController {
 
     }
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        println("hhh")
         return true
     }
     @IBAction func LogoutUnwindSegue(segue:UIStoryboardSegue){

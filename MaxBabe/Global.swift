@@ -21,7 +21,7 @@ struct DeviceType
     static let IS_IPHONE_4_OR_LESS =  UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
     static let IS_IPHONE_5 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
     static let IS_IPHONE_6 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
-    static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+    static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH >= 736.0
 }
 final class Global {
     
@@ -29,7 +29,7 @@ final class Global {
     static let create_figure_table : String = "CREATE TABLE IF NOT EXISTS `figure` ( `id` integer primary key autoincrement , `fid` integer default 0, `filename` varchar(255) NOT NULL, `path` varchar(255) NOT NULL, `md5` varchar(255) NOT NULL, `download` integer default 0, `weather` varchar(255) NOT NULL, `ge_hour` integer default 0, `le_hour` integer default 24, `ge_week` integer default 0, `le_week` integer default 6, `ge_month` integer default 0, `le_month` integer default 31,  `ge_temp`integer default -100, `le_temp` integer default 100, `ge_aqi` integer default 0, `le_aqi` integer default 1000, `created` datetime default (datetime('now','localtime')));";
     static let create_oneword_table : String = "CREATE TABLE IF NOT EXISTS `oneword` ( `id` integer primary key autoincrement , `oid` integer default 0, `word` text NOT NULL, `weather` varchar(255) NOT NULL, `ge_hour` integer default 0, `le_hour` integer default 24, `ge_week` integer default 0, `le_week` integer default 6, `ge_month` integer default 0, `le_month` integer default 31, `ge_temp`integer default -100, `le_temp` integer default 100, `ge_aqi` integer default 0, `le_aqi` integer default 1000, `created` datetime default (datetime('now','localtime')));";
     static let create_splash_table : String = "CREATE TABLE IF NOT EXISTS `splash` ( `id` integer primary key autoincrement , `filename` varchar(255) NOT NULL, `path` varchar(255) NOT NULL, `md5` varchar(255) NOT NULL, `download` integer default 0, `created` datetime default (datetime('now','localtime')));";
-    static let create_city_table : String = "CREATE TABLE IF NOT EXISTS `city` ( `id` integer primary key , `name` varchar(255) NOT NULL, `pinyin` varchar(255) NOT NULL, `level2` varchar(255) NOT NULL, `province` varchar(255) NOT NULL);";
+    static let create_city_table : String = "CREATE TABLE IF NOT EXISTS `city` ( `id` integer primary key , `name` varchar(255) NOT NULL, `pinyin` varchar(255) NOT NULL, `level2` varchar(255) NOT NULL, `province` varchar(255) NOT NULL,`level2en` varchar(255) NOT NULL, `proven` varchar(255) NOT NULL);";
     
     
     
@@ -55,6 +55,7 @@ final class Global {
     
     static let cityDistrict:String = "city_district_name"
     static let cityCityName:String = "city_city_name"
+    static let cityCityDisplayName:String = "city_city_display_name"
     static let cityProvince:String = "city_province_name"
     
     
@@ -78,6 +79,8 @@ final class Global {
     static let haze_leve:[String] = ["icon_haze_level1","icon_haze_level2","icon_haze_level3","icon_haze_level4","icon_haze_level5","icon_haze_level6"]
     
     static let weather_icon_home:[String] = ["icon_home_weather_daytime_clear01","icon_home_weather_daytime_cloudy01","icon_home_weather_daytime_cloudy02","icon_home_weather_daytime_rain01","icon_home_weather_daytime_rain02","icon_home_weather_daytime_rain03","icon_home_weather_daytime_rain04","icon_home_weather_daytime_rain05","icon_home_weather_daytime_rain06","icon_home_weather_daytime_rain07","icon_home_weather_daytime_rain08","icon_home_weather_daytime_rain09","icon_home_weather_daytime_rain09","icon_home_weather_daytime_snow04","icon_home_weather_daytime_snow01","icon_home_weather_daytime_snow02","icon_home_weather_daytime_snow03","icon_home_weather_daytime_snow04","icon_home_weather_daytime_sandstorm01","icon_home_weather_daytime_sandstorm02","icon_home_weather_daytime_sandstorm03","icon_home_weather_daytime_sandstorm04","icon_home_weather_daytime_fog01","icon_home_weather_daytime_fog02","icon_home_weather_daytime_fog01","icon_home_weather_daytime_fog02","icon_home_weather_night_clear","icon_home_weather_night_cloudy","icon_home_weather_night_rain","icon_home_weather_night_snow"]
+    
+    static let weather_icon:[String] = ["icon_weather_daytime_cloudy01","icon_weather_daytime_cloudy02","icon_weather_daytime_rain01","icon_weather_daytime_rain02","icon_weather_daytime_rain03","icon_weather_daytime_rain04","icon_weather_daytime_rain05","icon_weather_daytime_rain06","icon_weather_daytime_rain07","icon_weather_daytime_rain08","icon_weather_daytime_rain09","icon_weather_daytime_rain09","icon_weather_daytime_snow04","icon_weather_daytime_snow01","icon_weather_daytime_snow02","icon_weather_daytime_snow03","icon_weather_daytime_snow04","icon_weather_daytime_sandstorm01","icon_weather_daytime_sandstorm02","icon_weather_daytime_sandstorm03","icon_weather_daytime_sandstorm04","icon_weather_daytime_fog01","icon_weather_daytime_fog02","icon_weather_daytime_fog01","icon_weather_daytime_fog02","icon_weather_night_clear","icon_weather_night_cloudy","icon_weather_night_rain","icon_weather_night_snow"]
     
     static let weather_icon_text:[String] = ["晴", "多云", "阴","阵雨", "雷阵雨", "冰雹", "雨夹雪", "小雨", "中雨", "大雨", "暴雨", "大暴雨", "特大暴","阵雪", "小雪", "中雪", "大雪", "暴雪", "浮尘", "扬沙", "沙尘暴", "强沙尘", "特强沙", "雾","浓雾", "强浓雾", "晴", "阴", "雨", "雪"]
     
@@ -123,11 +126,15 @@ final class Global {
         let components = calendar.components(NSCalendarUnit.CalendarUnitHour, fromDate: now)
         var hour =  components.hour
         
-        if hour < 17 && hour >= 6 {
-            return UIColor(rgba: "#02a8f3")
-        }else if hour >= 17 && hour <= 18 {
+        let sun = Weather.getInstance.getSunHour()
+        let sunrise = sun.0
+        let presunset = sun.1
+        let sunset = sun.2
+        if hour < presunset && hour >= sunrise {
+            return UIColor(rgba: "#58A8C9")
+        }else if hour >= presunset && hour < sunset {
             return UIColor(rgba: "#d8612a")
-        }else if hour > 18 && hour < 23 {
+        }else if hour >= sunset && hour <= 23 {
             return UIColor(rgba: "#4a5999")
         }else{ //if hour >=23 || hour <6 {
             return UIColor(rgba: "#243359")

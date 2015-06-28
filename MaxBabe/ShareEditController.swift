@@ -28,7 +28,8 @@ class ShareEditController: UIViewController {
     @IBOutlet weak var listPanelCenterX: NSLayoutConstraint!
     
     let screen_size = UIScreen.mainScreen().bounds.size
-
+    private let center = Center.getInstance
+    
     var currentState:Int = 0
     var list_choosed:String? = nil
     var ret_str:String? = nil
@@ -60,7 +61,7 @@ class ShareEditController: UIViewController {
         editModeField.attributedText = strPre
         
         var len = 45 - count(editModeField.text)
-        lbLeftNumber.text = "还可输入 \(len) 字"
+        lbLeftNumber.text = center.s2t("还可输入 \(len) 字")
         
         
         wordsList = Oneword.getShareEdit()
@@ -227,7 +228,7 @@ extension ShareEditController:UITableViewDataSource,UITableViewDelegate{
         cell?.textLabel?.hidden = true
         
         var oRange = NSMakeRange(0, count(self.wordsList[indexPath.section]))
-        var strPre = NSMutableAttributedString(string: self.wordsList[indexPath.section])
+        var strPre = NSMutableAttributedString(string: center.s2t(self.wordsList[indexPath.section])!)
         strPre.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
         strPre.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: oRange)
         var linestyle = NSMutableParagraphStyle()
@@ -293,7 +294,7 @@ extension ShareEditController:UITextViewDelegate{
         if len <= 0 {
             len = 0
         }
-        lbLeftNumber.text = "还可输入 \(len) 字"
+        lbLeftNumber.text = center.s2t("还可输入 \(len) 字")!
     }
 }
 

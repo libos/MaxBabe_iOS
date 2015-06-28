@@ -15,6 +15,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     
     @IBOutlet var rootView: UIView!
     
+    @IBOutlet weak var mBackgroundAnim: UIView!
+    
     @IBOutlet weak var mBackground: UIImageView!
     @IBOutlet weak var mFigure: UIImageView!
     
@@ -25,15 +27,17 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     
     @IBOutlet weak var tvWeather: UILabel!
     @IBOutlet weak var ivWeather: UIImageView!
-    @IBOutlet weak var mTemp: UILabel!
+    @IBOutlet weak var mTemp: UICountingLabel!
     @IBOutlet weak var lbWind: UILabel!
     @IBOutlet weak var lbHumi: UILabel!
     
     @IBOutlet weak var lbLocation: UILabel!
     @IBOutlet weak var lbUpdateTime: UILabel!
     
-   
-//    @IBOutlet weak var lbTomoWeather: UILabel!
+    @IBOutlet weak var lbWordCenterY: NSLayoutConstraint!
+    
+    @IBOutlet weak var animWindLeft: NSLayoutConstraint!
+//
 //    @IBOutlet weak var lbTomoHighTemp: UILabel!
 //    @IBOutlet weak var lbTomoLowTemp: UILabel!
     
@@ -52,12 +56,22 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 
     @IBOutlet weak var viewLay: UIView!
 
+    
+    @IBOutlet weak var mTempHorizon:NSLayoutConstraint!
+    
+    @IBOutlet weak var mWeatherIconHorizon:NSLayoutConstraint!
+    @IBOutlet weak var mWeatherHorizon:NSLayoutConstraint!
+    
+    var nothing:UIView!
+    var form_init:Bool = true
+    var ptf : SSPullToRefreshView!
+    
     var screenHeight:CGFloat!
     var screenWidth:CGFloat!
     //    var blurredImageView:UIImageView!
     //    var blurredFigureView:UIImageView!
     var detailView:UIScrollView!
-    var refreshControl:UIRefreshControl!
+//    var refreshControl:UIRefreshControl!
     let center:Center = Center.getInstance
     let weather:Weather = Weather.getInstance
     var page2:UIView!
@@ -112,9 +126,14 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     var isViewAppeared:Bool = false
     var part_ten:CGFloat =  0
     var colorOfhour = Global.colorOfhour()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.nothing = UIView()
+        self.view.addSubview(self.nothing)
+        self.form_init = true
+        
         self.ivPage2Location = UIImageView(image: UIImage(named: "icon_list_location"))
         self.ivPage2Location.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.lbPage2Location = UILabel()
@@ -124,11 +143,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.lbPage2Location.font = UIFont.systemFontOfSize(15.0)
         if city.city_name != nil {
             if city.district != nil && city.district != "" {
-                lbLocation.text = city.district
-                self.lbPage2Location.text = city.district
+                let tmp = center.s2t(city.district)
+                lbLocation.text = tmp
+                self.lbPage2Location.text = tmp
             }else if city.city_name != nil{
-                lbLocation.text = city.city_name
-                self.lbPage2Location.text = city.city_name
+                let tmp = center.s2t(city.city_name)
+                lbLocation.text = tmp
+                self.lbPage2Location.text = tmp
             }
         }
         city.addObserver(self, forKeyPath: "city_name", options: NSKeyValueObservingOptions.New, context: nil)
@@ -144,31 +165,32 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 //        let xxx:UIView = UIView(frame: self.view.frame)
 //        xxx.drawRect(self.view.layer.renderInContext(UIGraphicsGetCurrentContext()))
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: "refreshTask:", forControlEvents: UIControlEvents.ValueChanged)
+//        self.refreshControl = UIRefreshControl()
+//        self.refreshControl.addTarget(self, action: "refreshTask:", forControlEvents: UIControlEvents.ValueChanged)
         
-
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         self.detailView = UIScrollView(frame: self.view.bounds)
         self.detailView.contentSize = CGSizeMake(self.detailView.frame.size.width,self.detailView.frame.size.height*2)
         self.detailView.backgroundColor = UIColor.clearColor()//UIColor(white: 0, alpha: 0.8)
         self.detailView.delegate = self
         self.detailView.pagingEnabled = true
         self.detailView.scrollEnabled = true
+        self.detailView.alwaysBounceVertical = false
+        self.detailView.alwaysBounceHorizontal = false
         self.detailView.showsHorizontalScrollIndicator = false
         self.detailView.showsVerticalScrollIndicator = false
-        self.detailView.addSubview(self.refreshControl)
         
-        
-        self.view.addSubview(self.detailView)
-        
-//        let nextFrame = UIScreen.mainScreen().bounds
-
-      
         self.page2 = UIView(frame: CGRect(x: 0, y: screenHeight , width: self.view.bounds.size.width, height: screenHeight))
         self.page2.backgroundColor = Global.colorOfhour()
+        viewLay.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         self.detailView.addSubview(viewLay)
         self.detailView.addSubview(page2)
+        self.view.addSubview(self.detailView)
+        
+        ptf = SSPullToRefreshView(scrollView: detailView, delegate: self)
+        ptf.contentView = UIPtfView(frame: CGRectZero)
         
         layer_center = UIView()
         layer_center.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -205,6 +227,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.page2.addSubview(ivPage2Location)
         self.page2.addSubview(lbPage2Location)
 
+        
+        viewLay.addConstraint(NSLayoutConstraint(item: viewLay, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: screenWidth))
+        viewLay.addConstraint(NSLayoutConstraint(item: viewLay, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: screenHeight))
+        detailView.addConstraint(NSLayoutConstraint(item: viewLay, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: detailView, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 0))
+        detailView.addConstraint(NSLayoutConstraint(item: viewLay, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: detailView, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 0))
+
+        
         self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20))
         self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20))
         self.page2.addConstraint(NSLayoutConstraint(item: self.ivPage2Location, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 20))
@@ -257,21 +286,44 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         let aTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(200.0, target: self, selector: "changePublishTime:", userInfo: nil, repeats: true)
         aTimer.fire()
         
-        let weatherDataTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "timerFiredTask:", userInfo: nil, repeats: true)
+        let weatherDataTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(180.0, target: self, selector: "timerFiredTask:", userInfo: nil, repeats: true)
         weatherDataTimer.fire()
 
+        // MARK: - Init Animation Pre
+        mTempHorizon.constant = 50
+        self.mTemp.layoutIfNeeded()
+        self.ivWeather.layoutIfNeeded()
+        self.tvWeather.layoutIfNeeded()
+        
+        
+        animWindLeft.constant = -50
+        self.lbWind.alpha = 0.0
+        self.ivWind.alpha = 0.0
+        self.lbHumi.alpha = 0.0
+        self.ivWet.alpha = 0.0
+        self.ivAqi.alpha = 0.0
+        self.lbAqi.alpha = 0.0
+        self.lbWind.layoutIfNeeded()
+        self.ivWind.layoutIfNeeded()
+        self.lbHumi.layoutIfNeeded()
+        self.ivWet.layoutIfNeeded()
+        self.ivAqi.layoutIfNeeded()
+        self.lbAqi.layoutIfNeeded()
+        
     }
     
     // MARK: - Observer
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if keyPath == "city_name"{
             if city.district != nil && city.district != "" {
-                lbLocation.text = city.district
-                self.lbPage2Location.text = city.district
+                let tmp = center.s2t(city.district)
+                lbLocation.text = tmp
+                self.lbPage2Location.text = tmp
 
             }else if city.city_name != nil{
-                lbLocation.text = city.city_name
-                self.lbPage2Location.text = city.city_name
+                let tmp = center.s2t(city.city_name)
+                lbLocation.text = tmp
+                self.lbPage2Location.text = tmp
 
             }
             city.removeObserver(self, forKeyPath: "city_name")
@@ -335,7 +387,6 @@ class ViewController: UIViewController,UIScrollViewDelegate{
                 self.lineChartSetup()
             }
         }
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -355,31 +406,75 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         }
 //        let bTimer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(100.0, target: self, selector: "timerWeekDataDownloadFired:", userInfo: nil, repeats: true)
 //        bTimer.fire()
+        
+        
+        //MARK: - Init Animation
+        //
+//                let animation:CATransition = CATransition()
+//                animation.timingFunction = CAMediaTimingFunction(name:
+//                    kCAMediaTimingFunctionLinear)
+//                animation.type = kCATransitionFromRight
+//                animation.duration = 1
+//                animation.delegate = self
+//                animation.setValue("the_init_mTemp_animation", forKey: "id")
+//                self.mTemp.layer.addAnimation(animation, forKey: kCATransitionFromRight)
+        //    @IBOutlet weak var mWeatherIconHorizon:NSLayoutConstraint!
+//        @IBOutlet weak var mWeatherHorizon:NSLayoutConstraint!
+
+        UIView.animateKeyframesWithDuration(2, delay: 0, options: UIViewKeyframeAnimationOptions.CalculationModeLinear, animations: { () -> Void in
+            
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: { () -> Void in
+                self.mTempHorizon.constant = 16
+                self.mTemp.layoutIfNeeded()
+                self.tvWeather.layoutIfNeeded()
+                self.ivWeather.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.3, relativeDuration: 0.5, animations: { () -> Void in
+                self.lbWind.alpha = 1.0
+                self.ivWind.alpha = 1.0
+                self.animWindLeft.constant = 26
+                self.lbWind.layoutIfNeeded()
+                self.ivWind.layoutIfNeeded()
+
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.4, relativeDuration: 0.5, animations: { () -> Void in
+                self.lbHumi.alpha = 1.0
+                self.ivWet.alpha = 1.0
+                self.lbHumi.layoutIfNeeded()
+                self.ivWet.layoutIfNeeded()
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                self.ivAqi.alpha = 1.0
+                self.lbAqi.alpha = 1.0
+                self.ivAqi.layoutIfNeeded()
+                self.lbAqi.layoutIfNeeded()
+            })
+            }) { (finished:Bool) -> Void in
+            
+        }
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         MobClick.endLogPageView(toString(self.dynamicType))
     }
     
-    // MARK: - Pull to Refresh Task  000
-    func refreshTask(refreshC:UIRefreshControl){
-        //        refreshC.attributedTitle = NSAttributedString(string: "Refreshing data...")
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
-            //            NSThread.sleepForTimeInterval(3)
-            
-            dispatch_async(dispatch_get_main_queue(),{
-                self.center.start(updateViews: {
-                    self.updateView()
-                    refreshC.endRefreshing()
-                })
-            })
-        })
-    }
-    
     // MARK: - Timer Weather Data  111
     func timerFiredTask(timer:NSTimer){
+        
+        if !NSUserDefaults.standardUserDefaults().boolForKey(Global.SETTING_SWITCH_AUTOUPDATE) {
+            return
+        }
+        
+        var cv = (self.ptf.contentView as! UIPtfView).updateTime
+        if cv != nil {
+            let elapsedTime = NSDate().timeIntervalSinceDate(cv!)
+            
+            if elapsedTime < 90.0 {
+                return
+            }
+        }
         self.center.start(updateViews: {
-            self.updateView()
+//            self.updateView()
         })
     }
     
@@ -401,23 +496,36 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     }
     
     func updateView(){
-        if weather.getTemp() == nil {
-            self.mTemp.text = "0°"
+        self.mTemp.format = "%d°"
+        self.mTemp.method = UILabelCountingMethodEaseInOut
+        if self.form_init {
+            self.mTemp.animationDuration = 3.0
+            self.form_init = false
         }else{
-            self.mTemp.text = "\(weather.getTemp()!)°"
+            self.mTemp.animationDuration = 1.0
+        }
+        if weather.getTemp() == nil {
+            self.mTemp.countFromCurrentValueTo(0)
+        }else{
+            if self.form_init {
+                self.mTemp.countFromZeroTo(Float(weather.getTemp()!.toInt()!))
+            }else{
+                self.mTemp.countFromCurrentValueTo(Float(weather.getTemp()!.toInt()!))
+            }
+//            self.mTemp.text = "\(weather.getTemp()!)°"
         }
         if weather.getWeather() == nil {
             self.tvWeather.text = "晴"
         }else{
             let wwwww = weather.getWeather()!
-            self.tvWeather.text = "\(wwwww)"
+            self.tvWeather.text = center.s2t("\(wwwww)")!
             self.ivWeather.image = center.getWeatherIcon(wwwww)
         }
         
         
         //Todo set icon
         //
-        if let aqi = weather.data.aqi {
+        if let aqi = weather.getAqi() {
             if aqi != 0{
 //                self.ivHazeEnd.hidden = false
 //                self.ivHazeBegin.hidden = false
@@ -448,7 +556,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
                 //Global.haze_leve[haze_level]
                 self.ivAqi.image = UIImage(named: "icon_home_aqi" )
                 self.ivAqi.contentMode = UIViewContentMode.ScaleAspectFit
-                self.lbAqi.text = aqi_msg
+                self.lbAqi.text = center.s2t(aqi_msg)
                 self.lbAqi.textAlignment = NSTextAlignment.Center
             }
         }else{
@@ -489,9 +597,9 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 //                self.lbTomoLowTemp.text = "\(low)"
 //            }
 //        }
-        let humi = weather.data.humidity
+        let humi = weather.getHumi()
         if humi != nil && humi != "" {
-            self.lbHumi.text = "湿度 " + humi!
+            self.lbHumi.text = center.s2t("湿度 ")! + humi!
             self.ivWet.hidden = false
             self.lbHumi.hidden = false
         }else{
@@ -499,7 +607,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             self.ivWet.hidden = true
             self.lbHumi.hidden = true
         }
-        let wind = weather.data.fenglevel
+        let wind = weather.getWindLevel()
         if wind != nil && wind != ""  {
             self.lbWind.text = getWindDisplay(wind!)
             self.ivWind.hidden = false
@@ -515,30 +623,92 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         let cf:Chosen? = Figure.getOne()
         let co:Chosen? = Oneword.getOne()
         if let word = co?.comment{
-            st.setValue(word, forKey: Global.THE_WORD)
-            let oRange = NSMakeRange(0, count(word))
-            var words = NSMutableAttributedString(string: word)
-            words.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
-            var linestyle = NSMutableParagraphStyle()
-            linestyle.lineHeightMultiple = 1.42
-            linestyle.alignment = NSTextAlignment.Center
-            words.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: oRange)
-            words.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: oRange)
-            //            self.lbWord.shadowColor = UIColor(white: 0, alpha: 0.5)
-            //            self.lbWord.shadowOffset = CGSizeMake(6,6)
-            self.lbWord.layer.shadowColor = UIColor.blackColor().CGColor
-            self.lbWord.layer.shadowRadius = 6.0
-            self.lbWord.layer.shadowOpacity = 0.5
-            self.lbWord.layer.shadowOffset = CGSizeMake(0, 0)
-            self.lbWord.attributedText = words
+           
+
+
+
+            UIView.animateKeyframesWithDuration(2, delay: 0, options: UIViewKeyframeAnimationOptions.AllowUserInteraction , animations: { () -> Void in
+                
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: { () -> Void in
+                    self.lbWord.alpha = 0.0
+                })
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: { () -> Void in
+                    self.lbWordCenterY.constant = -95
+                    self.lbWord.layoutIfNeeded()
+                })
+                UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                    self.lbWord.alpha = 1.0
+                })
+                UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                    self.lbWordCenterY.constant = -75
+                    self.lbWord.layoutIfNeeded()
+                })
+
+                }, completion: { (finished:Bool) -> Void in
+                    if finished {
+                        
+                    }
+            })
+           
+            let animation:CATransition = CATransition()
+            animation.timingFunction = CAMediaTimingFunction(name:
+                kCAMediaTimingFunctionLinear)
+            animation.type = kCATransitionFade
+            animation.duration = 1
+            animation.delegate = self
+            animation.setValue("the_word_show_animation", forKey: "id")
+            self.nothing.layer.addAnimation(animation, forKey: kCATransitionFade)
+
+
+            
+            
+//            var anim_group:CAAnimationGroup = CAAnimationGroup()
+//            anim_group.animations =
+//            UIView.transitionWithView(self.lbWord, duration: 1.5, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+//                self.labelUpdate(word)
+//                }, completion: { (finished:Bool) -> Void in
+//                
+//            })
+
+            
+            
+//            UIView.animateWithDuration(1.5, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+////                self.lbWordCenterY.constant = -95
+////                self.lbWord.layoutIfNeeded()
+//                self.lbWord.center.y += 20
+//                self.lbWord.alpha = 0.0
+//                }, completion: { (finished:Bool) -> Void in
+//                    self.labelUpdate(word)
+//                    UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+////                        self.lbWordCenterY.constant = -75
+////                        self.lbWord.layoutIfNeeded()
+//                        self.lbWord.center.y -= 20
+//                        self.lbWord.alpha = 1.0
+//                    }, completion: nil)
+//
+//            })
+
+ 
+
+    
         }
         if let pathBack = cb?.path {
             
             let tmp_path = center.getPath(pathBack)
             if NSFileManager().fileExistsAtPath(tmp_path){
-                self.mBackground.image = UIImage(contentsOfFile: tmp_path)
-                self.mBackground.contentMode = UIViewContentMode.ScaleAspectFill
-                st.setValue(tmp_path, forKey: Global.THE_BACKGROUND)
+                UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+                    self.mBackgroundAnim.alpha = 0.6
+                }, completion: { (finished:Bool) -> Void in
+                    self.mBackground.image = UIImage(contentsOfFile: tmp_path)
+                    self.mBackground.contentMode = UIViewContentMode.ScaleAspectFill
+                    st.setValue(tmp_path, forKey: Global.THE_BACKGROUND)
+                    UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                        self.mBackgroundAnim.alpha = 0.0
+                    }, completion: { (finise2:Bool) -> Void in
+                        
+                    })
+                })
+
             }
         }
         if let pathFig = cf?.path {
@@ -549,6 +719,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             animation.values = Global.animationArray
             animation.repeatCount = 1
             animation.delegate = self
+            animation.setValue("the_figure_show_animation", forKey: "id")
             self.mFigureAnimation.layer.addAnimation(animation, forKey: "animation")
 
             self.mFigure.alpha = 0.0
@@ -563,18 +734,45 @@ class ViewController: UIViewController,UIScrollViewDelegate{
 //
 
     }
-    
+    func labelUpdate(word:String){
+        var st = NSUserDefaults.standardUserDefaults()
+        st.setValue(word, forKey: Global.THE_WORD)
+        let oRange = NSMakeRange(0, count(word))
+        var words = NSMutableAttributedString(string: self.center.s2t(word)!)
+        words.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
+        var linestyle = NSMutableParagraphStyle()
+        linestyle.lineHeightMultiple = 1.42
+        linestyle.alignment = NSTextAlignment.Center
+        words.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: oRange)
+        words.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: oRange)
+        
+        self.lbWord.layer.shadowColor = UIColor.blackColor().CGColor
+        self.lbWord.layer.shadowRadius = 6.0
+        self.lbWord.layer.shadowOpacity = 0.5
+        self.lbWord.layer.shadowOffset = CGSizeMake(0, 0)
+        self.lbWord.attributedText = words
+
+    }
 
     override func animationDidStart(anim: CAAnimation!) {
         println("start")
-        UIView.animateWithDuration(0.01, delay: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-            self.mFigure.alpha = 1.0
-            }, completion: { (finished:Bool) -> Void in
-//              self.mFigure.alpha = 1.0
-        })
+        if (anim.valueForKey("id") as? String) ==  "the_figure_show_animation" {
+            UIView.animateWithDuration(0.01, delay: 0.3, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+                self.mFigure.alpha = 1.0
+                }, completion: { (finished:Bool) -> Void in
+
+            })
+        }
     }
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         println("done")
+
+        if (anim.valueForKey("id") as? String) ==  "the_word_show_animation" {
+            let co:Chosen? = Oneword.getOne()
+            if let word = co?.comment{
+                labelUpdate(word)
+            }
+        }
     }
 
     func chi_week(dayInWeek:Int) -> String {
@@ -601,6 +799,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
     }
     
     deinit{
+//        self.ptf = nil
         city.removeObserver(self, forKeyPath: "city_name")
         weather.removeObserver(self, forKeyPath: "state")
         weather.removeObserver(self, forKeyPath: "dailyState")
@@ -616,13 +815,21 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.page2.backgroundColor = colorOfhour
         self.viewLay.backgroundColor = colorOfhour
     }
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= screenHeight/2 {
+            scrollView.setContentOffset(CGPointMake(0, 0), animated: true)
+        }
+    }
     // MARK: - Scroll Percent
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        scrollView.bounces = (scrollView.contentOffset.y < screenHeight)
+        if (scrollView.contentOffset.y <= -100) {
+            scrollView.contentOffset = CGPointMake(0, -100)
+        }
         let height:CGFloat = scrollView.bounds.size.height
         let position:CGFloat = max(scrollView.contentOffset.y, 0.0)
         // 2
         let percent:CGFloat = 1 - min(position / height, 1.0)
-        scrollView.bounces = (scrollView.contentOffset.y < 200)
         
         if percent > 0.9 {
             self.view.sendSubviewToBack(openCityBtn)
@@ -686,7 +893,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         default:
             ret = "龙~卷~风~"
         }
-        return ret
+        return center.s2t(ret)!
     }
     func clockSetupx(timer:NSTimer){
          isClockSetup = false
@@ -753,7 +960,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         ivWeatherIcon.image = center.getWeatherIconBig(nowTimeTuple!.1,hour:hourx)
         var strW = nowTimeTuple!.1
         let oRange = NSMakeRange(0, count(strW))
-        var strWeather = NSMutableAttributedString(string: strW)
+        var strWeather = NSMutableAttributedString(string: center.s2t(strW)!)
         strWeather.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
         strWeather.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(10), range: oRange)
         lbTodayWeather.layer.shadowColor = UIColor.blackColor().CGColor
@@ -976,7 +1183,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         var lowMax = highData.reduce(Int.max, combine: { min($0, $1) })
         var maxDiff = highMax - lowMax
 
-        var high_granularity:CGFloat = 4.5             //0.0075 * screenHeight         // 5px
+        var high_granularity:CGFloat = 4             //0.0075 * screenHeight         // 5px
         
         if maxDiff > 10 && maxDiff <= 34 {
             high_granularity = 2             //0.003 * screenHeight         // 2px
@@ -984,13 +1191,13 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             high_granularity = 1             //0.0015 * screenHeight         // 1px
         }
         
-        var curveTopBaseLine = high_baseline + high_granularity * 8
+        var curveTopBaseLine = high_baseline + high_granularity * 8 + 10
         
         highMax = lowData.reduce(Int.min, combine: { max($0, $1) })
         lowMax = lowData.reduce(Int.max, combine: { min($0, $1) })
         maxDiff = highMax - lowMax
         
-        var low_granularity:CGFloat = 4.5             //0.0075 * screenHeight         // 5px
+        var low_granularity:CGFloat = 4             //0.0075 * screenHeight         // 5px
         
         if maxDiff > 10 && maxDiff <= 34 {
             low_granularity = 2             //0.003 * screenHeight         // 2px
@@ -1037,7 +1244,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
                 str_time = "\(month)/\(day)\n" + chi_week(dayInWeek)
             }
             var range = NSMakeRange(0, count(str_time))
-            var str_attribute = NSMutableAttributedString(string: str_time)
+            var str_attribute = NSMutableAttributedString(string: center.s2t(str_time)!)
             str_attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: range)
             str_attribute.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(13), range: range)
             var linestyle = NSMutableParagraphStyle()
@@ -1195,9 +1402,9 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         
         // layer_center top margin
         if DeviceType.IS_IPHONE_6P {
-            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30))
+            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 50))
         }else{
-        self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 20))
+            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 20))
         }
         // Center Weather Icon Constrain
         ivWeatherIcon.addConstraint(NSLayoutConstraint(item: ivWeatherIcon, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant:62))
@@ -1259,7 +1466,7 @@ extension ViewController{
         } else {
             tip = "\(minutes)分钟前更新"//res.getString(R.string.minutes_ago);
         }
-        lbUpdateTime.text = tip;
+        lbUpdateTime.text = center.s2t(tip)
         
     }
 }
@@ -1277,13 +1484,53 @@ extension ViewController:PassValueDelegate{
                 isClockSetup = false
                 isChartSetup = false
                 self.center.start(updateViews: {
-                    self.updateView()
+//                    self.updateView()
                 })
             }
         }
     }
 }
 
+// MARK: - Pull to Refresh Task  000
+//func refreshTask(refreshC:UIRefreshControl){
+//    //        refreshC.attributedTitle = NSAttributedString(string: "Refreshing data...")
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+//        //            NSThread.sleepForTimeInterval(3)
+//        
+//        dispatch_async(dispatch_get_main_queue(),{
+//            self.center.start(updateViews: {
+//                self.updateView()
+//                refreshC.endRefreshing()
+//            })
+//        })
+//    })
+//}
+extension ViewController : SSPullToRefreshViewDelegate{
+    func pullToRefreshViewDidStartLoading(view: SSPullToRefreshView!) {
+        self.ptf.startLoading()
+        self.center.start(updateViews: {
+//            self.updateView()
+               //finishLoadingAnimated(true, completion: nil)
+        })
+        self.ptf.finishLoading()
+    }
+    func pullToRefreshViewShouldStartLoading(view: SSPullToRefreshView!) -> Bool {
+        var cv = (self.ptf.contentView as! UIPtfView).updateTime
+        if cv == nil {
+            return true
+        }
+        
+        let elapsedTime = NSDate().timeIntervalSinceDate(cv!)
+        
+        if elapsedTime < 3.0 {
+            self.view.makeToast(message: center.s2t("别刷了，刷碗都没见你这么积极！")!, duration: 3, position: "top")
+            return false
+        }
+        
+        return true
+    }
+
+}
 
 
 

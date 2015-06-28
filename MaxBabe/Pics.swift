@@ -45,22 +45,30 @@ class Pics {
         let month = String(format: "%02d", components.month)
         let week  = String(format: "%02d", components.weekday-1)
         
-        var aqi = ""
-        if wea.data.aqi != nil {
-            aqi = "\(wea.data.aqi!)"
+        var aqi = "48"
+        
+        if wea.getAqi() != nil {
+            aqi = "\(wea.getAqi()!)"
         }
+
         let temp = "\(wea.getTemp()!)"
         let weather = "\(wea.getWeather()!)"
         
-        var params:Dictionary = ["id":city!,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,"weather":weather,"reso":reso]
+        let sunhour = wea.getSunHour()
+        let sunrise = sunhour.0
+        let presunset = sunhour.1
+        let sunset  = sunhour.2
         
+        var params:Dictionary = ["id":city!,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,
+            "weather":weather,"reso":reso,"sunrise":"\(sunrise)","sunset":"\(sunset)","presunset":"\(presunset)"]
+
         println(params.description)
         let manager = AFHTTPRequestOperationManager()
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
 
         manager.POST(
-            "http://api.babe.maxtain.com/pic_info_iphone.php", parameters: params,
+            "http://apibabe.maxtain.com/pic_info_iphone.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
                 println(response.description)
                 self.updateSuccess(response as? Dictionary!)
@@ -73,7 +81,7 @@ class Pics {
     }
     func updateSuccess(json : Dictionary<String,String>!)
     {
-        if json["state"] != "err"
+        if json != nil && json["state"] != "err"
         {
             data.background.background = json["background"]!
             data.background.bgeaqi = json["bgeaqi"]!

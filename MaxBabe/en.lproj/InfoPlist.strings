@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  MaxBabe
+
+  Created by Liber on 6/22/15.
+  Copyright (c) 2015 Maxtain. All rights reserved.
+*/
+"CFBundleDisplayName"="MaxBabe";
+"NSLocationAlwaysUsageDescription"="Please allow us to use your location.";
+"NSLocationUsageDescription"="Please allow us to use your location.";

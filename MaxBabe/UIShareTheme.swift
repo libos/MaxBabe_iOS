@@ -24,6 +24,9 @@ class UIShareTheme: UIView {
     var hotSpot:UIButton = UIButton()
     var uiWord:UIView?
     var filepath:String?
+    
+    let centerx = Center.getInstance
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,8 +68,12 @@ class UIShareTheme: UIView {
 
         
     }
-
+    deinit{
+        
+    }
     
+
+
     func getId(ele:UnsafeMutablePointer<TBXMLElement>)->String?{
         var attr:UnsafeMutablePointer<TBXMLAttribute> = ele.memory.firstAttribute
         if attr == nil {
@@ -103,7 +110,7 @@ class UIShareTheme: UIView {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay, fromDate: now)
         
-        return template.stringByReplacingOccurrencesOfString("{name}", withString: Center.getInstance.getUserName()).stringByReplacingOccurrencesOfString("{Y}", withString: "\(components.year)").stringByReplacingOccurrencesOfString("{m}", withString: "\(components.month)").stringByReplacingOccurrencesOfString("{d}", withString: "\(components.day)").stringByReplacingOccurrencesOfString("{city}", withString: City.getInstance.city_name!)
+        return template.stringByReplacingOccurrencesOfString("{name}", withString: Center.getInstance.getUserName()).stringByReplacingOccurrencesOfString("{Y}", withString: "\(components.year)").stringByReplacingOccurrencesOfString("{m}", withString: "\(components.month)").stringByReplacingOccurrencesOfString("{d}", withString: "\(components.day)").stringByReplacingOccurrencesOfString("{city}", withString: centerx.s2t(City.getInstance.city_name)!)
     }
     
     func imageWidth(sourceImage:UIImage,i_width:CGFloat) -> UIImage {
@@ -153,11 +160,15 @@ class UIShareTheme: UIView {
                     str = the_word + "\n" + processText(TBXML.textForElement(element))
                 }
                 oRange = NSMakeRange(0, count(str))
-                words = NSMutableAttributedString(string: str)
+                words = NSMutableAttributedString(string: centerx.s2t(str)!)
                 (new_view as! UILabel).numberOfLines = 0
                 (new_view as! UILabel).lineBreakMode = NSLineBreakMode.ByCharWrapping
             }else if elename == "background"{
-                new_view =  UIImageView(image: UIImage(contentsOfFile: the_background)!)
+                if NSFileManager().fileExistsAtPath(the_background) {
+                    new_view =  UIImageView(image: UIImage(contentsOfFile: the_background)!)
+                }else{
+                    new_view =  UIImageView(image: UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource("daytime_clear01", ofType: "png")!)!)
+                }
                 (new_view as! UIImageView).contentMode = UIViewContentMode.ScaleAspectFill
                 (new_view as! UIImageView).clipsToBounds = true
             }else if elename == "figure"{
@@ -167,7 +178,7 @@ class UIShareTheme: UIView {
                 new_view  = UILabel()
                 var city = City.getInstance
                 oRange = NSMakeRange(0, count(city.city_name!))
-                words = NSMutableAttributedString(string: city.city_name!)
+                words = NSMutableAttributedString(string: centerx.s2t(city.city_name)!)
                 isLabel = true
             }else if elename == "date"{
                 new_view  = UILabel()
@@ -175,7 +186,7 @@ class UIShareTheme: UIView {
                 var tip = processText(TBXML.textForElement(element))
                 
                 oRange = NSMakeRange(0, count(tip))
-                words = NSMutableAttributedString(string: tip)
+                words = NSMutableAttributedString(string: centerx.s2t(tip)!)
                 isLabel = true
             }else if elename == "temperature"{
                 new_view  = UILabel()
@@ -194,7 +205,7 @@ class UIShareTheme: UIView {
                     weatherText = "\(weather.getWeather()!)"
                 }
                 oRange = NSMakeRange(0, count(weatherText))
-                words = NSMutableAttributedString(string: weatherText)
+                words = NSMutableAttributedString(string: centerx.s2t(weatherText)!)
                 isLabel = true
             }else if elename == "weatherIcon"{
                 var weatherText = "晴"
@@ -210,18 +221,18 @@ class UIShareTheme: UIView {
             }else if elename == "appName" {
                 new_view  = UILabel()
                 oRange = NSMakeRange(0, count("麦宝星"))
-                words = NSMutableAttributedString(string: "麦宝星")
+                words = NSMutableAttributedString(string: centerx.s2t("麦宝星")!)
                 isLabel = true
             }else if elename == "appDescription" {
                 new_view  = UILabel()
                 oRange = NSMakeRange(0, count("史上最萌的天气预报"))
-                words = NSMutableAttributedString(string: "史上最萌的天气预报")
+                words = NSMutableAttributedString(string: centerx.s2t("史上最萌的天气预报")!)
                 isLabel = true
             }else if elename == "p"{
                 new_view  = UILabel()
                 var text = processText(TBXML.textForElement(element))
                 oRange = NSMakeRange(0, count(text))
-                words = NSMutableAttributedString(string: text)
+                words = NSMutableAttributedString(string: centerx.s2t(text)!)
                 (new_view as! UILabel).numberOfLines = 0
                 isLabel = true
             }else{

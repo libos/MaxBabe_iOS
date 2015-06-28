@@ -26,7 +26,7 @@ class UIQueryController: UIViewController {
 
     func warningShow(msg:String){
         TSMessage.dismissActiveNotification()
-        TSMessage.showNotificationInViewController(self, title: msg, subtitle: "", type: TSMessageNotificationType.Warning, duration: 10 , canBeDismissedByUser: true)
+        TSMessage.showNotificationInViewController(self, title: Center.getInstance.s2t(msg), subtitle: "", type: TSMessageNotificationType.Warning, duration: 4 , canBeDismissedByUser: true)
     }
     
     func initWithIndictor(){

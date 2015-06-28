@@ -125,11 +125,11 @@ extension FirstStartController:UIScrollViewDelegate{
             self.pageControl.currentPage = page
             if page > 1{
                 self.scrollView.backgroundColor = UIColor(rgba: "#D46E64")
-                continueBtn.setTitle("开启", forState: UIControlState.Normal)
+                continueBtn.setTitle(Center.getInstance.s2t("开启")!, forState: UIControlState.Normal)
                 performJump = true
             }else{
                 self.scrollView.backgroundColor = UIColor(rgba: "#836DB2")
-                continueBtn.setTitle("继续", forState: UIControlState.Normal)
+                continueBtn.setTitle(Center.getInstance.s2t("继续")!, forState: UIControlState.Normal)
                 performJump = false
             }
         }

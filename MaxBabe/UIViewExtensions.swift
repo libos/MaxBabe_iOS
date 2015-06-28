@@ -9,14 +9,31 @@
 import Foundation
 
 extension UIView {
-    func screenshotImage(scale: CGFloat = 0.0) -> UIImage {
-        println(frame.size)
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
-        drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+    
+//    func screenshotImage(scale: CGFloat = 0.0) -> UIImage {
+//        var image:UIImage?
+//        
+//        autoreleasepool{
+//            UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+//            drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
+//            image = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//        }
+//        return image!
+//    }
+    func screenshotImage(scale: CGFloat = 0.0) -> UnsafeMutablePointer<UIImage> {
+        var image:UnsafeMutablePointer<UIImage> = UnsafeMutablePointer.alloc(1)
+
+        autoreleasepool{
+            UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+            drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
+//            var context:CGContextRef = UIGraphicsGetCurrentContext()
+            image.initialize(UIGraphicsGetImageFromCurrentImageContext())
+            UIGraphicsEndImageContext()
+        }
         return image
     }
+
     
     func removeAllSubviews(){
         self.subviews.map { $0.removeFromSuperview() }

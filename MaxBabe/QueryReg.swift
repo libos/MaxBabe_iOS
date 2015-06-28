@@ -12,7 +12,7 @@ class QueryReg {
     
     let QueryURL = ["unique_username.php", "register.php",
         "login.php", "update.php","forget_password.php"]
-    let base_url = "http://api.babe.maxtain.com/users/"
+    let base_url = "http://apibabe.maxtain.com/users/"
     
     enum QueryType{
         case UNIQUE, REGISTER, LOGIN, UPDATE, FORGET

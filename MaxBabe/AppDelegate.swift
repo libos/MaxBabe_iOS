@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMFeedback.setAppkey("55803d1f67e58e9ede002d0e")
         UMOpus.setAudioEnable(true)   // audio input
         
-//        MobClick.startWithAppkey("55803d1f67e58e9ede002d0e", reportPolicy: SEND_INTERVAL, channelId: "")
-//        MobClick.setLogSendInterval(90)
-//        MobClick.setAppVersion(NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String)
-//        MobClick.setEncryptEnabled(true)
-//        MobClick.setBackgroundTaskEnabled(true)
-//
-//        MobClick.setCrashReportEnabled(true)
-//        
+        MobClick.startWithAppkey("55803d1f67e58e9ede002d0e", reportPolicy: SEND_INTERVAL, channelId: "")
+        MobClick.setLogSendInterval(90)
+        MobClick.setAppVersion(NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String)
+        MobClick.setEncryptEnabled(true)
+        MobClick.setBackgroundTaskEnabled(true)
+
+        MobClick.setCrashReportEnabled(true)
+        
         
         UMSocialSinaHandler.openSSOWithRedirectURL("http://sns.whalecloud.com/sina2/callback")
         UMSocialWechatHandler.setWXAppId("wx1d3399ae82a092e5", appSecret: "724bb1d966c5f256dfd135290e660dfd", url: "http://maxbabe.maxtain.com")

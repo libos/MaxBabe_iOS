@@ -1,4 +1,336 @@
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "4Ck-pV-h4b"; */
-"4Ck-pV-h4b.normalTitle" = "Button";
+/* Class = "UILabel"; text = "修改"; ObjectID = "0o9-0I-aCa"; */
+"0o9-0I-aCa.text" = "修改";
 
+/* Class = "UILabel"; text = "@maxtain.com"; ObjectID = "0yJ-1Z-jEu"; */
+"0yJ-1Z-jEu.text" = "@maxtain.com";
+
+/* Class = "UILabel"; text = "天气提醒"; ObjectID = "1T8-g2-bZp"; */
+"1T8-g2-bZp.text" = "天气提醒";
+
+/* Class = "UILabel"; text = "每日心情语录"; ObjectID = "2HZ-ot-3bi"; */
+"2HZ-ot-3bi.text" = "每日心情语录";
+
+/* Class = "UIButton"; normalTitle = "修改"; ObjectID = "2Kt-hF-Hkk"; */
+"2Kt-hF-Hkk.normalTitle" = "修改";
+
+/* Class = "UILabel"; text = "性　别"; ObjectID = "2LK-sm-ZbP"; */
+"2LK-sm-ZbP.text" = "性　别";
+
+/* Class = "UILabel"; text = "微信好友"; ObjectID = "2lB-ZT-VEX"; */
+"2lB-ZT-VEX.text" = "微信好友";
+
+/* Class = "UILabel"; text = "登陆"; ObjectID = "2vi-Ra-gMz"; */
+"2vi-Ra-gMz.text" = "登陆";
+
+/* Class = "UILabel"; text = "Instagram"; ObjectID = "4T3-ia-bUt"; */
+"4T3-ia-bUt.text" = "Instagram";
+
+/* Class = "UILabel"; text = "密　码"; ObjectID = "55H-Jv-NCI"; */
+"55H-Jv-NCI.text" = "密　码";
+
+/* Class = "UIButton"; normalTitle = "继续"; ObjectID = "5K6-gC-UfB"; */
+"5K6-gC-UfB.normalTitle" = "继续";
+
+/* Class = "UILabel"; text = "自动定位中..."; ObjectID = "5yF-KE-sJO"; */
+"5yF-KE-sJO.text" = "自动定位中...";
+
+/* Class = "UILabel"; text = "性　别"; ObjectID = "638-9a-2EO"; */
+"638-9a-2EO.text" = "性　别";
+
+/* Class = "UILabel"; text = "账户"; ObjectID = "68C-Ms-89q"; */
+"68C-Ms-89q.text" = "账户";
+
+/* Class = "UIButton"; normalTitle = "调戏客服"; ObjectID = "6Ct-Iy-ftD"; */
+"6Ct-Iy-ftD.normalTitle" = "调戏客服";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "6eq-ep-RBJ"; */
+"6eq-ep-RBJ.normalTitle" = "下一步";
+
+/* Class = "UILabel"; text = "心情分享"; ObjectID = "7CT-c6-0Fn"; */
+"7CT-c6-0Fn.text" = "心情分享";
+
+/* Class = "UITextField"; placeholder = "Revise Data"; ObjectID = "7jM-Xs-57B"; */
+"7jM-Xs-57B.placeholder" = "Revise Data";
+
+/* Class = "UILabel"; text = "城市名"; ObjectID = "8bl-gg-ctU"; */
+"8bl-gg-ctU.text" = "城市名";
+
+/* Class = "UILabel"; text = "有账号了？ 那等什么，还不登录！"; ObjectID = "8tg-5y-aEb"; */
+"8tg-5y-aEb.text" = "有账号了？ 那等什么，还不登录！";
+
+/* Class = "UIButton"; normalTitle = "去给麦宝打5颗星"; ObjectID = "8z8-4D-AVl"; */
+"8z8-4D-AVl.normalTitle" = "去给麦宝打5颗星";
+
+/* Class = "UILabel"; text = "版本号 v0.0.1"; ObjectID = "95q-H6-8pn"; */
+"95q-H6-8pn.text" = "版本号 v0.0.1";
+
+/* Class = "UILabel"; text = "昵　称"; ObjectID = "A8U-Ab-Aoa"; */
+"A8U-Ab-Aoa.text" = "昵　称";
+
+/* Class = "UILabel"; text = "麦宝家人"; ObjectID = "BlF-if-c2G"; */
+"BlF-if-c2G.text" = "麦宝家人";
+
+/* Class = "UILabel"; text = "不一样的天气不一样的心情，分享给你好友吧！"; ObjectID = "CJb-j0-C6d"; */
+"CJb-j0-C6d.text" = "不一样的天气不一样的心情，分享给你好友吧！";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "DZm-28-af3"; */
+"DZm-28-af3.text" = "Email";
+
+/* Class = "UILabel"; text = "Showbin"; ObjectID = "Dda-MZ-3qc"; */
+"Dda-MZ-3qc.text" = "Showbin";
+
+/* Class = "UIButton"; normalTitle = "天气设置"; ObjectID = "EHG-dS-6lt"; */
+"EHG-dS-6lt.normalTitle" = "天气设置";
+
+/* Class = "UIButton"; normalTitle = "麦宝家人"; ObjectID = "Emx-HW-DSv"; */
+"Emx-HW-DSv.normalTitle" = "麦宝家人";
+
+/* Class = "UILabel"; text = "联合创始人"; ObjectID = "FBo-Hz-GUU"; */
+"FBo-Hz-GUU.text" = "联合创始人";
+
+/* Class = "UILabel"; text = "——Maxtain团队"; ObjectID = "FIu-WF-bvt"; */
+"FIu-WF-bvt.text" = "——Maxtain团队";
+
+/* Class = "UILabel"; text = "定位中..."; ObjectID = "FxU-cx-wlM"; */
+"FxU-cx-wlM.text" = "定位中...";
+
+/* Class = "UILabel"; text = "**"; ObjectID = "Gl2-XY-Ssb"; */
+"Gl2-XY-Ssb.text" = "**";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "H6X-9Q-5zq"; */
+"H6X-9Q-5zq.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "编辑心情"; ObjectID = "ICw-Dv-1RW"; */
+"ICw-Dv-1RW.text" = "编辑心情";
+
+/* Class = "UILabel"; text = "10分钟前更新"; ObjectID = "Ifp-f1-xwQ"; */
+"Ifp-f1-xwQ.text" = "10分钟前更新";
+
+/* Class = "UILabel"; text = "Facebook"; ObjectID = "Iu9-wY-cQK"; */
+"Iu9-wY-cQK.text" = "Facebook";
+
+/* Class = "UILabel"; text = "GPS定位"; ObjectID = "J9P-zU-STD"; */
+"J9P-zU-STD.text" = "GPS定位";
+
+/* Class = "UILabel"; text = "Showbin"; ObjectID = "JuS-B5-wQz"; */
+"JuS-B5-wQz.text" = "Showbin";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "LNs-tw-pW0"; */
+"LNs-tw-pW0.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "选择城市"; ObjectID = "M7E-SJ-kdY"; */
+"M7E-SJ-kdY.text" = "选择城市";
+
+/* Class = "UILabel"; text = "48 深呼吸"; ObjectID = "M91-JS-4H0"; */
+"M91-JS-4H0.text" = "48 深呼吸";
+
+/* Class = "UILabel"; text = "用户名"; ObjectID = "MEJ-sM-fcA"; */
+"MEJ-sM-fcA.text" = "用户名";
+
+/* Class = "UIButton"; normalTitle = "立即注册"; ObjectID = "MEQ-k5-5x0"; */
+"MEQ-k5-5x0.normalTitle" = "立即注册";
+
+/* Class = "UILabel"; text = "微博"; ObjectID = "MaY-Ek-gEF"; */
+"MaY-Ek-gEF.text" = "微博";
+
+/* Class = "UILabel"; text = "密码"; ObjectID = "NhQ-7I-Kbj"; */
+"NhQ-7I-Kbj.text" = "密码";
+
+/* Class = "UILabel"; text = "理小博"; ObjectID = "Npb-FO-F1J"; */
+"Npb-FO-F1J.text" = "理小博";
+
+/* Class = "UILabel"; text = "男"; ObjectID = "Nty-WI-JEl"; */
+"Nty-WI-JEl.text" = "男";
+
+/* Class = "UIButton"; normalTitle = "分享心情"; ObjectID = "OTC-57-hOg"; */
+"OTC-57-hOg.normalTitle" = "分享心情";
+
+/* Class = "UILabel"; text = "天气设置"; ObjectID = "Ogk-Hn-7yM"; */
+"Ogk-Hn-7yM.text" = "天气设置";
+
+/* Class = "UILabel"; text = "注册新用户"; ObjectID = "Q5I-uC-XTc"; */
+"Q5I-uC-XTc.text" = "注册新用户";
+
+/* Class = "UILabel"; text = "联合创始人"; ObjectID = "Qza-gL-gd8"; */
+"Qza-gL-gd8.text" = "联合创始人";
+
+/* Class = "UILabel"; text = "分享"; ObjectID = "RN2-bf-c7h"; */
+"RN2-bf-c7h.text" = "分享";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "RmQ-zE-wCq"; */
+"RmQ-zE-wCq.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "注册新用户"; ObjectID = "Rrx-cQ-gUe"; */
+"Rrx-cQ-gUe.text" = "注册新用户";
+
+/* Class = "UILabel"; text = "朋友圈"; ObjectID = "RsU-0k-58P"; */
+"RsU-0k-58P.text" = "朋友圈";
+
+/* Class = "UILabel"; text = "城市名"; ObjectID = "UHv-Tu-Zxr"; */
+"UHv-Tu-Zxr.text" = "城市名";
+
+/* Class = "UILabel"; text = "热门城市"; ObjectID = "UQ4-h8-aCN"; */
+"UQ4-h8-aCN.text" = "热门城市";
+
+/* Class = "UILabel"; text = "25°"; ObjectID = "UqW-Cp-SkS"; */
+"UqW-Cp-SkS.text" = "25°";
+
+/* Class = "UILabel"; text = "榴榴"; ObjectID = "VHG-ba-C8z"; */
+"VHG-ba-C8z.text" = "榴榴";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "XYr-Q1-X0j"; */
+"XYr-Q1-X0j.normalTitle" = "取消";
+
+/* Class = "UIButton"; normalTitle = "完成"; ObjectID = "YIh-mz-tZa"; */
+"YIh-mz-tZa.normalTitle" = "完成";
+
+/* Class = "UILabel"; text = "蜗牛君"; ObjectID = "YTg-gF-7ow"; */
+"YTg-gF-7ow.text" = "蜗牛君";
+
+/* Class = "UILabel"; text = "跑堂博士"; ObjectID = "Z7P-iF-DCt"; */
+"Z7P-iF-DCt.text" = "跑堂博士";
+
+/* Class = "UIButton"; normalTitle = "登录"; ObjectID = "awX-qA-lTw"; */
+"awX-qA-lTw.normalTitle" = "登录";
+
+/* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "bu7-2N-26Q"; */
+"bu7-2N-26Q.placeholder" = "Nickname";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "dgt-J4-rsa"; */
+"dgt-J4-rsa.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "关于我们"; ObjectID = "eA6-El-KEe"; */
+"eA6-El-KEe.text" = "关于我们";
+
+/* Class = "UILabel"; text = "设置"; ObjectID = "fLQ-JP-kAl"; */
+"fLQ-JP-kAl.text" = "设置";
+
+/* Class = "UILabel"; text = "36%"; ObjectID = "fso-hm-yPa"; */
+"fso-hm-yPa.text" = "36%";
+
+/* Class = "UILabel"; text = "负能量"; ObjectID = "fzZ-Dx-CUe"; */
+"fzZ-Dx-CUe.text" = "负能量";
+
+/* Class = "UILabel"; text = "用户名"; ObjectID = "gDh-uw-XBB"; */
+"gDh-uw-XBB.text" = "用户名";
+
+/* Class = "UILabel"; text = "推送通知"; ObjectID = "gRH-ns-Cx9"; */
+"gRH-ns-Cx9.text" = "推送通知";
+
+/* Class = "UILabel"; text = "晴转多云"; ObjectID = "gn1-aI-RQb"; */
+"gn1-aI-RQb.text" = "晴转多云";
+
+/* Class = "UIButton"; normalTitle = "账户"; ObjectID = "gr7-rs-ZS1"; */
+"gr7-rs-ZS1.normalTitle" = "账户";
+
+/* Class = "UILabel"; text = "还可输入 45 字"; ObjectID = "gra-Sl-gR7"; */
+"gra-Sl-gR7.text" = "还可输入 45 字";
+
+/* Class = "UILabel"; text = "自动更新天气"; ObjectID = "hWD-Of-xJK"; */
+"hWD-Of-xJK.text" = "自动更新天气";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "hjy-nn-po1"; */
+"hjy-nn-po1.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "确定"; ObjectID = "j9X-yn-If0"; */
+"j9X-yn-If0.normalTitle" = "确定";
+
+/* Class = "UILabel"; text = "创始人"; ObjectID = "jan-3s-a5t"; */
+"jan-3s-a5t.text" = "创始人";
+
+/* Class = "UILabel"; text = "心情不好？那看看麦宝每日心情语录吧！"; ObjectID = "jvP-I8-BAn"; */
+"jvP-I8-BAn.text" = "心情不好？那看看麦宝每日心情语录吧！";
+
+/* Class = "UIButton"; normalTitle = "调戏客服"; ObjectID = "kFE-Yr-JWl"; */
+"kFE-Yr-JWl.normalTitle" = "调戏客服";
+
+/* Class = "UILabel"; text = "通知栏设置"; ObjectID = "l1c-dU-csE"; */
+"l1c-dU-csE.text" = "通知栏设置";
+
+/* Class = "UIButton"; normalTitle = "退出登录"; ObjectID = "le9-c3-krg"; */
+"le9-c3-krg.normalTitle" = "退出登录";
+
+/* Class = "UIButton"; normalTitle = "编辑文字"; ObjectID = "m36-no-7FT"; */
+"m36-no-7FT.normalTitle" = "编辑文字";
+
+/* Class = "UILabel"; text = "密　码"; ObjectID = "mNd-Hm-pWP"; */
+"mNd-Hm-pWP.text" = "密　码";
+
+/* Class = "UILabel"; text = "可爱的麦宝会时刻提醒你最新的天气情况哦！"; ObjectID = "mb8-uR-YQM"; */
+"mb8-uR-YQM.text" = "可爱的麦宝会时刻提醒你最新的天气情况哦！";
+
+/* Class = "UIButton"; normalTitle = "登陆"; ObjectID = "nhX-uY-x3h"; */
+"nhX-uY-x3h.normalTitle" = "登陆";
+
+/* Class = "UILabel"; text = "找回密码"; ObjectID = "oay-Ru-e6i"; */
+"oay-Ru-e6i.text" = "找回密码";
+
+/* Class = "UIButton"; normalTitle = "登录"; ObjectID = "ogW-LP-OSH"; */
+"ogW-LP-OSH.normalTitle" = "登录";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "pUe-hq-lRH"; */
+"pUe-hq-lRH.placeholder" = "Phone";
+
+/* Class = "UILabel"; text = "仅在WIFI环境下更新"; ObjectID = "qN1-kE-Ule"; */
+"qN1-kE-Ule.text" = "仅在WIFI环境下更新";
+
+/* Class = "UILabel"; text = "密　码"; ObjectID = "qWN-Y1-SYR"; */
+"qWN-Y1-SYR.text" = "密　码";
+
+/* Class = "UIButton"; normalTitle = "忘记密码？"; ObjectID = "r9C-Di-Ufo"; */
+"r9C-Di-Ufo.normalTitle" = "忘记密码？";
+
+/* Class = "UIButton"; normalTitle = "找回"; ObjectID = "sKR-Fi-umy"; */
+"sKR-Fi-umy.normalTitle" = "找回";
+
+/* Class = "UILabel"; text = "手机号"; ObjectID = "spO-kl-j9D"; */
+"spO-kl-j9D.text" = "手机号";
+
+/* Class = "UIButton"; normalTitle = "推荐"; ObjectID = "sxy-Gw-7pZ"; */
+"sxy-Gw-7pZ.normalTitle" = "推荐";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "syS-nf-KEA"; */
+"syS-nf-KEA.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "152****8888"; ObjectID = "uUn-gb-TgA"; */
+"uUn-gb-TgA.text" = "152****8888";
+
+/* Class = "UILabel"; text = "登陆"; ObjectID = "udL-gr-vwm"; */
+"udL-gr-vwm.text" = "登陆";
+
+/* Class = "UILabel"; text = "QQ"; ObjectID = "v9v-b7-Wbx"; */
+"v9v-b7-Wbx.text" = "QQ";
+
+/* Class = "UIButton"; normalTitle = "跳过"; ObjectID = "vPn-3A-TFj"; */
+"vPn-3A-TFj.normalTitle" = "跳过";
+
+/* Class = "UILabel"; text = "蕊少爷"; ObjectID = "vka-Id-FI6"; */
+"vka-Id-FI6.text" = "蕊少爷";
+
+/* Class = "UILabel"; text = "修改"; ObjectID = "w0s-qb-IIh"; */
+"w0s-qb-IIh.text" = "修改";
+
+/* Class = "UIButton"; normalTitle = "关于麦宝"; ObjectID = "wdI-AP-CsD"; */
+"wdI-AP-CsD.normalTitle" = "关于麦宝";
+
+/* Class = "UILabel"; text = "修改"; ObjectID = "wu9-uJ-006"; */
+"wu9-uJ-006.text" = "修改";
+
+/* Class = "UILabel"; text = "修改"; ObjectID = "wzk-lD-UCy"; */
+"wzk-lD-UCy.text" = "修改";
+
+/* Class = "UITextField"; placeholder = "Email or Phone"; ObjectID = "xsW-TD-6IS"; */
+"xsW-TD-6IS.placeholder" = "Email or Phone";
+
+/* Class = "UILabel"; text = "联合创始人"; ObjectID = "xvO-uk-6oA"; */
+"xvO-uk-6oA.text" = "联合创始人";
+
+/* Class = "UILabel"; text = "没有风"; ObjectID = "yDK-ww-jWe"; */
+"yDK-ww-jWe.text" = "没有风";
+
+/* Class = "UIButton"; normalTitle = "自定义"; ObjectID = "zFk-O7-saO"; */
+"zFk-O7-saO.normalTitle" = "自定义";
+
+/* Class = "UILabel"; text = "修改**"; ObjectID = "zNv-u6-Pch"; */
+"zNv-u6-Pch.text" = "修改**";

@@ -29,7 +29,7 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
     var isFirstUpdate:Bool
     let locationManager:CLLocationManager = CLLocationManager()
     let searcher:BMKGeoCodeSearch
-    static let stopwords:[String] = ["市","市辖区","自治区", "自治州", "盟", "地区", "特别行政区"]
+    static let stopwords:[String] = ["市","市辖区","自治区", "自治州", "地区", "特别行政区"]
     var state:Int = 0
  
     class var getInstance:City {
@@ -150,7 +150,8 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         st.synchronize()
         var stGroup = NSUserDefaults(suiteName: "group.maxtain.MaxBabe")
         stGroup!.setValue(self.city_name, forKey: Global.cityCityName)
-        stGroup!.setValue(self.district, forKey: Global.cityDistrict)
+        stGroup!.setValue(center.s2t(self.city_name)!, forKey: Global.cityCityDisplayName)
+        stGroup!.setValue(center.s2t(self.district)!, forKey: Global.cityDistrict)
         stGroup!.setValue(self.province, forKey: Global.cityProvince)
         stGroup!.synchronize()
     }

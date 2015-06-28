@@ -40,7 +40,7 @@ class ShareController: UIViewController {
         let size = UIScreen.mainScreen().bounds.size
 //        let item_size = CGSize(width: size.width * Global.SHARE_CARD_WIDTH_RATION, height: size.height * Global.SHARE_CARD_HEIGHT_RATION)
         let st = NSUserDefaults.standardUserDefaults()
-        self.the_word = st.stringForKey(Global.THE_WORD)!
+        self.the_word = Center.getInstance.s2t(st.stringForKey(Global.THE_WORD)!)
 
         addTheme(self.the_word)
         
@@ -94,24 +94,64 @@ class ShareController: UIViewController {
 //        self.SharePanel.userInteractionEnabled = false
     }
     func addTheme(word:String?){
+//        for th in themeManger {
+//            th.removeFromSuperview()
+//        }
+//        for idx in 0..<collections.count {
+//            collections[idx] = nil
+//        }
+        
+//        collections.removeAll(keepCapacity: true)
         collections = []
         themeManger = []
         var theme01 = UIShareTheme(xml: getTheme("theme01"),the_word:word)
         var theme02 = UIShareTheme(xml: getTheme("theme02"),the_word:word)
         var theme03 = UIShareTheme(xml: getTheme("theme03"),the_word:word)
         var theme04 = UIShareTheme(xml: getTheme("theme04"),the_word:word)
-        collections  += [theme01.screenshotImage(scale: 2.0)]
-        collections  += [theme02.screenshotImage(scale: 2.0)]
-        collections  += [theme03.screenshotImage(scale: 2.0)]
-        collections  += [theme04.screenshotImage(scale: 2.0)]
+ 
+//        collections  += [theme01.screenshotImage(scale: 3.0)]
+//        collections  += [theme02.screenshotImage(scale: 3.0)]
+//        collections  += [theme03.screenshotImage(scale: 3.0)]
+//        collections  += [theme04.screenshotImage(scale: 3.0)]
+
+        var im1 = theme01.screenshotImage(scale: 2.0)
+        var im2 = theme02.screenshotImage(scale: 2.0)
+        var im3 = theme03.screenshotImage(scale: 2.0)
+        var im4 = theme04.screenshotImage(scale: 2.0)
+        collections  += [im1.memory]
+        collections  += [im2.memory]
+        collections  += [im3.memory]
+        collections  += [im4.memory]
         
-        
-        themeManger.append(theme01)
-        themeManger.append(theme02)
-        themeManger.append(theme03)
-        themeManger.append(theme04)
+        im1.destroy()
+        im2.destroy()
+        im3.destroy()
+        im4.destroy()
+        im1.dealloc(1)
+        im2.dealloc(1)
+        im3.dealloc(1)
+        im4.dealloc(1)
+//        theme01.removeAllSubviews()
+//        theme02.removeAllSubviews()
+//        theme03.removeAllSubviews()
+//        theme04.removeAllSubviews()
+//        theme01.removeFromSuperview()
+//        theme02.removeFromSuperview()
+//        theme03.removeFromSuperview()
+//        theme04.removeFromSuperview()
+//        themeManger.append(theme01)
+//        themeManger.append(theme02)
+//        themeManger.append(theme03)
+//        themeManger.append(theme04)
     }
     
+    deinit{
+        collections.removeAll(keepCapacity: false)
+//        for th in themeManger {
+//            th.removeFromSuperview()
+//        }
+        self.samsara.removeObserver(self, forKeyPath: "currentIndex")
+    }
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
 //        hotSpotBtn.frame = themeSpotArr[samsara.currentIndex]
     }
@@ -160,6 +200,7 @@ class ShareController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         MobClick.beginLogPageView(toString(self.dynamicType))
+
     }
 
     
@@ -169,9 +210,6 @@ class ShareController: UIViewController {
         SharePanelBottom.constant = -SharePanel.bounds.height
     }
 
-    deinit{
-        self.samsara.removeObserver(self, forKeyPath: "currentIndex")
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -182,6 +220,10 @@ class ShareController: UIViewController {
     }
     
     @IBAction func shareAction(sender: AnyObject) {
+        if !Center.getInstance.isLogin() && samsara.getCurrentIndex() > 0 {
+            self.logIn(sender as! UIButton)
+            return
+        }
         self.SharePanelBottom.constant = 0
         self.SharePanel.needsUpdateConstraints()
         UIView.animateWithDuration(0.1, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in

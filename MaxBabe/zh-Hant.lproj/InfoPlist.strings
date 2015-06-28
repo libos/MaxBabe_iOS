@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  MaxBabe
+
+  Created by Liber on 6/22/15.
+  Copyright (c) 2015 Maxtain. All rights reserved.
+*/
+"CFBundleDisplayName"="麥寶星";
+"NSLocationAlwaysUsageDescription"="我們需要使用您的地理信息，請點擊允許，否則您還得自己設置";
+"NSLocationUsageDescription"="我們需要使用您的地理信息，請點擊允許，否則您還得自己設置";

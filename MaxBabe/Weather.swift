@@ -56,6 +56,28 @@ class Weather:NSObject {
         var next_night_temp : String?
         var weather_detail : String?
         var has_alarm : Int?
+        
+        var cy_realtime_aqi : Int?
+        var cy_realtime_humidity : String?
+        var cy_realtime_windlevel : String?
+        var cy_realtime_temperature : String?
+        
+        var cy_sunrise : String?
+        var cy_sunset : String?
+        var cy_tempmax : String?
+        var cy_tempavg : String?
+        var cy_tempmin : String?
+        
+        var cy_weather : String?
+        
+        var cy_windmax : String?
+        var cy_windavg : String?
+        var cy_windmin : String?
+        
+        var cy_humiditymax : String?
+        var cy_humidityavg : String?
+        var cy_humiditymin : String?
+        
     }
     struct AlarmData {
         let alarm_type : String?
@@ -96,7 +118,7 @@ class Weather:NSObject {
             self.willChangeValueForKey("weekState")
             weekState_p = newValue
             self.didChangeValueForKey("weekState")
-
+            
         }
     }
     
@@ -105,17 +127,18 @@ class Weather:NSObject {
     
     let city:City = City.getInstance
     var city_name:String?
-
     
-    init(temp:String,weather:String,updatetime:String,rtemp : String, fengxiang : String, fenglevel : String, humidity : String, rweather : String, aqi : Int, today_weather : String, day_weather : String, night_weather : String, day_temp : String, night_temp : String, tomo_weather : String, tomo_temp : String, next_day_weather:String, next_night_weather : String, next_day_temp : String, next_night_temp : String, weather_detail : String, has_alarm : Int){
-        
-        data = WeatherData(temp: temp, weather: weather, updatetime: updatetime, rtemp: rtemp, fengxiang: fengxiang, fenglevel: fenglevel, humidity: humidity, rweather: rweather, aqi: aqi, today_weather: today_weather, day_weather: day_weather, night_weather: night_weather, day_temp: day_temp, night_temp: night_temp, tomo_weather: tomo_weather, tomo_temp: tomo_temp, next_day_weather: next_day_weather, next_night_weather: next_night_weather, next_day_temp: next_day_temp, next_night_temp: next_night_temp, weather_detail: weather_detail, has_alarm: has_alarm)
-        if has_alarm == 0 {
-            alarm = nil
-        }else{
-            alarm = nil
-        }
-    }
+    
+//    init(temp:String,weather:String,updatetime:String,rtemp : String, fengxiang : String, fenglevel : String, humidity : String, rweather : String, aqi : Int, today_weather : String, day_weather : String, night_weather : String, day_temp : String, night_temp : String, tomo_weather : String, tomo_temp : String, next_day_weather:String, next_night_weather : String, next_day_temp : String, next_night_temp : String, weather_detail : String, has_alarm : Int){
+//        
+//        data = WeatherData()
+//        //        temp: temp, weather: weather, updatetime: updatetime, rtemp: rtemp, fengxiang: fengxiang, fenglevel: fenglevel, humidity: humidity, rweather: rweather, aqi: aqi, today_weather: today_weather, day_weather: day_weather, night_weather: night_weather, day_temp: day_temp, night_temp: night_temp, tomo_weather: tomo_weather, tomo_temp: tomo_temp, next_day_weather: next_day_weather, next_night_weather: next_night_weather, next_day_temp: next_day_temp, next_night_temp: next_night_temp, weather_detail: weather_detail, has_alarm: has_alarm
+//        if has_alarm == 0 {
+//            alarm = nil
+//        }else{
+//            alarm = nil
+//        }
+//    }
     override init(){
         self.data = WeatherData()
         let st:NSUserDefaults = NSUserDefaults.standardUserDefaults()
@@ -143,6 +166,27 @@ class Weather:NSObject {
             self.data.next_night_temp = data_store?.valueForKey("next_night_temp") as? String
             self.data.weather_detail = data_store?.valueForKey("weather_detail") as? String
             self.data.has_alarm = (data_store?.valueForKey("has_alarm") as? String)?.toInt()
+            
+            self.data.cy_realtime_aqi = (data_store?.valueForKey("cy_realtime_aqi") as? String)?.toInt()
+            self.data.cy_realtime_humidity = data_store?.valueForKey("cy_realtime_humidity") as? String
+            self.data.cy_realtime_windlevel = data_store?.valueForKey("cy_realtime_windlevel") as? String
+            self.data.cy_realtime_temperature = data_store?.valueForKey("cy_realtime_temperature") as? String
+            
+            self.data.cy_sunrise = data_store?.valueForKey("cy_sunrise") as? String
+            self.data.cy_sunset = data_store?.valueForKey("cy_sunset") as? String
+            self.data.cy_tempmax = data_store?.valueForKey("cy_tempmax") as? String
+            self.data.cy_tempavg = data_store?.valueForKey("cy_tempavg") as? String
+            self.data.cy_tempmin = data_store?.valueForKey("cy_tempmin") as? String
+            
+            self.data.cy_weather = data_store?.valueForKey("cy_weather") as? String
+            
+            self.data.cy_windmax = data_store?.valueForKey("cy_windmax") as? String
+            self.data.cy_windavg = data_store?.valueForKey("cy_windavg") as? String
+            self.data.cy_windmin = data_store?.valueForKey("cy_windmin") as? String
+            
+            self.data.cy_humiditymax = data_store?.valueForKey("cy_humiditymax") as? String
+            self.data.cy_humidityavg = data_store?.valueForKey("cy_humidityavg") as? String
+            self.data.cy_humiditymin = data_store?.valueForKey("cy_humiditymin") as? String
         }else{
             self.data.temp = "0"
             self.data.weather = "晴"
@@ -152,7 +196,7 @@ class Weather:NSObject {
             self.data.fenglevel = "2"
             self.data.humidity = "20"
             self.data.rweather = "晴"
-            self.data.aqi = 50
+            self.data.aqi = 48
             self.data.today_weather = "晴"
             self.data.day_weather = "晴"
             self.data.night_weather = "晴"
@@ -166,7 +210,27 @@ class Weather:NSObject {
             self.data.next_night_temp = "0"
             self.data.weather_detail = "晴"
             self.data.has_alarm = 0
-
+            
+            self.data.cy_realtime_aqi = 50
+            self.data.cy_realtime_humidity = "20"
+            self.data.cy_realtime_windlevel = "2"
+            self.data.cy_realtime_temperature = "10"
+            
+            self.data.cy_sunrise = "6:00"
+            self.data.cy_sunset = "18:00"
+            self.data.cy_tempmax = "10"
+            self.data.cy_tempavg = "10"
+            self.data.cy_tempmin = "10"
+            
+            self.data.cy_weather = "晴"
+            
+            self.data.cy_windmax = "2"
+            self.data.cy_windavg = "2"
+            self.data.cy_windmin = "2"
+            
+            self.data.cy_humiditymax = "20"
+            self.data.cy_humidityavg = "20"
+            self.data.cy_humiditymin = "20"
         }
         super.init()
         if city.city_name != nil {
@@ -209,9 +273,9 @@ class Weather:NSObject {
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         manager.GET(
-            "http://api.babe.maxtain.com/get_data.php", parameters: params,
+            "http://apibabe.maxtain.com/get_data_iphone.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                println(response.description)
+                //                println(response.description)
                 self.state = ".Downloading"
                 self.updateSuccess(response as! NSDictionary!)
             },
@@ -255,6 +319,27 @@ class Weather:NSObject {
             self.data.weather_detail = json["weather_detail"] as? String
             self.data.has_alarm = (json["has_alarm"] as? String)?.toInt()
             
+            self.data.cy_realtime_aqi = (json["cy_realtime_aqi"] as? String)?.toInt()
+            self.data.cy_realtime_humidity = json["cy_realtime_humidity"] as? String
+            self.data.cy_realtime_windlevel = json["cy_realtime_windlevel"] as? String
+            self.data.cy_realtime_temperature = json["cy_realtime_temperature"] as? String
+            
+            self.data.cy_sunrise = json["cy_sunrise"] as? String
+            self.data.cy_sunset = json["cy_sunset"] as? String
+            self.data.cy_tempmax = json["cy_tempmax"] as? String
+            self.data.cy_tempavg = json["cy_tempavg"] as? String
+            self.data.cy_tempmin = json["cy_tempmin"] as? String
+            
+            self.data.cy_weather = json["cy_weather"] as? String
+            
+            self.data.cy_windmax = json["cy_windmax"] as? String
+            self.data.cy_windavg = json["cy_windavg"] as? String
+            self.data.cy_windmin = json["cy_windmin"] as? String
+            
+            self.data.cy_humiditymax = json["cy_humiditymax"] as? String
+            self.data.cy_humidityavg = json["cy_humidityavg"] as? String
+            self.data.cy_humiditymin = json["cy_humiditymin"] as? String
+            
             let pics = Pics.getInstance
             pics.city = self.city_name
             pics.updateSelf()
@@ -286,7 +371,28 @@ class Weather:NSObject {
             store_data.setValue(self.data.next_night_temp, forKey: "next_night_temp")
             store_data.setValue(self.data.weather_detail, forKey: "weather_detail")
             store_data.setValue(self.data.has_alarm, forKey: "has_alarm")
-
+            
+            store_data.setValue(self.data.cy_realtime_aqi, forKey: "cy_realtime_aqi")
+            store_data.setValue(self.data.cy_realtime_humidity, forKey: "cy_realtime_humidity")
+            store_data.setValue(self.data.cy_realtime_windlevel, forKey: "cy_realtime_windlevel")
+            store_data.setValue(self.data.cy_realtime_temperature, forKey: "cy_realtime_temperature")
+            
+            store_data.setValue(self.data.cy_sunrise, forKey: "cy_sunrise")
+            store_data.setValue(self.data.cy_sunset, forKey: "cy_sunset")
+            store_data.setValue(self.data.cy_tempmax, forKey: "cy_tempmax")
+            store_data.setValue(self.data.cy_tempavg, forKey: "cy_tempavg")
+            store_data.setValue(self.data.cy_tempmin, forKey: "cy_tempmin")
+            
+            store_data.setValue(self.data.cy_weather, forKey: "cy_weather")
+            
+            store_data.setValue(self.data.cy_windmax, forKey: "cy_windmax")
+            store_data.setValue(self.data.cy_windavg, forKey: "cy_windavg")
+            store_data.setValue(self.data.cy_windmin, forKey: "cy_windmin")
+            
+            store_data.setValue(self.data.cy_humiditymax, forKey: "cy_humiditymax")
+            store_data.setValue(self.data.cy_humidityavg, forKey: "cy_humidityavg")
+            store_data.setValue(self.data.cy_humiditymin, forKey: "cy_humiditymin")
+            
             st.setValue(store_data, forKey: Global.weatherData)
             st.synchronize()
             
@@ -296,7 +402,7 @@ class Weather:NSObject {
             let components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: now)
             
             st.setValue("\(components.year)\(components.month)\(components.day)\(self.city_name!)", forKey: globalUpdateTimeFlag)
-            st.setValue(self.data.temp, forKey: globalWeatherTemp)
+            st.setValue(self.getTemp(), forKey: globalWeatherTemp)
             st.setValue(self.data.weather, forKey: globalWeatherWeather)
             st.setValue(self.data.rtemp, forKey: globalWeatherRTemp)
             st.setValue(self.data.rweather, forKey: globalWeatherRWeather)
@@ -311,10 +417,10 @@ class Weather:NSObject {
             st.setValue(self.data.next_night_weather, forKey: globalNextNightWeather)
             
             st.synchronize()
-     
+            
             state = ".Stored"
-//            self.setState(".Stored")
-
+            //            self.setState(".Stored")
+            
         }
     }
     
@@ -344,16 +450,16 @@ class Weather:NSObject {
             if downloader.cancelled{
                 return
             }
-//                self.dailyState = .Downloading
+            //                self.dailyState = .Downloading
             dispatch_async(dispatch_get_main_queue(), {
-//                self.dailyState = ".Downloaded"
-//                self.setDailyState(".DailyDone")
-//                self.dailyState = ".DailyDone"
+                //                self.dailyState = ".Downloaded"
+                //                self.setDailyState(".DailyDone")
+                //                self.dailyState = ".DailyDone"
                 
             })
         }
         pendingOperations.forcastQueue.addOperation(downloader)
-
+        
         if ret == nil{
             return nil
         }
@@ -385,7 +491,7 @@ class Weather:NSObject {
         }
         self.dailyData = x
         self.dailyState = ".DailyDone"
-//        self.setDailyState(".DailyDone")
+        //        self.setDailyState(".DailyDone")
         return x
         
         //        st.synchronize()
@@ -419,12 +525,12 @@ class Weather:NSObject {
                 defv = x[hour.toInt()!]
             }
         }
-
+        
         self.dailyData = x
         return x
         
     }
-
+    
     
     func downloadDaily(){
         updateCityName()
@@ -442,7 +548,7 @@ class Weather:NSObject {
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         manager.POST(
-            "http://api.babe.maxtain.com/get_daily.php", parameters: params,
+            "http://apibabe.maxtain.com/get_daily.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
                 println(response.description)
                 //                if response is Dictionary<String,Dictionary<String,String>>{
@@ -483,11 +589,11 @@ class Weather:NSObject {
         let day  = String(format: "%02d", components.day)
         let last_time = st.stringForKey(Global.weekUpdateTime)
         var ret:Dictionary<String,Dictionary<String,String>>!
-
+        
         if last_time == "\(year)\(month)\(day)\(city_name)" && self.data.night_weather != nil{
             ret = st.dictionaryForKey(Global.weekData) as? Dictionary<String,Dictionary<String,String>>
         }else{
-           ret = nil
+            ret = nil
         }
         let pendingOperations = PendingOperations()
         let downloader = ForecastDownloader()
@@ -495,10 +601,10 @@ class Weather:NSObject {
             if downloader.cancelled{
                 return
             }
-//            self.weekState = .Downloading
+            //            self.weekState = .Downloading
             dispatch_async(dispatch_get_main_queue(), {
                 
-//                self.setDailyState(".WeekDone")
+                //                self.setDailyState(".WeekDone")
             })
         }
         pendingOperations.forcastQueue.addOperation(downloader)
@@ -516,7 +622,7 @@ class Weather:NSObject {
         var night_weather:String?
         
         weather = ""
-
+        
         if  self.data.night_weather != nil{
             if self.data.day_weather == nil {
                 self.data.day_weather = self.data.night_weather
@@ -552,21 +658,27 @@ class Weather:NSObject {
             x.updateValue((st.integerForKey(Global.WeatherHighTemp),st.integerForKey(Global.WeatherLowTemp),"晴"), forKey: 0)
         }
         
-//        x.updateValue((38,-10,"晴"), forKey: 0)
+        //        x.updateValue((38,-10,"晴"), forKey: 0)
         for (idx:String,data:Dictionary<String,String>) in ret{
             
             day_weather = data["day_weather"]
             night_weather = data["night_weather"]
+            if (night_weather == nil) {
+                day_weather = self.getWeather()
+                night_weather = self.data.night_weather
+            }
             
             if day_weather == night_weather && (day_weather != nil) {
                 weather = day_weather
-            }else{
+            }else if (day_weather != nil) && (night_weather != nil){
                 high = find(Global.WeatherDefault, day_weather!)
-                low = find(Global.WeatherDefault,night_weather!)
+                low = find(Global.WeatherDefault, night_weather!)
                 weather = day_weather
                 if high < low {
                     weather = night_weather
                 }
+            }else{
+                
             }
             high = data["day_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
             low = data["night_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
@@ -581,7 +693,7 @@ class Weather:NSObject {
         
         self.weekData = x
         self.weekState = ".WeekDone"
-//        self.setDailyState(".WeekDone")
+        //        self.setDailyState(".WeekDone")
         return x
     }
     
@@ -634,23 +746,30 @@ class Weather:NSObject {
         }else{
             //            x.updateValue((30,30,"晴"), forKey: 0)
         }
-        for (idx:String,data:Dictionary<String,String>) in ret{
+        
+        for (idx:String,datax:Dictionary<String,String>) in ret{
             
-            day_weather = data["day_weather"]
-            night_weather = data["night_weather"]
+            day_weather = datax["day_weather"]
+            night_weather = datax["night_weather"]
+            if (night_weather == nil) {
+                day_weather = self.getWeather()
+                night_weather = self.data.night_weather
+            }
             
             if day_weather == night_weather && (day_weather != nil) {
                 weather = day_weather
-            }else{
+            }else if (day_weather != nil) && (night_weather != nil){
                 high = find(Global.WeatherDefault, day_weather!)
-                low = find(Global.WeatherDefault,night_weather!)
+                low = find(Global.WeatherDefault, night_weather!)
                 weather = day_weather
                 if high < low {
                     weather = night_weather
                 }
+            }else{
+                
             }
-            high = data["day_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
-            low = data["night_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+            high = datax["day_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
+            low = datax["night_temp"]?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).toInt()
             if high < low {
                 temp = high
                 high = low
@@ -665,7 +784,7 @@ class Weather:NSObject {
         
         
     }
-
+    
     func downloadWeek(){
         updateCityName()
         let now = NSDate()
@@ -682,7 +801,7 @@ class Weather:NSObject {
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
         manager.POST(
-            "http://api.babe.maxtain.com/get_week.php", parameters: params,
+            "http://apibabe.maxtain.com/get_week.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
                 println(response.description)
                 self.updateWeek(response as! Dictionary<String,Dictionary<String,String>>!)
@@ -708,7 +827,27 @@ class Weather:NSObject {
         self.weekState = ".Downloaded"
     }
     
+    func getSunHour()->(sunrise:Int,presunset:Int,sunset:Int){
+        if self.data.cy_sunrise == nil {
+            self.data.cy_sunrise = "6:00"
+        }
+        if self.data.cy_sunset == nil {
+            self.data.cy_sunset = "18:00"
+        }
         
+        let tmp_sunrise:[String] = split(self.data.cy_sunrise!){$0 == ":"}
+        let tmp_sunset:[String] = split(self.data.cy_sunset!){$0 == ":"}
+        let tmp_sunrise_hour = tmp_sunrise[0].toInt()
+        let tmp_sunrise_minute = tmp_sunrise[1].toInt()
+        let tmp_sunset_hour = tmp_sunset[0].toInt()
+        let tmp_sunset_minute = tmp_sunset[1].toInt()
+        
+        let sunrise = tmp_sunrise_minute! > 30 ? tmp_sunrise_hour!+1 : tmp_sunrise_hour!
+        let presunset = tmp_sunset_minute! > 30 ? tmp_sunset_hour! : tmp_sunset_hour! - 1
+        let sunset = presunset + 1
+        return (sunrise,presunset,sunset)
+    }
+    
     func nowFilter() -> String!{
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -718,23 +857,60 @@ class Weather:NSObject {
         let month = String(format: "%02d", components.month)
         let week  = String(format: "%02d", components.weekday)
         
-        let hour_filter = " and ((ge_hour <= \(hour) and le_hour >= \(hour) and (ge_hour <= le_hour)) or ((ge_hour > le_hour) and ((ge_hour <= \(hour) and \(hour) < 25) or (\(hour) >= 0 and le_hour >= \(hour)))))"
+//                let hour_filter = " and ((ge_hour <= \(hour) and le_hour >= \(hour) and (ge_hour <= le_hour)) or ((ge_hour > le_hour) and ((ge_hour <= \(hour) and \(hour) < 25) or (\(hour) >= 0 and le_hour >= \(hour)))))"
+        let sunhour = self.getSunHour()
+        let sunrise = sunhour.0
+        let presunset = sunhour.1
+        let sunset = sunhour.2
+        
+        let hour_filter = "and  ( ( (ge_hour < 0 and le_hour >= 0) and ( (ge_hour = -10 and \(sunrise) <= le_hour and \(sunrise) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -10 and \(sunrise) > le_hour and ( (\(sunrise) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -20 and \(sunset) <= le_hour and \(sunset) <= \(hour) and le_hour >= \(hour)  ) or (ge_hour = -20 and \(sunset) > le_hour and ( (\(sunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -15 and \(presunset) <= le_hour and \(presunset) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -15 and \(presunset) > le_hour and ( (\(presunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) )  ) or ( (ge_hour >= 0  and le_hour < 0) and ( (le_hour = -10 and ge_hour <= \(sunrise) and ge_hour <= \(hour) and \(sunrise) > \(hour)  ) or (le_hour = -10 and ge_hour > \(sunrise) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour)) ) ) or (le_hour = -20 and ge_hour <= \(sunset) and ge_hour <= \(hour) and \(sunset) > \(hour)  ) or (le_hour = -20 and ge_hour > \(sunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunset) > \(hour)) ) ) or (le_hour = -15 and ge_hour <= \(presunset) and ge_hour <= \(hour) and \(presunset) > \(hour)  ) or (le_hour = -15 and ge_hour > \(presunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(presunset) > \(hour)) ) ) ) ) or ( (ge_hour < 0 and le_hour < 0) and ( (ge_hour = -10 and le_hour = -20 and \(sunrise) <= \(hour) and \(sunset) > \(hour)  ) or  (ge_hour = -10 and le_hour = -15 and \(sunrise) <= \(hour) and \(presunset) > \(hour)  ) or (ge_hour = -15 and le_hour = -20 and \(presunset) <= \(hour) and \(sunset) > \(hour)  ) or (ge_hour = -20 and le_hour = -10 and ( (\(sunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) or (ge_hour = -15 and le_hour = -10 and ( (\(presunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) )  ) or  ( (ge_hour >= 0 and le_hour >= 0)  and  (  (ge_hour <= \(hour) and le_hour > \(hour) and (ge_hour <= le_hour))  or  ((ge_hour > le_hour)  and  ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) ) ) )"
+        
         let week_filter = " and ((ge_week <= \(week) and le_week >= \(week) and (ge_week <= le_week)) or ((ge_week > le_week) and ((ge_week <= \(week) and \(week) <= 7) or (le_week >= \(week) and \(week) >= 0))))"
         let month_filter = " and ((ge_month <= \(month) and le_month >= \(month) and (ge_month <= le_month)) or ((ge_month > le_month) and ((ge_month <= \(month) and \(month) >= 31) or (le_month >=\(month) and \(month) >=0 ))))"
         
-        let weather = self.getWeather()
+        var weather_filter = ""
+        if self.getWeather() != nil {
+            let weather = self.getWeather()!
+            weather_filter = " ((weather = '*') or (weather = '任意天气') or (weather like '%\(weather)%') or ('\(weather)' like '%' || weather || '%'))"
+        }
         
-        let weather_filter = " ((weather = '*') or (weather = '任意天气') or (weather like '%\(weather)%') or ('\(weather)' like '%' || weather || '%'))"
+        
         
         let temp_filter = " and (ge_temp <= \(self.getTemp()!) and le_temp >= \(self.getTemp()!))"
         var aqi_filter = ""
-        if self.data.aqi != nil {
-            aqi_filter = " and (ge_aqi <= \(self.data.aqi!) and le_aqi >= \(self.data.aqi!))"
+        if let aqii  = self.getAqi() {
+            aqi_filter = " and (ge_aqi <= \(aqii) and le_aqi >= \(aqii))"
         }
         
         let filter =  weather_filter + hour_filter + week_filter + month_filter + temp_filter + aqi_filter
         return filter;
         
+    }
+    
+    func getAqi() -> Int? {
+        if self.data.cy_realtime_aqi != nil {
+            return self.data.cy_realtime_aqi
+        }else if self.data.aqi != nil{
+            return self.data.aqi
+        }else{
+            return nil
+        }
+    }
+    
+    func getWindLevel() -> String? {
+        if self.data.cy_realtime_windlevel != nil {
+            return self.data.cy_realtime_windlevel
+        }else{
+            return self.data.fenglevel
+        }
+    }
+    
+    func getHumi() -> String? {
+        if self.data.cy_realtime_humidity != nil {
+            return self.data.cy_realtime_humidity! + "%"
+        }else{
+            return self.data.humidity
+        }
     }
     
     func getWeather() -> String? {
@@ -746,10 +922,13 @@ class Weather:NSObject {
     }
     
     func getTemp() -> String? {
+        if self.data.cy_realtime_temperature != nil {
+            return self.data.cy_realtime_temperature!.trim()
+        }
         if self.data.temp == nil {
-            return self.data.rtemp
+            return self.data.rtemp?.trim()
         }else{
-            return self.data.temp
+            return self.data.temp?.trim()
         }
     }
     

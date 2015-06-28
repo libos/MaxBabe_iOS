@@ -46,18 +46,18 @@ class ReviseController: UIQueryController {
         revisedView.hidden = false
         switch (type){
         case .NICKNAME:
-            lbTitle.text = "修改昵称"
-            lbRevised.text = "新昵称"
+            lbTitle.text = center.s2t("修改昵称")
+            lbRevised.text = center.s2t("新昵称")
             edRevised.placeholder = "New Nickname"
             edRevised.secureTextEntry = false
-            lbPwd.text = "密　码"
+            lbPwd.text = center.s2t("密　码")
             edPwd.secureTextEntry = true
             edPwd.placeholder = "Password"
         case .SEX:
             sexView.hidden = false
             pwdView.hidden = true
-            lbTitle.text = "修改性别"
-            lbRevised.text = "密　码"
+            lbTitle.text = center.s2t("修改性别")
+            lbRevised.text = center.s2t("密　码")
             edRevised.placeholder = "Password"
             edRevised.secureTextEntry = true
             if Center.getInstance.account_sex == "男"{
@@ -68,21 +68,21 @@ class ReviseController: UIQueryController {
                 girlBtn.setImage(UIImage(named: "btn_gender_girl_check"), forState: UIControlState.Normal)
             }
         case .PASSWORD:
-            lbTitle.text = "修改密码"
-            lbRevised.text = "旧密码"
+            lbTitle.text = center.s2t("修改密码")
+            lbRevised.text = center.s2t("旧密码")
             edRevised.placeholder = "Old Password"
             edRevised.secureTextEntry = true
-            lbPwd.text = "新密码"
+            lbPwd.text = center.s2t("新密码")
             edPwd.secureTextEntry = true
             edPwd.placeholder = "New Password"
 
         case .PHONE:
-            lbTitle.text = "修改手机号"
-            lbRevised.text = "新手机号"
+            lbTitle.text = center.s2t("修改手机号")
+            lbRevised.text = center.s2t("新手机号")
             edRevised.placeholder = "New Phone"
             edRevised.keyboardType = UIKeyboardType.PhonePad
             edRevised.secureTextEntry = false
-            lbPwd.text = "密　　码"
+            lbPwd.text = center.s2t("密　　码")
             edPwd.secureTextEntry = true
             edPwd.placeholder = "Password"
         }

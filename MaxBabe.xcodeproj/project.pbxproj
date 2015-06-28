@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3103081B3EDC2900E5144D /* OBabe.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 1D9031A91B35A8350094BE99 /* OBabe.entitlements */; };
+		1D3103091B3EDC2B00E5144D /* MaxBabe.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 1D8092101B3556E7009F127F /* MaxBabe.entitlements */; };
 		1D3338D21B31B7580073184C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3338D11B31B7580073184C /* ArrayExtension.swift */; };
 		1D3338D41B32C1000073184C /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3338D31B32C1000073184C /* CGRectExtension.swift */; };
 		1D3338D61B3324590073184C /* FirstStartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3338D51B3324590073184C /* FirstStartController.swift */; };
@@ -62,6 +64,10 @@
 		1DB73D141B2186DC00485BD7 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB73D131B2186DC00485BD7 /* DictionaryExtensions.swift */; };
 		1DB73D181B21F8E400485BD7 /* ForecastDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB73D171B21F8E400485BD7 /* ForecastDownloader.swift */; };
 		1DB73D1A1B220A1500485BD7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB73D191B220A1500485BD7 /* UIColorExtension.swift */; };
+		1DC2DFE31B37FD05004A85B0 /* UIPtfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC2DFE21B37FD05004A85B0 /* UIPtfView.swift */; };
+		1DC2DFE51B381298004A85B0 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC2DFE41B381298004A85B0 /* HRToast+UIView.swift */; };
+		1DC2DFE71B3839EE004A85B0 /* zh2TW.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DC2DFE61B3839EE004A85B0 /* zh2TW.txt */; };
+		1DC2DFFB1B384BE0004A85B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DC2DFFD1B384BE0004A85B0 /* InfoPlist.strings */; };
 		1DD12EDA1B1566FA003EC218 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD12ED91B1566FA003EC218 /* SettingController.swift */; };
 		1DD12EDC1B1567C7003EC218 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD12EDB1B1567C7003EC218 /* AccountController.swift */; };
 		1DD12EDE1B1567D6003EC218 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD12EDD1B1567D6003EC218 /* LoginController.swift */; };
@@ -116,7 +122,6 @@
 /* Begin PBXFileReference section */
 		001338C2FFECEC0DB65686E7 /* libPods-MaxBabe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MaxBabe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D1138481B2596F300ABD496 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		1D2555D31B153B4A00040F1A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		1D3338D11B31B7580073184C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		1D3338D31B32C1000073184C /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		1D3338D51B3324590073184C /* FirstStartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstStartController.swift; sourceTree = "<group>"; };
@@ -151,7 +156,6 @@
 		1D5A13081B2886650080C2F8 /* PassValueDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassValueDelegate.swift; sourceTree = "<group>"; };
 		1D620D691B2FFD700053B18E /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		1D7FE8181B14302100EFE79C /* MaxBabe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaxBabe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D7FE81C1B14302100EFE79C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D7FE81D1B14302100EFE79C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D7FE8201B14302100EFE79C /* MaxBabe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MaxBabe.xcdatamodel; sourceTree = "<group>"; };
 		1D7FE8221B14302100EFE79C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -163,10 +167,9 @@
 		1D8092101B3556E7009F127F /* MaxBabe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MaxBabe.entitlements; sourceTree = "<group>"; };
 		1D8442F01B25DC910092D7A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1D8442F21B2671070092D7A3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1D8AA1E91B154AC7005F419D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1D9031991B35A7BA0094BE99 /* OBabe.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OBabe.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D90319D1B35A7BA0094BE99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		1D9031A01B35A7BA0094BE99 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		1D9031A91B35A8350094BE99 /* OBabe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OBabe.entitlements; sourceTree = "<group>"; };
 		1D9031AC1B35AA020094BE99 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
@@ -185,7 +188,17 @@
 		1DB73D131B2186DC00485BD7 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		1DB73D171B21F8E400485BD7 /* ForecastDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastDownloader.swift; sourceTree = "<group>"; };
 		1DB73D191B220A1500485BD7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		1DD12ED71B154B5D003EC218 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		1DC2DFE21B37FD05004A85B0 /* UIPtfView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPtfView.swift; sourceTree = "<group>"; };
+		1DC2DFE41B381298004A85B0 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
+		1DC2DFE61B3839EE004A85B0 /* zh2TW.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zh2TW.txt; sourceTree = "<group>"; };
+		1DC2DFE91B3844FF004A85B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		1DC2DFEB1B384525004A85B0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		1DC2DFED1B384543004A85B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		1DC2DFF71B384B8A004A85B0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DC2DFFE1B384BE2004A85B0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1DC2DFFF1B384BE3004A85B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1DC2E0001B384BEB004A85B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1DC2E0011B384BF2004A85B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DD12ED81B154D8F003EC218 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		1DD12ED91B1566FA003EC218 /* SettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		1DD12EDB1B1567C7003EC218 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
@@ -250,6 +263,7 @@
 				1D620D691B2FFD700053B18E /* UILabelExtension.swift */,
 				1D3338D11B31B7580073184C /* ArrayExtension.swift */,
 				1D3338D31B32C1000073184C /* CGRectExtension.swift */,
+				1DC2DFE41B381298004A85B0 /* HRToast+UIView.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				1D3CC0281B2C2FFB00D0C3FB /* UIImageSamsaraView.swift */,
+				1DC2DFE21B37FD05004A85B0 /* UIPtfView.swift */,
 			);
 			name = UIViewClass;
 			sourceTree = "<group>";
@@ -333,6 +348,7 @@
 				1D3338DE1B3444C40073184C /* theme03.xml */,
 				1D3338DF1B3444C40073184C /* theme02.xml */,
 				1D3338E01B3444C40073184C /* theme01.xml */,
+				1DC2DFE61B3839EE004A85B0 /* zh2TW.txt */,
 				1D7FE8241B14302100EFE79C /* Main.storyboard */,
 				1DEA53B01B17649C002C4844 /* LaunchScreen.xib */,
 				1D7FE8271B14302100EFE79C /* Images.xcassets */,
@@ -348,7 +364,8 @@
 		1D7FE81B1B14302100EFE79C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1D7FE81C1B14302100EFE79C /* Info.plist */,
+				1DC2DFF71B384B8A004A85B0 /* Info.plist */,
+				1DC2DFFD1B384BE0004A85B0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -373,8 +390,9 @@
 		1D90319B1B35A7BA0094BE99 /* OBabe */ = {
 			isa = PBXGroup;
 			children = (
-				1D9031AB1B35A9DB0094BE99 /* Alamofire */,
 				1D9031A91B35A8350094BE99 /* OBabe.entitlements */,
+				1D9031AB1B35A9DB0094BE99 /* Alamofire */,
+				1D9031AF1B35AA020094BE99 /* Global.swift */,
 				1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */,
 				1D9031A01B35A7BA0094BE99 /* MainInterface.storyboard */,
 				1D9031B01B35AA020094BE99 /* Images.xcassets */,
@@ -397,7 +415,6 @@
 			children = (
 				1D9031AC1B35AA020094BE99 /* Alamofire.swift */,
 				1D9031AE1B35AA020094BE99 /* Download.swift */,
-				1D9031AF1B35AA020094BE99 /* Global.swift */,
 				1D9031B11B35AA020094BE99 /* Manager.swift */,
 				1D9031B21B35AA020094BE99 /* ParameterEncoding.swift */,
 				1D9031B31B35AA020094BE99 /* Request.swift */,
@@ -630,11 +647,14 @@
 				1D3338E21B3444C40073184C /* theme03.xml in Resources */,
 				1D3338DC1B33BE230073184C /* f_normal01.png in Resources */,
 				1D3338E41B3444C40073184C /* theme01.xml in Resources */,
+				1DC2DFFB1B384BE0004A85B0 /* InfoPlist.strings in Resources */,
 				1D3338E11B3444C40073184C /* theme04.xml in Resources */,
 				1D3338DB1B33BE230073184C /* daytime_clear01.png in Resources */,
 				1D7FE8261B14302100EFE79C /* Main.storyboard in Resources */,
 				1DEA53B21B17649C002C4844 /* LaunchScreen.xib in Resources */,
 				1DE62F2D1B1C4DF600649E9D /* com.maxtain.maxbabe.sqlite in Resources */,
+				1D3103091B3EDC2B00E5144D /* MaxBabe.entitlements in Resources */,
+				1DC2DFE71B3839EE004A85B0 /* zh2TW.txt in Resources */,
 				1D3338E31B3444C40073184C /* theme02.xml in Resources */,
 				1D7FE8281B14302100EFE79C /* Images.xcassets in Resources */,
 			);
@@ -652,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D9031A11B35A7BA0094BE99 /* MainInterface.storyboard in Resources */,
+				1D3103081B3EDC2900E5144D /* OBabe.entitlements in Resources */,
 				1D9031BA1B35AA020094BE99 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,6 +725,7 @@
 				1D3CC0211B2BD30F00D0C3FB /* UIViewExtensions.swift in Sources */,
 				1D3CC0301B2D85CF00D0C3FB /* UIShareTheme.swift in Sources */,
 				1D3338D21B31B7580073184C /* ArrayExtension.swift in Sources */,
+				1DC2DFE51B381298004A85B0 /* HRToast+UIView.swift in Sources */,
 				1DE62F341B1CB4CB00649E9D /* PendingOperations.swift in Sources */,
 				1D9031C21B365BD10094BE99 /* PreAboutController.swift in Sources */,
 				1DD12EDA1B1566FA003EC218 /* SettingController.swift in Sources */,
@@ -741,6 +763,7 @@
 				1D51842A1B290A2B00AF1F53 /* EmailSendController.swift in Sources */,
 				1DD12EE21B156BB1003EC218 /* WeatherController.swift in Sources */,
 				1D3CC02B1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift in Sources */,
+				1DC2DFE31B37FD05004A85B0 /* UIPtfView.swift in Sources */,
 				1D3338D61B3324590073184C /* FirstStartController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,14 +782,14 @@
 			files = (
 				1D9031BF1B35AA020094BE99 /* Upload.swift in Sources */,
 				1D9031BC1B35AA020094BE99 /* ParameterEncoding.swift in Sources */,
-				1D9031B91B35AA020094BE99 /* Global.swift in Sources */,
 				1D9031B81B35AA020094BE99 /* Download.swift in Sources */,
 				1D9031BE1B35AA020094BE99 /* ResponseSerialization.swift in Sources */,
 				1D9031B71B35AA020094BE99 /* Alamofire.swift in Sources */,
 				1D9031BD1B35AA020094BE99 /* Request.swift in Sources */,
-				1D90319F1B35A7BA0094BE99 /* TodayViewController.swift in Sources */,
 				1D9031C01B35AA020094BE99 /* Validation.swift in Sources */,
 				1D9031BB1B35AA020094BE99 /* Manager.swift in Sources */,
+				1D9031B91B35AA020094BE99 /* Global.swift in Sources */,
+				1D90319F1B35A7BA0094BE99 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,11 +813,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D7FE8251B14302100EFE79C /* Base */,
-				1D2555D31B153B4A00040F1A /* zh-Hant */,
-				1D8AA1E91B154AC7005F419D /* zh-Hans */,
-				1DD12ED71B154B5D003EC218 /* en */,
+				1DC2DFE91B3844FF004A85B0 /* en */,
+				1DC2DFEB1B384525004A85B0 /* zh-Hans */,
+				1DC2DFED1B384543004A85B0 /* zh-Hant */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1DC2DFFD1B384BE0004A85B0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DC2DFFE1B384BE2004A85B0 /* zh-Hans */,
+				1DC2DFFF1B384BE3004A85B0 /* zh-Hant */,
+				1DC2E0001B384BEB004A85B0 /* Base */,
+				1DC2E0011B384BF2004A85B0 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		1DEA53B01B17649C002C4844 /* LaunchScreen.xib */ = {
@@ -815,7 +849,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -860,7 +894,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -897,6 +931,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = MaxBabe/MaxBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
@@ -958,6 +993,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -967,6 +1004,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = MaxBabe/MaxBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
@@ -1028,6 +1066,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1079,10 +1119,12 @@
 				INFOPLIST_FILE = OBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1096,10 +1138,12 @@
 				INFOPLIST_FILE = OBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1113,10 +1157,12 @@
 				INFOPLIST_FILE = OBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = "ad hoc distribution";
 		};
@@ -1127,7 +1173,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1164,6 +1210,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = MaxBabe/MaxBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
@@ -1225,6 +1272,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = MaxBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = "ad hoc distribution";
 		};
@@ -1284,6 +1333,7 @@
 				1D9031A71B35A7BA0094BE99 /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

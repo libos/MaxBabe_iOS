@@ -14,9 +14,11 @@ class LoginChooseController: UIViewController {
 
     @IBOutlet weak var lbWTF: UILabel!
     @IBOutlet weak var lbFuckCook: UILabel!
+    
+    let center =  Center.getInstance
     override func viewDidLoad() {
         super.viewDidLoad()
-        var strW = "怎么可以还没注册T_T\n注册即可分享每日心情哦"
+        var strW = center.s2t("怎么可以还没注册T_T\n注册即可分享每日心情哦")!
         var oRange = NSMakeRange(0, count(strW))
         var str = NSMutableAttributedString(string: strW)
         str.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)
@@ -27,7 +29,7 @@ class LoginChooseController: UIViewController {
         str.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: oRange)
         lbWTF.attributedText =  str
         
-        strW = "有账号了？\n那等什么，还不登录！"
+        strW = center.s2t("有账号了？\n那等什么，还不登录！")!
         oRange = NSMakeRange(0, count(strW))
         str = NSMutableAttributedString(string: strW)
         str.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: oRange)

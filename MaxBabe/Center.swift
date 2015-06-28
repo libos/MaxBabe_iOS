@@ -88,7 +88,7 @@ class Center :NSObject{
         super.init()
     }
     
-    func s2t(ori:String) -> String{
+    func s2t(ori:String?) -> String?{
         if  isTwChinese(){
             return converter.convert(ori, withDict: NCChineseConverterDictTypezh2TW)
         }else{

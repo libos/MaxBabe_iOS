@@ -76,6 +76,11 @@ class UIImageSamsaraView: UIView {
         NSLayoutConstraint.applyAutoLayout(self, target: collectionView, index: nil, top: 0.0, left: 0.0, right: 0.0, bottom: 0.0, height: nil, width: nil)
     }
 
+    deinit{
+        images?.removeAll(keepCapacity: true)
+        collectionView.removeAllSubviews()
+        collectionView.removeFromSuperview()
+    }
     func reload() {
         collectionView.reloadData()
         scrollToIndex(currentIndex, animated: false)
@@ -97,9 +102,11 @@ class UIImageSamsaraView: UIView {
         }else if currentPage < 0 {
             currentPage = 0
         }
+        println("currentIndex:\(currentPage)")
         self.willChangeValueForKey("currentIndex")
         self.currentIndex = Int(currentPage)
         self.didChangeValueForKey("currentIndex")
+        
     }
 }
 
@@ -126,7 +133,7 @@ extension UIImageSamsaraView: UICollectionViewDataSource {
         let imageView = UIImageView(frame: cell.bounds)
         imageView.image = images?[indexPath.row]
         imageView.layer.shadowColor = UIColor.blackColor().CGColor
-        imageView.layer.shadowRadius = 6.0
+        imageView.layer.shadowRadius = 4.0
         imageView.layer.shadowOpacity = 0.3
         imageView.layer.shadowOffset = CGSizeMake(0, 0)
         cell.addSubview(imageView)
@@ -143,7 +150,7 @@ extension UIImageSamsaraView: UICollectionViewDataSource {
             loginBtn.setBackgroundImage(UIImage(named: "floattip_bg")!, forState: UIControlState.Normal)
             loginBtn.contentEdgeInsets = UIEdgeInsetsMake(3, 5, 5, -10)
             loginBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            loginBtn.setTitle("模板登录后可用", forState: UIControlState.Normal)
+            loginBtn.setTitle(Center.getInstance.s2t("模板登录后可用")!, forState: UIControlState.Normal)
             loginBtn.titleLabel?.font = UIFont.systemFontOfSize(10)
             loginBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
             loginBtn.addTarget(self, action: "loginIn:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -191,7 +198,8 @@ extension UIImageSamsaraView: UICollectionViewDelegate {//
     }
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath.description + "hello" )
+        println("hello\(indexPath.row)" )
+        setCurrentIndex()
     }
 }
 

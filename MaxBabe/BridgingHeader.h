@@ -35,6 +35,9 @@
 #import "UMOpus.h"
 
 #import "MobClick.h"
+#import <SSPullToRefresh/SSPullToRefresh.h>
 
 #import <BaiduMapAPI/BMapKit.h>
+
+#import "UICountingLabel.h"
 #endif
