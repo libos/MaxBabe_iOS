@@ -108,8 +108,8 @@ extension CityController {
         var location:CLLocation = locations.last as! CLLocation
         
         if location.horizontalAccuracy > 0 {
-            println( "\(location.coordinate.latitude)")
-            println( "\(location.coordinate.longitude)")
+//            println( "\(location.coordinate.latitude)")
+//            println( "\(location.coordinate.longitude)")
             var pt:CLLocationCoordinate2D = location.coordinate
             var reverseGeoCodeSearchOption:BMKReverseGeoCodeOption = BMKReverseGeoCodeOption.alloc()
             reverseGeoCodeSearchOption.reverseGeoPoint = pt

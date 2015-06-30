@@ -104,6 +104,7 @@ class ShareController: UIViewController {
 //        collections.removeAll(keepCapacity: true)
         collections = []
         themeManger = []
+        samsara.images?.removeAll(keepCapacity: true)
         var theme01 = UIShareTheme(xml: getTheme("theme01"),the_word:word)
         var theme02 = UIShareTheme(xml: getTheme("theme02"),the_word:word)
         var theme03 = UIShareTheme(xml: getTheme("theme03"),the_word:word)
@@ -113,32 +114,24 @@ class ShareController: UIViewController {
 //        collections  += [theme02.screenshotImage(scale: 3.0)]
 //        collections  += [theme03.screenshotImage(scale: 3.0)]
 //        collections  += [theme04.screenshotImage(scale: 3.0)]
+        var image:UIImage = UIImage()
+        theme01.screenshotImage(scale: 2.0,image: &image)
+        collections  += [image]
+        theme02.screenshotImage(scale: 2.0,image: &image)
+        collections  += [image]
+        theme03.screenshotImage(scale: 2.0,image: &image)
+        collections  += [image]
+        theme04.screenshotImage(scale: 2.0,image: &image)
+        collections  += [image]
 
-        var im1 = theme01.screenshotImage(scale: 2.0)
-        var im2 = theme02.screenshotImage(scale: 2.0)
-        var im3 = theme03.screenshotImage(scale: 2.0)
-        var im4 = theme04.screenshotImage(scale: 2.0)
-        collections  += [im1.memory]
-        collections  += [im2.memory]
-        collections  += [im3.memory]
-        collections  += [im4.memory]
-        
-        im1.destroy()
-        im2.destroy()
-        im3.destroy()
-        im4.destroy()
-        im1.dealloc(1)
-        im2.dealloc(1)
-        im3.dealloc(1)
-        im4.dealloc(1)
-//        theme01.removeAllSubviews()
-//        theme02.removeAllSubviews()
-//        theme03.removeAllSubviews()
-//        theme04.removeAllSubviews()
-//        theme01.removeFromSuperview()
-//        theme02.removeFromSuperview()
-//        theme03.removeFromSuperview()
-//        theme04.removeFromSuperview()
+        theme01.removeAllSubviews()
+        theme02.removeAllSubviews()
+        theme03.removeAllSubviews()
+        theme04.removeAllSubviews()
+        theme01.removeFromSuperview()
+        theme02.removeFromSuperview()
+        theme03.removeFromSuperview()
+        theme04.removeFromSuperview()
 //        themeManger.append(theme01)
 //        themeManger.append(theme02)
 //        themeManger.append(theme03)
@@ -179,7 +172,10 @@ class ShareController: UIViewController {
     @IBAction func unwindSegueFromShareEdit(segue : UIStoryboardSegue){
         if segue.identifier == "backToShare" {
             var svc:ShareEditController = segue.sourceViewController as! ShareEditController
-            self.the_word = svc.ret_str
+            self.the_word = svc.ret_str!.substring(32)
+            
+            //Here we need limit to 32 word
+            
             addTheme(self.the_word)
 
             samsara.images = collections
@@ -258,16 +254,17 @@ extension ShareController : UIImageSamsaraViewDelegate{
     }
     
     @IBAction func loggedBackUnwindSegue(segue:UIStoryboardSegue){
-        
+        addTheme(self.the_word)
+        samsara.images = collections
         samsara.reload()
     }
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        println("hhh")
         return true
     }
     @IBAction func LogoutUnwindSegue(segue:UIStoryboardSegue){
         //var source:UIViewController = segue.sourceViewController as! UIViewController
-        
+        addTheme(self.the_word)
+        samsara.images = collections
         samsara.reload()
         
     }
@@ -279,7 +276,7 @@ extension ShareController{
         // ===> UMShareToWechatTimeline
         UMSocialDataService.defaultDataService().postSNSWithTypes([UMShareToWechatTimeline], content: "", image: (collections[samsara.getCurrentIndex()]), location:nil, urlResource: nil, presentedController: self) { (response:UMSocialResponseEntity!) -> Void in
             if (response.responseCode.value == UMSResponseCodeSuccess.value) {
-                println("Circle分享成功！")
+//                println("Circle分享成功！")
             }
         }
 //        "wx1d3399ae82a092e5"
@@ -290,7 +287,7 @@ extension ShareController{
         // ===> UMShareToWechatSession
         UMSocialDataService.defaultDataService().postSNSWithTypes([UMShareToWechatSession], content: "", image: (collections[samsara.getCurrentIndex()]), location:nil, urlResource: nil, presentedController: self) { (response:UMSocialResponseEntity!) -> Void in
             if (response.responseCode.value == UMSResponseCodeSuccess.value) {
-                println("Wechat分享成功！")
+//                println("Wechat分享成功！")
             }
         }
     }
@@ -309,7 +306,7 @@ extension ShareController{
         
         UMSocialDataService.defaultDataService().postSNSWithTypes([UMShareToQQ], content: "", image: (collections[samsara.getCurrentIndex()]), location:nil, urlResource: nil, presentedController: self) { (response:UMSocialResponseEntity!) -> Void in
             if (response.responseCode.value == UMSResponseCodeSuccess.value) {
-                println("QQ分享成功！")
+//                println("QQ分享成功！")
             }
         }
     }
@@ -318,7 +315,7 @@ extension ShareController{
     @IBAction func instagram(sender: AnyObject) {
         UMSocialDataService.defaultDataService().postSNSWithTypes([UMShareToInstagram], content: "", image: (collections[samsara.getCurrentIndex()]), location:nil, urlResource: nil, presentedController: self) { (response:UMSocialResponseEntity!) -> Void in
             if (response.responseCode.value == UMSResponseCodeSuccess.value) {
-                println("Instagram分享成功！")
+//                println("Instagram分享成功！")
             }
         }
 
@@ -326,7 +323,7 @@ extension ShareController{
     @IBAction func facebook(sender: AnyObject) {
         UMSocialDataService.defaultDataService().postSNSWithTypes([UMShareToFacebook], content: "", image: (collections[samsara.getCurrentIndex()]), location:nil, urlResource: nil, presentedController: self) { (response:UMSocialResponseEntity!) -> Void in
             if (response.responseCode.value == UMSResponseCodeSuccess.value) {
-                println("Facebook分享成功！")
+//                println("Facebook分享成功！")
             }
         }
 

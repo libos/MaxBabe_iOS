@@ -62,7 +62,7 @@ class Pics {
         var params:Dictionary = ["id":city!,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,
             "weather":weather,"reso":reso,"sunrise":"\(sunrise)","sunset":"\(sunset)","presunset":"\(presunset)"]
 
-        println(params.description)
+//        println(params.description)
         let manager = AFHTTPRequestOperationManager()
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>
@@ -70,7 +70,7 @@ class Pics {
         manager.POST(
             "http://apibabe.maxtain.com/pic_info_iphone.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                println(response.description)
+//                println(response.description)
                 self.updateSuccess(response as? Dictionary!)
             },
             failure: {(operation : AFHTTPRequestOperation!, error : NSError!) in

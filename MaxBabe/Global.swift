@@ -12,7 +12,10 @@ struct ScreenSize
 {
     static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.size.width
     static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.size.height
+    static let SCREEN_WIDTH_IOS8 = UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale
+    static let SCREEN_HEIGHT_IOS8 = UIScreen.mainScreen().nativeBounds.size.height / UIScreen.mainScreen().nativeScale
     static let SCREEN_MAX_LENGTH = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+    static let SCREEN_MAX_LENGTH_IOS8 = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
     static let SCREEN_MIN_LENGTH = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
 }
 
@@ -21,7 +24,9 @@ struct DeviceType
     static let IS_IPHONE_4_OR_LESS =  UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
     static let IS_IPHONE_5 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
     static let IS_IPHONE_6 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
-    static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH >= 736.0
+    static let IS_IPHONE_6P_IOS7 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+    static let IS_IPHONE_6P_IOS8 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH_IOS8 == 736.0
+    static let IS_IPHONE_6P = UIScreen.mainScreen().respondsToSelector("nativeBounds:") ? IS_IPHONE_6P_IOS8 : IS_IPHONE_6P_IOS7
 }
 final class Global {
     
@@ -57,6 +62,7 @@ final class Global {
     static let cityCityName:String = "city_city_name"
     static let cityCityDisplayName:String = "city_city_display_name"
     static let cityProvince:String = "city_province_name"
+    static let widget_first_start_app:String = "widget_first_start_app"
     
     
     static let CellCityReuseIdentifier:String = "city_reuse"
@@ -133,7 +139,7 @@ final class Global {
         if hour < presunset && hour >= sunrise {
             return UIColor(rgba: "#58A8C9")
         }else if hour >= presunset && hour < sunset {
-            return UIColor(rgba: "#d8612a")
+            return UIColor(rgba: "#D46E64")
         }else if hour >= sunset && hour <= 23 {
             return UIColor(rgba: "#4a5999")
         }else{ //if hour >=23 || hour <6 {

@@ -21,17 +21,27 @@ extension UIView {
 //        }
 //        return image!
 //    }
-    func screenshotImage(scale: CGFloat = 0.0) -> UnsafeMutablePointer<UIImage> {
-        var image:UnsafeMutablePointer<UIImage> = UnsafeMutablePointer.alloc(1)
+//    func screenshotImage(scale: CGFloat = 0.0) -> UnsafeMutablePointer<UIImage> {
+//        var image:UnsafeMutablePointer<UIImage> = UnsafeMutablePointer.alloc(1)
+//        
+//        autoreleasepool{
+//            UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+//            drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
+//            //            var context:CGContextRef = UIGraphicsGetCurrentContext()
+//            image.initialize(UIGraphicsGetImageFromCurrentImageContext())
+//            UIGraphicsEndImageContext()
+//        }
+//        return image
+//    }
 
+    
+    func screenshotImage(scale: CGFloat = 0.0,inout image:UIImage) {
         autoreleasepool{
             UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
             drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
-//            var context:CGContextRef = UIGraphicsGetCurrentContext()
-            image.initialize(UIGraphicsGetImageFromCurrentImageContext())
+            image =  UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
-        return image
     }
 
     

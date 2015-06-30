@@ -60,7 +60,10 @@ class ShareEditController: UIViewController {
 
         editModeField.attributedText = strPre
         
-        var len = 45 - count(editModeField.text)
+        var len = 32 - count(editModeField.text)
+        if len <= 0 {
+            len = 0
+        }
         lbLeftNumber.text = center.s2t("还可输入 \(len) 字")
         
         
@@ -289,8 +292,8 @@ extension ShareEditController:UITableViewDataSource,UITableViewDelegate{
 
 extension ShareEditController:UITextViewDelegate{
     func textViewDidChange(textView: UITextView){
-        println(textView.text)
-        var len = 45 - count(textView.text)
+//        println(textView.text)
+        var len = 32 - count(textView.text)
         if len <= 0 {
             len = 0
         }

@@ -550,7 +550,7 @@ class Weather:NSObject {
         manager.POST(
             "http://apibabe.maxtain.com/get_daily.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                println(response.description)
+//                println(response.description)
                 //                if response is Dictionary<String,Dictionary<String,String>>{
                 self.updateDaily(response as! Dictionary<String,Dictionary<String,String>>!)
                 //                }
@@ -803,7 +803,7 @@ class Weather:NSObject {
         manager.POST(
             "http://apibabe.maxtain.com/get_week.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                println(response.description)
+//                println(response.description)
                 self.updateWeek(response as! Dictionary<String,Dictionary<String,String>>!)
             },
             failure: {(operation : AFHTTPRequestOperation!, error : NSError!) in
@@ -846,6 +846,7 @@ class Weather:NSObject {
         let presunset = tmp_sunset_minute! > 30 ? tmp_sunset_hour! : tmp_sunset_hour! - 1
         let sunset = presunset + 1
         return (sunrise,presunset,sunset)
+//          return (5,17,18)
     }
     
     func nowFilter() -> String!{

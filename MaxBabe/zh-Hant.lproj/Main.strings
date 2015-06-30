@@ -20,7 +20,7 @@
 "2lB-ZT-VEX.text" = "微信好友";
 
 /* Class = "UILabel"; text = "登陸"; ObjectID = "2vi-Ra-gMz"; */
-"2vi-Ra-gMz.text" = "登陸";
+"2vi-Ra-gMz.text" = "登入";
 
 /* Class = "UILabel"; text = "Instagram"; ObjectID = "4T3-ia-bUt"; */
 "4T3-ia-bUt.text" = "Instagram";
@@ -56,7 +56,7 @@
 "8bl-gg-ctU.text" = "城市名";
 
 /* Class = "UILabel"; text = "有賬號了？ 那等什麼，還不登錄！"; ObjectID = "8tg-5y-aEb"; */
-"8tg-5y-aEb.text" = "有賬號了？ 那等什麼，還不登錄！";
+"8tg-5y-aEb.text" = "有賬號了？ 那等什麼，還不登入！";
 
 /* Class = "UIButton"; normalTitle = "去給麥寶打5顆星"; ObjectID = "8z8-4D-AVl"; */
 "8z8-4D-AVl.normalTitle" = "去給麥寶打5顆星";
@@ -191,7 +191,7 @@
 "Z7P-iF-DCt.text" = "跑堂博士";
 
 /* Class = "UIButton"; normalTitle = "登錄"; ObjectID = "awX-qA-lTw"; */
-"awX-qA-lTw.normalTitle" = "登錄";
+"awX-qA-lTw.normalTitle" = "登入";
 
 /* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "bu7-2N-26Q"; */
 "bu7-2N-26Q.placeholder" = "Nickname";
@@ -248,7 +248,7 @@
 "l1c-dU-csE.text" = "通知欄設定";
 
 /* Class = "UIButton"; normalTitle = "退出登錄"; ObjectID = "le9-c3-krg"; */
-"le9-c3-krg.normalTitle" = "退出登錄";
+"le9-c3-krg.normalTitle" = "退出登入";
 
 /* Class = "UIButton"; normalTitle = "編輯文字"; ObjectID = "m36-no-7FT"; */
 "m36-no-7FT.normalTitle" = "編輯文字";
@@ -260,13 +260,13 @@
 "mb8-uR-YQM.text" = "可愛的麥寶會時刻提醒你最新的天氣情況哦！";
 
 /* Class = "UIButton"; normalTitle = "登陸"; ObjectID = "nhX-uY-x3h"; */
-"nhX-uY-x3h.normalTitle" = "登陸";
+"nhX-uY-x3h.normalTitle" = "登入";
 
 /* Class = "UILabel"; text = "找回密碼"; ObjectID = "oay-Ru-e6i"; */
 "oay-Ru-e6i.text" = "找回密碼";
 
 /* Class = "UIButton"; normalTitle = "登錄"; ObjectID = "ogW-LP-OSH"; */
-"ogW-LP-OSH.normalTitle" = "登錄";
+"ogW-LP-OSH.normalTitle" = "登入";
 
 /* Class = "UITextField"; placeholder = "Phone"; ObjectID = "pUe-hq-lRH"; */
 "pUe-hq-lRH.placeholder" = "Phone";
@@ -296,7 +296,7 @@
 "uUn-gb-TgA.text" = "152****8888";
 
 /* Class = "UILabel"; text = "登陸"; ObjectID = "udL-gr-vwm"; */
-"udL-gr-vwm.text" = "登陸";
+"udL-gr-vwm.text" = "登入";
 
 /* Class = "UILabel"; text = "QQ"; ObjectID = "v9v-b7-Wbx"; */
 "v9v-b7-Wbx.text" = "QQ";

@@ -20,7 +20,7 @@ class SettingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.interactivePopGestureRecognizer.delegate = nil
         if center.isLogin() {
             loginBtn.hidden = true
             loginImage.hidden = true

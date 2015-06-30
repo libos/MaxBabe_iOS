@@ -48,7 +48,7 @@ class QueryReg {
         manager.POST(
             self.query_url, parameters: self.params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                println(response.description)
+//                println(response.description)
                 if response != nil {
                     let json:NSDictionary? = (response as? NSDictionary)
                     if json == nil {

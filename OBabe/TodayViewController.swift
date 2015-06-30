@@ -10,6 +10,10 @@ import UIKit
 import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
+   
+   @IBOutlet weak var firstStart: UIView!
+   @IBOutlet weak var contentView: UIView!
+   
    @IBOutlet weak var ivNowIcon: UIImageView!
    @IBOutlet weak var lbNowWeather: UILabel!
    
@@ -26,6 +30,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
    @IBOutlet weak var lbTime2: UILabel!
    @IBOutlet weak var lbTempTime2: UILabel!
    @IBOutlet weak var ivTime2Icon: UIImageView!
+   
+   
    
    let globalUpdateTimeFlag = "globalUpdateTimeFlag"
    let globalWeatherTemp = "globalWeatherTemp"
@@ -103,18 +109,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
    let cityCityName:String = "city_city_name"
    let cityCityDisplayName:String = "city_city_display_name"
    let cityProvince:String = "city_province_name"
+   let widget_first_start_app:String = "widget_first_start_app"
    
+   let default_lang: AnyObject?  = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages")?.objectAtIndex(0)
    
    override func viewDidLoad() {
       super.viewDidLoad()
       self.preferredContentSize = CGSizeMake(320,150)
       var tap = UITapGestureRecognizer(target: self, action: "openApp:")
       self.view.addGestureRecognizer(tap)
-      
-      self.updateFromAppGroup()
-      //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDefaultsDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
-      
-      //
+      if self.contentView != nil && self.firstStart != nil {
+         var st = NSUserDefaults(suiteName: "group.maxtain.MaxBabe")
+         if st?.boolForKey("widget_first_start_app") == true {
+            self.contentView.hidden = false
+            self.firstStart.hidden = true
+            self.updateFromAppGroup()
+         }else{
+            self.contentView.hidden = true
+            self.firstStart.hidden = false
+         }
+      }
    }
    
    @IBAction func openApp(sender: AnyObject) {
@@ -167,6 +181,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       self.cy_temp_14 = st?.stringForKey(globalcy_temp_14)
       self.cy_temp_18 = st?.stringForKey(globalcy_temp_18)
       self.cy_temp_21 = st?.stringForKey(globalcy_temp_21)
+      
       if self.weather != nil && self.cy_temp_max != nil{
          updateUI()
       }
@@ -202,7 +217,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       
       
       request(.GET, "http://apibabe.maxtain.com/widget.php", parameters: params).responseJSON(options: NSJSONReadingOptions()) { (_, _, json:AnyObject?, _) -> Void in
-         println(json)
+//         println(json)
          self.updateSuccess(json as! NSDictionary)
       }
       
@@ -299,20 +314,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
          lbTempTime1.text = self.get_afternoon_temp() + "°"
          lbTempTime2.text = self.get_tonight_temp() + "°"
          ivTime1Icon.image = getWeatherIcon(self.afternoon_weather!)
-         ivTime2Icon.image = getWeatherIcon(self.tonight_weather!)
+         ivTime2Icon.image = getWeatherIcon(self.tonight_weather!,hour: 20)
       }else if hour >= 12 && hour < 17 {
          lbTime1.text = "傍晚"
          lbTime2.text = "夜晚"
          lbTempTime1.text = self.get_prenight_temp() + "°"
          lbTempTime2.text = self.get_tonight_temp() + "°"
          ivTime1Icon.image = getWeatherIcon(self.prenight_weather!)
-         ivTime2Icon.image = getWeatherIcon(self.tonight_weather!)
+         ivTime2Icon.image = getWeatherIcon(self.tonight_weather!,hour: 20)
       }else if hour >= 17 && hour < 19 {
          lbTime1.text = "夜晚"
          lbTime2.text = "明早"
          lbTempTime1.text = self.get_tonight_temp() + "°"
          lbTempTime2.text = self.next_day_temp!.trim() + "°"
-         ivTime1Icon.image = getWeatherIcon(self.tonight_weather!)
+         ivTime1Icon.image = getWeatherIcon(self.tonight_weather!,hour:20)
          ivTime2Icon.image = getWeatherIcon(self.next_day_weather!)
       }else{
          lbTime1.text = "明早"
@@ -320,7 +335,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
          lbTempTime1.text = self.next_day_temp!.trim() + "°"
          lbTempTime2.text = self.next_night_temp!.trim() + "°"
          ivTime1Icon.image = getWeatherIcon(self.next_day_weather!)
-         ivTime2Icon.image = getWeatherIcon(self.next_night_weather!)
+         ivTime2Icon.image = getWeatherIcon(self.next_night_weather!,hour:20)
       }
    }
    func getWeather() -> String? {
@@ -381,9 +396,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       }
       var tip:String
       if (minutes <= 3) {
-         tip = "（刚刚更新）"    //res.getString(R.string.just_now);
+         if isTwChinese() {
+            tip = "（刚刚更新）"    //res.getString(R.string.just_now);
+         }else{
+            tip = "（剛剛更新）"
+         }
       } else {
-         tip = "（\(minutes)分钟前发布）"//res.getString(R.string.minutes_ago);
+         if isTwChinese() {
+            tip = "（\(minutes)分鐘前發布）"
+         }else{
+            tip = "（\(minutes)分钟前发布）"//res.getString(R.string.minutes_ago);
+         }
       }
       lbUpdateTime.text = tip;
    }
@@ -395,10 +418,32 @@ class TodayViewController: UIViewController, NCWidgetProviding {
    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
       return UIEdgeInsetsZero
    }
+   func isTwChinese()->Bool{
+      if self.default_lang!.isEqualToString("zh-Hant") {
+         return true
+      }else{
+         return false
+      }
+   }
 }
 
 
 extension TodayViewController{
+   
+   func getWeatherIcon(name:String,hour:Int)->UIImage?{
+      var idx = find(Global.WeatherDefault, name)
+      
+      if idx != nil {
+         if hour >= 19 || hour <= 6 {
+            return UIImage(named: Global.WeatherDefaultNightIcon[idx!])
+         }else{
+            return UIImage(named: Global.WeatherDefaultDayIcon[idx!])
+         }
+      }else{
+         return stringReverse(name)
+      }
+   }
+   
    func getWeatherIcon(name:String)->UIImage?{
       var idx = find(Global.WeatherDefault, name)
       let now = NSDate()
@@ -507,6 +552,9 @@ extension String{
    func trim() ->String{
       return self.stringByTrimmingLeadingAndTrailingWhitespace().stringByReplacingOccurrencesOfString("\r", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
    }
+   
+   
+   
    func stringByTrimmingLeadingAndTrailingWhitespace() -> String {
       let leadingAndTrailingWhitespacePattern = "(?:^\\s+)|(?:\\s+$)"
       

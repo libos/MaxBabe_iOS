@@ -78,7 +78,7 @@ class Background {
         if let rs = database.executeQuery("select count(*) from background where bid = ?", withArgumentsInArray: [self.bid!]) {
             if rs.next(){
                 var totalCount:Int32 = rs.intForColumnIndex(0)
-                println("TotalCount:\(totalCount)\n");
+//                println("TotalCount:\(totalCount)\n");
                 if totalCount > 0{
                     return true
                 }else{

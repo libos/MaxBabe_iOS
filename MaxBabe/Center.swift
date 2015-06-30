@@ -66,7 +66,7 @@ class Center :NSObject{
             st.setBool(false, forKey: Global.SETTING_SWITCH_NEGATIVE)
             st.synchronize()
         }
-        println(storeURL.path!)
+//        println(storeURL.path!)
         database = FMDatabase(path: storeURL.path)
         if !database.open() {
             println("Unable to open database")

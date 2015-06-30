@@ -33,6 +33,7 @@
 		1D3CC02B1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC02A1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift */; };
 		1D3CC0301B2D85CF00D0C3FB /* UIShareTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3CC02F1B2D85CF00D0C3FB /* UIShareTheme.swift */; };
 		1D3CC03B1B2F575400D0C3FB /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3CC03A1B2F575400D0C3FB /* Social.framework */; };
+		1D3E5E051B411E67006E73DF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E5E071B411E67006E73DF /* MainInterface.storyboard */; };
 		1D4DD9741B28D36400F05EFE /* QueryReg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DD9731B28D36400F05EFE /* QueryReg.swift */; };
 		1D4DF1EB1B1462C900EDCDCF /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DF1EA1B1462C900EDCDCF /* SplashController.swift */; };
 		1D5184261B28F19F00AF1F53 /* UIQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5184251B28F19F00AF1F53 /* UIQueryController.swift */; };
@@ -48,7 +49,6 @@
 		1D7FE8371B14302100EFE79C /* MaxBabeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7FE8361B14302100EFE79C /* MaxBabeTests.swift */; };
 		1D90319A1B35A7BA0094BE99 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB73CFF1B1FE1E200485BD7 /* NotificationCenter.framework */; };
 		1D90319F1B35A7BA0094BE99 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */; };
-		1D9031A11B35A7BA0094BE99 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D9031A01B35A7BA0094BE99 /* MainInterface.storyboard */; };
 		1D9031A41B35A7BA0094BE99 /* OBabe.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1D9031991B35A7BA0094BE99 /* OBabe.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1D9031B71B35AA020094BE99 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9031AC1B35AA020094BE99 /* Alamofire.swift */; };
 		1D9031B81B35AA020094BE99 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9031AE1B35AA020094BE99 /* Download.swift */; };
@@ -85,6 +85,7 @@
 		1DE62F321B1CB49E00649E9D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE62F311B1CB49E00649E9D /* ImageDownloader.swift */; };
 		1DE62F341B1CB4CB00649E9D /* PendingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE62F331B1CB4CB00649E9D /* PendingOperations.swift */; };
 		1DEA53B21B17649C002C4844 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DEA53B01B17649C002C4844 /* LaunchScreen.xib */; };
+		1DF3A7CE1B4234A8008B903E /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF3A7CD1B4234A8008B903E /* UIDeviceExtension.swift */; };
 		245219E6591E9D4A434B228E /* libPods-MaxBabe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 001338C2FFECEC0DB65686E7 /* libPods-MaxBabe.a */; };
 /* End PBXBuildFile section */
 
@@ -146,10 +147,12 @@
 		1D3CC02A1B2C323200D0C3FB /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		1D3CC02F1B2D85CF00D0C3FB /* UIShareTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIShareTheme.swift; sourceTree = "<group>"; };
 		1D3CC03A1B2F575400D0C3FB /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		1D3E5E061B411E67006E73DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1D3E5E091B411E6B006E73DF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
+		1D3E5E0B1B411E6F006E73DF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainInterface.strings"; sourceTree = "<group>"; };
 		1D4DD9731B28D36400F05EFE /* QueryReg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryReg.swift; sourceTree = "<group>"; };
 		1D4DF1E21B1431D500EDCDCF /* MaxBabe.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MaxBabe.xcodeproj; sourceTree = "<group>"; };
 		1D4DF1EA1B1462C900EDCDCF /* SplashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
-		1D4DF1EC1B14698000EDCDCF /* MaxtainPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MaxtainPlayground.playground; sourceTree = "<group>"; };
 		1D5184251B28F19F00AF1F53 /* UIQueryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIQueryController.swift; sourceTree = "<group>"; };
 		1D5184271B290A1700AF1F53 /* ForgetPasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPasswordController.swift; sourceTree = "<group>"; };
 		1D5184291B290A2B00AF1F53 /* EmailSendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailSendController.swift; sourceTree = "<group>"; };
@@ -170,7 +173,6 @@
 		1D9031991B35A7BA0094BE99 /* OBabe.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OBabe.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D90319D1B35A7BA0094BE99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		1D9031A01B35A7BA0094BE99 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		1D9031A91B35A8350094BE99 /* OBabe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OBabe.entitlements; sourceTree = "<group>"; };
 		1D9031AC1B35AA020094BE99 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		1D9031AD1B35AA020094BE99 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -198,7 +200,6 @@
 		1DC2DFFE1B384BE2004A85B0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1DC2DFFF1B384BE3004A85B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1DC2E0001B384BEB004A85B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1DC2E0011B384BF2004A85B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DD12ED81B154D8F003EC218 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		1DD12ED91B1566FA003EC218 /* SettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		1DD12EDB1B1567C7003EC218 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
@@ -217,6 +218,8 @@
 		1DE62F311B1CB49E00649E9D /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		1DE62F331B1CB4CB00649E9D /* PendingOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingOperations.swift; sourceTree = "<group>"; };
 		1DEA53B11B17649C002C4844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1DF3A7CC1B417161008B903E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1DF3A7CD1B4234A8008B903E /* UIDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		47A1493EDAB618AB74D6A5BB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		501A9C921B57E6357A74EB9A /* Pods-MaxBabe.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaxBabe.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods-MaxBabe/Pods-MaxBabe.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		C574903E49101D438B0C5738 /* Pods-MaxBabe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MaxBabe.release.xcconfig"; path = "Pods/Target Support Files/Pods-MaxBabe/Pods-MaxBabe.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 				1D3338D11B31B7580073184C /* ArrayExtension.swift */,
 				1D3338D31B32C1000073184C /* CGRectExtension.swift */,
 				1DC2DFE41B381298004A85B0 /* HRToast+UIView.swift */,
+				1DF3A7CD1B4234A8008B903E /* UIDeviceExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -355,7 +359,6 @@
 				1D7FE81F1B14302100EFE79C /* MaxBabe.xcdatamodeld */,
 				1DE62F2C1B1C4DF600649E9D /* com.maxtain.maxbabe.sqlite */,
 				1D7FE81B1B14302100EFE79C /* Supporting Files */,
-				1D4DF1EC1B14698000EDCDCF /* MaxtainPlayground.playground */,
 				1DD12ED81B154D8F003EC218 /* BridgingHeader.h */,
 			);
 			path = MaxBabe;
@@ -394,7 +397,7 @@
 				1D9031AB1B35A9DB0094BE99 /* Alamofire */,
 				1D9031AF1B35AA020094BE99 /* Global.swift */,
 				1D90319E1B35A7BA0094BE99 /* TodayViewController.swift */,
-				1D9031A01B35A7BA0094BE99 /* MainInterface.storyboard */,
+				1D3E5E071B411E67006E73DF /* MainInterface.storyboard */,
 				1D9031B01B35AA020094BE99 /* Images.xcassets */,
 				1D9031AD1B35AA020094BE99 /* BridgingHeader.h */,
 				1D90319C1B35A7BA0094BE99 /* Supporting Files */,
@@ -671,7 +674,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D9031A11B35A7BA0094BE99 /* MainInterface.storyboard in Resources */,
+				1D3E5E051B411E67006E73DF /* MainInterface.storyboard in Resources */,
 				1D3103081B3EDC2900E5144D /* OBabe.entitlements in Resources */,
 				1D9031BA1B35AA020094BE99 /* Images.xcassets in Resources */,
 			);
@@ -735,6 +738,7 @@
 				1D3C16871B1A98F90026929F /* Background.swift in Sources */,
 				1D3C16891B1A99030026929F /* Figure.swift in Sources */,
 				1D4DF1EB1B1462C900EDCDCF /* SplashController.swift in Sources */,
+				1DF3A7CE1B4234A8008B903E /* UIDeviceExtension.swift in Sources */,
 				1DB73D1A1B220A1500485BD7 /* UIColorExtension.swift in Sources */,
 				1D7FE8231B14302100EFE79C /* ViewController.swift in Sources */,
 				1D5184261B28F19F00AF1F53 /* UIQueryController.swift in Sources */,
@@ -809,6 +813,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1D3E5E071B411E67006E73DF /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D3E5E061B411E67006E73DF /* Base */,
+				1D3E5E091B411E6B006E73DF /* zh-Hans */,
+				1D3E5E0B1B411E6F006E73DF /* zh-Hant */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		1D7FE8241B14302100EFE79C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -826,7 +840,7 @@
 				1DC2DFFE1B384BE2004A85B0 /* zh-Hans */,
 				1DC2DFFF1B384BE3004A85B0 /* zh-Hant */,
 				1DC2E0001B384BEB004A85B0 /* Base */,
-				1DC2E0011B384BF2004A85B0 /* en */,
+				1DF3A7CC1B417161008B903E /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -935,6 +949,7 @@
 				CODE_SIGN_ENTITLEMENTS = MaxBabe/MaxBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MaxBabe",
@@ -1134,7 +1149,7 @@
 				CODE_SIGN_ENTITLEMENTS = OBabe/OBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = OBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1153,7 +1168,7 @@
 				CODE_SIGN_ENTITLEMENTS = OBabe/OBabe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = OBabe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";

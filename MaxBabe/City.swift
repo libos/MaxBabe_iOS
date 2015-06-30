@@ -113,18 +113,14 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         var location:CLLocation = locations.last as! CLLocation
 
         if location.horizontalAccuracy > 0 {
-            println( "\(location.coordinate.latitude)")
-            println( "\(location.coordinate.longitude)")
+//            println( "\(location.coordinate.latitude)")
+//            println( "\(location.coordinate.longitude)")
             var pt:CLLocationCoordinate2D = location.coordinate
             var reverseGeoCodeSearchOption:BMKReverseGeoCodeOption = BMKReverseGeoCodeOption.alloc()
             reverseGeoCodeSearchOption.reverseGeoPoint = pt
             var flag:Bool = searcher.reverseGeoCode(reverseGeoCodeSearchOption)
 
-            if(flag)
-            {
-              println("反geo检索发送成功");
-            }
-            else
+            if(!flag)
             {
               println("反geo检索发送失败");
             }
@@ -153,6 +149,7 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         stGroup!.setValue(center.s2t(self.city_name)!, forKey: Global.cityCityDisplayName)
         stGroup!.setValue(center.s2t(self.district)!, forKey: Global.cityDistrict)
         stGroup!.setValue(self.province, forKey: Global.cityProvince)
+        stGroup!.setBool(true, forKey: Global.widget_first_start_app)
         stGroup!.synchronize()
     }
 

@@ -102,7 +102,7 @@ class UIImageSamsaraView: UIView {
         }else if currentPage < 0 {
             currentPage = 0
         }
-        println("currentIndex:\(currentPage)")
+//        println("currentIndex:\(currentPage)")
         self.willChangeValueForKey("currentIndex")
         self.currentIndex = Int(currentPage)
         self.didChangeValueForKey("currentIndex")
@@ -198,7 +198,7 @@ extension UIImageSamsaraView: UICollectionViewDelegate {//
     }
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        println("hello\(indexPath.row)" )
+//        println("hello\(indexPath.row)" )
         setCurrentIndex()
     }
 }
@@ -206,7 +206,7 @@ extension UIImageSamsaraView: UICollectionViewDelegate {//
 extension UIImageSamsaraView:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         setCurrentIndex()
-        println("scrollViewDidEndDecelerating")
+//        println("scrollViewDidEndDecelerating")
     }
 }
 

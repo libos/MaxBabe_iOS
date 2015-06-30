@@ -56,6 +56,14 @@ extension String{
             return false
         }
     }
+    
+    func substring(to:Int) -> String{
+        var toEnd = count(self) - 1
+        if to < toEnd {
+            toEnd = to
+        }
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex, end: advance(self.startIndex, toEnd)))
+    }
     func trim() ->String{
         return self.stringByTrimmingLeadingAndTrailingWhitespace().stringByReplacingOccurrencesOfString("\r", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }

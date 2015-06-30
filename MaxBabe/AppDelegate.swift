@@ -20,11 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         var ret:Bool = baiduManager.start("oKOBpr25adybS8iK7Z9AzssS", generalDelegate: nil)
-        if (!ret) {
-            println("manager start failed!")
-        }else{
-            println("manager start succ!")
-        }
+//        if (!ret) {
+//            println("manager start failed!")
+//        }else{
+//            println("manager start succ!")
+//        }
         self.window?.makeKeyAndVisible()
    
         TSMessage.setDefaultViewController(self.window?.rootViewController)
@@ -64,6 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
              // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        application.beginIgnoringInteractionEvents()
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            for aWindow in application.windows {
+                (aWindow as! UIWindow).tintAdjustmentMode = UIViewTintAdjustmentMode.Dimmed
+            }
+        })
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -79,6 +85,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            for aWindow in application.windows {
+                (aWindow as! UIWindow).tintAdjustmentMode = UIViewTintAdjustmentMode.Dimmed
+            }
+            }) { (finished:Bool) -> Void in
+            application.endIgnoringInteractionEvents()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

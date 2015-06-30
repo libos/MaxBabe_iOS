@@ -39,6 +39,7 @@ class LoginChooseController: UIViewController {
         linestyle.alignment = NSTextAlignment.Center
         str.addAttribute(NSParagraphStyleAttributeName, value: linestyle, range: oRange)
         lbFuckCook.attributedText =  str
+        self.navigationController?.interactivePopGestureRecognizer.delegate = nil
         // Do any additional setup after loading the view, typically from a nib.
     }
 

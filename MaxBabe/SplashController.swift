@@ -29,7 +29,6 @@ class SplashController: UIViewController {
     }
 
     func show() {
-        
         if NSUserDefaults.standardUserDefaults().boolForKey(Global.isFirstStart){
 //        if false{
            self.performSegueWithIdentifier("showApp", sender: self)
@@ -37,9 +36,6 @@ class SplashController: UIViewController {
 
             self.performSegueWithIdentifier("toFirstStart", sender: self)
         }
-
-
-        
     }
 
     func addBackgroundImage() {
@@ -52,17 +48,5 @@ class SplashController: UIViewController {
         self.view.addSubview(bgView)
     }
     
-//    func addLogo() {
-//        let screenSize: CGRect = UIScreen.mainScreen().bounds
-//        
-//        let logo     = UIImage(named: "AppIcon")
-//        let logoView = UIImageView(image: logo)
-//        
-//        let w = logo?.size.width
-//        let h = logo?.size.height
-//        
-//        logoView.frame = CGRectMake( (screenSize.width/2) - (w!/2), 5, w!, h! )
-//        self.view.addSubview(logoView)
-//    }
 }
 
