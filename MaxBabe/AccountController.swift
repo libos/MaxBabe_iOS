@@ -16,7 +16,7 @@ class AccountController: UIViewController {
     @IBOutlet weak var lbNickname: UILabel!
     @IBOutlet weak var lbSex: UILabel!
     @IBOutlet weak var lbPhone: UILabel!
-    
+    @IBOutlet weak var lbPhoneChange: UILabel!
     var center = Center.getInstance
     
     var sex:String? = "男"
@@ -36,7 +36,13 @@ class AccountController: UIViewController {
         
         self.lbEmail.text = self.email
         self.lbNickname.text = self.nickname
-        self.lbPhone.text = self.phone!.substringToIndex("abc".endIndex) + "****" + self.phone!.substringFromIndex("abcdefg".endIndex)
+        if self.phone != "" {
+            self.lbPhone.text = self.phone!.substringToIndex("abc".endIndex) + "****" + self.phone!.substringFromIndex("abcdefg".endIndex)
+            self.lbPhoneChange.text = "修改"
+        }else{
+            self.lbPhone.text = center.s2t("手机号")
+            self.lbPhoneChange.text = "添加"
+        }
         self.lbSex.text = self.sex
        
         // Do any additional setup after loading the view, typically from a nib.
@@ -85,7 +91,13 @@ class AccountController: UIViewController {
         self.phone = center.account_phone
         self.nickname = center.account_nickname
         self.lbNickname.text = self.nickname
-        self.lbPhone.text = self.phone!.substringToIndex("abc".endIndex) + "****" + self.phone!.substringFromIndex("abcdefg".endIndex)
+        if self.phone != "" {
+            self.lbPhone.text = self.phone!.substringToIndex("abc".endIndex) + "****" + self.phone!.substringFromIndex("abcdefg".endIndex)
+            self.lbPhoneChange.text = "修改"
+        }else{
+            self.lbPhone.text = center.s2t("手机号")
+            self.lbPhoneChange.text = "添加"
+        }
         self.lbSex.text = self.sex
     }
     

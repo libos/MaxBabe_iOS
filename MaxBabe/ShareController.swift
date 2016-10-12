@@ -36,7 +36,10 @@ class ShareController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        var city = City.getInstance
+        if city.city_name == nil || city.city_name == "" {
+            city.setCityName("北京")
+        }
         let size = UIScreen.mainScreen().bounds.size
 //        let item_size = CGSize(width: size.width * Global.SHARE_CARD_WIDTH_RATION, height: size.height * Global.SHARE_CARD_HEIGHT_RATION)
         let st = NSUserDefaults.standardUserDefaults()
@@ -109,19 +112,27 @@ class ShareController: UIViewController {
         var theme02 = UIShareTheme(xml: getTheme("theme02"),the_word:word)
         var theme03 = UIShareTheme(xml: getTheme("theme03"),the_word:word)
         var theme04 = UIShareTheme(xml: getTheme("theme04"),the_word:word)
- 
+        
 //        collections  += [theme01.screenshotImage(scale: 3.0)]
 //        collections  += [theme02.screenshotImage(scale: 3.0)]
 //        collections  += [theme03.screenshotImage(scale: 3.0)]
 //        collections  += [theme04.screenshotImage(scale: 3.0)]
         var image:UIImage = UIImage()
-        theme01.screenshotImage(scale: 2.0,image: &image)
+//        theme01.screenshotImage(scale: 2.0,image: &image)
+//        collections  += [image]
+//        theme02.screenshotImage(scale: 2.0,image: &image)
+//        collections  += [image]
+//        theme03.screenshotImage(scale: 2.0,image: &image)
+//        collections  += [image]
+//        theme04.screenshotImage(scale: 2.0,image: &image)
+//        collections  += [image]
+        theme01.screenshotImage(scale: 0.0,image: &image)
         collections  += [image]
-        theme02.screenshotImage(scale: 2.0,image: &image)
+        theme02.screenshotImage(scale: 0.0,image: &image)
         collections  += [image]
-        theme03.screenshotImage(scale: 2.0,image: &image)
+        theme03.screenshotImage(scale: 0.0,image: &image)
         collections  += [image]
-        theme04.screenshotImage(scale: 2.0,image: &image)
+        theme04.screenshotImage(scale: 0.0,image: &image)
         collections  += [image]
 
         theme01.removeAllSubviews()
@@ -132,6 +143,11 @@ class ShareController: UIViewController {
         theme02.removeFromSuperview()
         theme03.removeFromSuperview()
         theme04.removeFromSuperview()
+        
+//        for btn in samsara.loginBtns{
+//            self.view.bringSubviewToFront(btn)
+//        }
+        
 //        themeManger.append(theme01)
 //        themeManger.append(theme02)
 //        themeManger.append(theme03)
@@ -217,7 +233,9 @@ class ShareController: UIViewController {
     
     @IBAction func shareAction(sender: AnyObject) {
         if !Center.getInstance.isLogin() && samsara.getCurrentIndex() > 0 {
-            self.logIn(sender as! UIButton)
+            if sender is UIButton {
+                self.logIn(sender as! UIButton)
+            }
             return
         }
         self.SharePanelBottom.constant = 0

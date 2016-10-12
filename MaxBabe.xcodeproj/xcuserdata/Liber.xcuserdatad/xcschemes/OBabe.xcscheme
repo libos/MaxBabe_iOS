@@ -103,7 +103,8 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "ad hoc distribution"
+      buildConfiguration = "Release"
+      customArchiveName = "OBabe"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

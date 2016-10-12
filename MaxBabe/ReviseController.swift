@@ -77,7 +77,7 @@ class ReviseController: UIQueryController {
             edPwd.placeholder = "New Password"
 
         case .PHONE:
-            lbTitle.text = center.s2t("修改手机号")
+            lbTitle.text = center.s2t("手机号")
             lbRevised.text = center.s2t("新手机号")
             edRevised.placeholder = "New Phone"
             edRevised.keyboardType = UIKeyboardType.PhonePad
@@ -144,9 +144,11 @@ class ReviseController: UIQueryController {
                 return false
             }
         }
-        if revisedValue == nil || revisedValue == "" {
-            warningShow("请填写内容===(￣▽￣*)b");
-            return false
+        if type != ChangeType.PHONE {
+            if revisedValue == nil || revisedValue == "" {
+                warningShow("请填写内容===(￣▽￣*)b");
+                return false
+            }
         }
         if type == ChangeType.NICKNAME {
             if revisedValue == self.center.account_nickname {
@@ -160,8 +162,8 @@ class ReviseController: UIQueryController {
             }
         }
         if type == ChangeType.PHONE {
-            if !Global.isValidPhoneNumber(revisedValue!) || (count(revisedValue!) < 8) {
-                warningShow("您的手机号不正确(◡‿◡)")
+            if revisedValue != "" && (!Global.isValidPhoneNumber(revisedValue!) || (count(revisedValue!) < 8)) {
+                warningShow("您的手机号不正确(◡‿◡)，请填写正确号码或留空")
                 return false
             }
         }
@@ -194,7 +196,7 @@ class ReviseController: UIQueryController {
                 self.warningShow("开小差了，请稍后重试(ಥ_ಥ)");
             case .DUPLICATE:
                 self.failedRequest()
-                self.warningShow("手机号已有人在使用(｡•ˇ‸ˇ•｡)");
+                self.warningShow("手机号已有人在使用(｡•ˇ‸ˇ•｡)，请填写正确号码或留空");
             case .NO_USER:
                 self.failedRequest()
                 self.warningShow("密码错误o(╯□╰)o")

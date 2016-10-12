@@ -275,7 +275,7 @@ class Weather:NSObject {
         manager.GET(
             "http://apibabe.maxtain.com/get_data_iphone.php", parameters: params,
             success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
-                //                println(response.description)
+//                                println(response.description)
                 self.state = ".Downloading"
                 self.updateSuccess(response as! NSDictionary!)
             },
@@ -852,11 +852,11 @@ class Weather:NSObject {
     func nowFilter() -> String!{
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMonth | .CalendarUnitWeekday, fromDate: now)
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitDay | .CalendarUnitWeekday, fromDate: now)
         
         let hour = String(format: "%02d",  components.hour)
-        let month = String(format: "%02d", components.month)
-        let week  = String(format: "%02d", components.weekday)
+        let month = String(format: "%02d", components.day)
+        let week  = String(format: "%02d", components.weekday-1) //need minus 1
         
 //                let hour_filter = " and ((ge_hour <= \(hour) and le_hour >= \(hour) and (ge_hour <= le_hour)) or ((ge_hour > le_hour) and ((ge_hour <= \(hour) and \(hour) < 25) or (\(hour) >= 0 and le_hour >= \(hour)))))"
         let sunhour = self.getSunHour()
@@ -864,7 +864,7 @@ class Weather:NSObject {
         let presunset = sunhour.1
         let sunset = sunhour.2
         
-        let hour_filter = "and  ( ( (ge_hour < 0 and le_hour >= 0) and ( (ge_hour = -10 and \(sunrise) <= le_hour and \(sunrise) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -10 and \(sunrise) > le_hour and ( (\(sunrise) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -20 and \(sunset) <= le_hour and \(sunset) <= \(hour) and le_hour >= \(hour)  ) or (ge_hour = -20 and \(sunset) > le_hour and ( (\(sunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -15 and \(presunset) <= le_hour and \(presunset) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -15 and \(presunset) > le_hour and ( (\(presunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) )  ) or ( (ge_hour >= 0  and le_hour < 0) and ( (le_hour = -10 and ge_hour <= \(sunrise) and ge_hour <= \(hour) and \(sunrise) > \(hour)  ) or (le_hour = -10 and ge_hour > \(sunrise) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour)) ) ) or (le_hour = -20 and ge_hour <= \(sunset) and ge_hour <= \(hour) and \(sunset) > \(hour)  ) or (le_hour = -20 and ge_hour > \(sunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunset) > \(hour)) ) ) or (le_hour = -15 and ge_hour <= \(presunset) and ge_hour <= \(hour) and \(presunset) > \(hour)  ) or (le_hour = -15 and ge_hour > \(presunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(presunset) > \(hour)) ) ) ) ) or ( (ge_hour < 0 and le_hour < 0) and ( (ge_hour = -10 and le_hour = -20 and \(sunrise) <= \(hour) and \(sunset) > \(hour)  ) or  (ge_hour = -10 and le_hour = -15 and \(sunrise) <= \(hour) and \(presunset) > \(hour)  ) or (ge_hour = -15 and le_hour = -20 and \(presunset) <= \(hour) and \(sunset) > \(hour)  ) or (ge_hour = -20 and le_hour = -10 and ( (\(sunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) or (ge_hour = -15 and le_hour = -10 and ( (\(presunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) )  ) or  ( (ge_hour >= 0 and le_hour >= 0)  and  (  (ge_hour <= \(hour) and le_hour > \(hour) and (ge_hour <= le_hour))  or  ((ge_hour > le_hour)  and  ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) ) ) )"
+        let hour_filter = " and  ( ( (ge_hour < 0 and le_hour >= 0) and ( (ge_hour = -10 and \(sunrise) <= le_hour and \(sunrise) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -10 and \(sunrise) > le_hour and ( (\(sunrise) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -20 and \(sunset) <= le_hour and \(sunset) <= \(hour) and le_hour >= \(hour)  ) or (ge_hour = -20 and \(sunset) > le_hour and ( (\(sunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) or (ge_hour = -15 and \(presunset) <= le_hour and \(presunset) <= \(hour) and le_hour > \(hour)  ) or (ge_hour = -15 and \(presunset) > le_hour and ( (\(presunset) <= \(hour) and \(hour) < 25) or  (\(hour) >= 0 and le_hour > \(hour)) ) ) )  ) or ( (ge_hour >= 0  and le_hour < 0) and ( (le_hour = -10 and ge_hour <= \(sunrise) and ge_hour <= \(hour) and \(sunrise) > \(hour)  ) or (le_hour = -10 and ge_hour > \(sunrise) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour)) ) ) or (le_hour = -20 and ge_hour <= \(sunset) and ge_hour <= \(hour) and \(sunset) > \(hour)  ) or (le_hour = -20 and ge_hour > \(sunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunset) > \(hour)) ) ) or (le_hour = -15 and ge_hour <= \(presunset) and ge_hour <= \(hour) and \(presunset) > \(hour)  ) or (le_hour = -15 and ge_hour > \(presunset) and ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(presunset) > \(hour)) ) ) ) ) or ( (ge_hour < 0 and le_hour < 0) and ( (ge_hour = -10 and le_hour = -20 and \(sunrise) <= \(hour) and \(sunset) > \(hour)  ) or  (ge_hour = -10 and le_hour = -15 and \(sunrise) <= \(hour) and \(presunset) > \(hour)  ) or (ge_hour = -15 and le_hour = -20 and \(presunset) <= \(hour) and \(sunset) > \(hour)  ) or (ge_hour = -20 and le_hour = -10 and ( (\(sunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) or (ge_hour = -15 and le_hour = -10 and ( (\(presunset) <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and \(sunrise) > \(hour))  ) ) )  ) or  ( (ge_hour >= 0 and le_hour >= 0)  and  (  (ge_hour <= \(hour) and le_hour > \(hour) and (ge_hour <= le_hour))  or  ((ge_hour > le_hour)  and  ( (ge_hour <= \(hour) and \(hour) < 25)  or  (\(hour) >= 0 and le_hour > \(hour)) ) ) ) ) )"
         
         let week_filter = " and ((ge_week <= \(week) and le_week >= \(week) and (ge_week <= le_week)) or ((ge_week > le_week) and ((ge_week <= \(week) and \(week) <= 7) or (le_week >= \(week) and \(week) >= 0))))"
         let month_filter = " and ((ge_month <= \(month) and le_month >= \(month) and (ge_month <= le_month)) or ((ge_month > le_month) and ((ge_month <= \(month) and \(month) >= 31) or (le_month >=\(month) and \(month) >=0 ))))"
@@ -874,8 +874,6 @@ class Weather:NSObject {
             let weather = self.getWeather()!
             weather_filter = " ((weather = '*') or (weather = '任意天气') or (weather like '%\(weather)%') or ('\(weather)' like '%' || weather || '%'))"
         }
-        
-        
         
         let temp_filter = " and (ge_temp <= \(self.getTemp()!) and le_temp >= \(self.getTemp()!))"
         var aqi_filter = ""

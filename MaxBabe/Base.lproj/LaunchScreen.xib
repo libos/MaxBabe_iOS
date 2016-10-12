@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleAspectFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -17,12 +17,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="vc5-oZ-l6q" secondAttribute="centerY" id="265-MQ-oYw"/>
-                <constraint firstAttribute="bottom" secondItem="vc5-oZ-l6q" secondAttribute="bottom" id="6jN-ab-Ukk"/>
+                <constraint firstAttribute="trailing" secondItem="vc5-oZ-l6q" secondAttribute="trailing" id="5xw-6O-Mp1"/>
                 <constraint firstItem="vc5-oZ-l6q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BY1-Bx-Clk"/>
-                <constraint firstAttribute="trailing" secondItem="vc5-oZ-l6q" secondAttribute="trailing" id="Cdt-ZG-k3M"/>
+                <constraint firstAttribute="bottom" secondItem="vc5-oZ-l6q" secondAttribute="bottom" id="EO7-1i-4B6"/>
                 <constraint firstItem="vc5-oZ-l6q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nPr-LC-wgk"/>
-                <constraint firstAttribute="centerX" secondItem="vc5-oZ-l6q" secondAttribute="centerX" id="rAh-20-cZr"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

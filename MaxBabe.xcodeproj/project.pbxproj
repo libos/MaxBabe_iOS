@@ -947,8 +947,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = MaxBabe/MaxBabe.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Maxtain Ltd (5CT4R5BCK8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1139,6 +1139,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -1158,6 +1159,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
@@ -1177,6 +1179,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = OBabe/BridgingHeader.h;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = "ad hoc distribution";

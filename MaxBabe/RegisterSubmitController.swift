@@ -32,6 +32,7 @@ class RegisterSubmitController: UIQueryController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isBoy = true
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -63,8 +64,8 @@ class RegisterSubmitController: UIQueryController {
             warningShow("昵称长度需要大于1位，小于24位(◡‿◡)")
             return false
         }
-        if !Global.isValidPhoneNumber(self.phone!) || (count(self.phone!) < 8) {
-                warningShow("您的手机号不正确(◡‿◡)")
+        if self.phone != "" && (!Global.isValidPhoneNumber(self.phone!) || (count(self.phone!) < 8)) {
+                warningShow("您的手机号不正确(◡‿◡)，请填写正确号码或留空")
                 return false
         }
         prepareRequest()
@@ -100,7 +101,7 @@ class RegisterSubmitController: UIQueryController {
                 self.performSegueWithIdentifier(identifier, sender: sender)
             case .DUPLICATE:
                 self.failedRequest()
-                self.warningShow("该手机号已经存在(T_T)，请重新输入");
+                self.warningShow("该手机号已经存在(T_T)，请重新输入或留空");
                 
             default:
                 self.failedRequest()

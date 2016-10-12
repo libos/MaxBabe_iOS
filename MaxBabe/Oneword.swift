@@ -31,7 +31,7 @@ class Oneword
     }
     func save(){
         if !self.hasSelf(){
-            if !database.executeUpdate("insert into oneword (id, oid, word, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)", withArgumentsInArray: [self.oid!.toInt()!,self.words!,self.oweather!,self.ogehour!.toInt()!,self.olehour!.toInt()!,self.ogemonth!.toInt()!,self.olemonth!.toInt()!,self.ogeweek!.toInt()!,self.oleweek!.toInt()!,self.ogetemp!.toInt()!,self.oletemp!.toInt()!,self.ogeaqi!.toInt()!,self.oleaqi!.toInt()!]) {
+            if !database.executeUpdate("insert into oneword (id, oid, word, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)", withArgumentsInArray: [self.oid!.toInt()!,self.words!,self.oweather!,self.ogehour!.toInt()!,self.olehour!.toInt()!,self.ogeweek!.toInt()!,self.oleweek!.toInt()!,self.ogemonth!.toInt()!,self.olemonth!.toInt()!,self.ogetemp!.toInt()!,self.oletemp!.toInt()!,self.ogeaqi!.toInt()!,self.oleaqi!.toInt()!]) {
                 
                 println("insert 2 table failed: \(database.lastErrorMessage())")
                 

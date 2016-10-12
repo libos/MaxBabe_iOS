@@ -115,6 +115,10 @@ extension CityController {
             reverseGeoCodeSearchOption.reverseGeoPoint = pt
             var flag:Bool = searcher.reverseGeoCode(reverseGeoCodeSearchOption)
             
+            if(!flag){
+                located = false
+                cityLocatedName.text = center.s2t("您所在区域暂不支持")
+            }
 //            if(flag)
 //            {
 //                println("反geo检索发送成功");
@@ -134,10 +138,15 @@ extension CityController {
             self.province = addr.province
             if self.district != nil && self.district != "" {
                 cityLocatedName.text = self.district
-            }else if self.city_name != nil {
+                located = true
+            }else if self.city_name != nil && self.city_name != ""{
                 cityLocatedName.text = self.city_name
+                located = true
+            }else{
+                located = false
+                cityLocatedName.text = center.s2t("您所在区域暂不支持")
             }
-            located = true
+            
         }else {
 //            println("抱歉，未找到结果")
         }

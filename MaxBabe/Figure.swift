@@ -37,7 +37,7 @@ class Figure
     
     func save(){
         if  !self.hasSelf() {
-            if !database.executeUpdate("insert into figure (id,fid, filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.fid!.toInt()!,self.figure!,self.fmd5!,1,self.fweather!,self.fgehour!.toInt()!,self.flehour!.toInt()!,self.fgemonth!.toInt()!,self.flemonth!.toInt()!,self.fgeweek!.toInt()!,self.fleweek!.toInt()!,self.fgetemp!.toInt()!,self.fletemp!.toInt()!,self.fgeaqi!.toInt()!,self.fleaqi!.toInt()!]) {
+            if !database.executeUpdate("insert into figure (id,fid, filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.fid!.toInt()!,self.figure!,self.fmd5!,1,self.fweather!,self.fgehour!.toInt()!,self.flehour!.toInt()!,self.fgeweek!.toInt()!,self.fleweek!.toInt()!,self.fgemonth!.toInt()!,self.flemonth!.toInt()!,self.fgetemp!.toInt()!,self.fletemp!.toInt()!,self.fgeaqi!.toInt()!,self.fleaqi!.toInt()!]) {
                 
                 println("insert 2 table failed: \(database.lastErrorMessage())")
                 
@@ -46,7 +46,7 @@ class Figure
     }
     func save_nofile(){
         if  !self.hasSelf() {
-            if !database.executeUpdate("insert into figure (id,fid,filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.fid!,self.figure!,"",self.fmd5!,0,self.fweather!,self.fgehour!.toInt()!,self.flehour!.toInt()!,self.fgemonth!.toInt()!,self.flemonth!.toInt()!,self.fgeweek!.toInt()!,self.fleweek!.toInt()!,self.fgetemp!.toInt()!,self.fletemp!.toInt()!,self.fgeaqi!.toInt()!,self.fleaqi!.toInt()!]) {
+            if !database.executeUpdate("insert into figure (id,fid,filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.fid!,self.figure!,"",self.fmd5!,0,self.fweather!,self.fgehour!.toInt()!,self.flehour!.toInt()!,self.fgeweek!.toInt()!,self.fleweek!.toInt()!,self.fgemonth!.toInt()!,self.flemonth!.toInt()!,self.fgetemp!.toInt()!,self.fletemp!.toInt()!,self.fgeaqi!.toInt()!,self.fleaqi!.toInt()!]) {
                 
                 println("insert figure table failed: \(database.lastErrorMessage())")
                 
@@ -71,7 +71,7 @@ class Figure
     
     
     func hasSelf() -> Bool{
-        if let rs = database.executeQuery("select count(*) from figure where fid = ?", withArgumentsInArray: [self.fid!]) {
+        if let rs = database.executeQuery("select count(*) from figure where fid = ? and download = 1", withArgumentsInArray: [self.fid!]) {
             if rs.next(){
                 var totalCount:Int32 = rs.intForColumnIndex(0)
                 

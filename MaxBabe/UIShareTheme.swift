@@ -173,7 +173,7 @@ class UIShareTheme: UIView {
                 (new_view as! UIImageView).clipsToBounds = true
             }else if elename == "figure"{
                 new_view = UIImageView(image: UIImage(contentsOfFile: the_figure))
-                (new_view as! UIImageView).contentMode = UIViewContentMode.ScaleAspectFit
+                (new_view as! UIImageView).contentMode = UIViewContentMode.ScaleAspectFill
             }else if elename == "cityName"{
                 new_view  = UILabel()
                 var city = City.getInstance

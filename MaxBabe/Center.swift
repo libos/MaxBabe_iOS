@@ -424,6 +424,7 @@ class Center :NSObject{
     func ios8() -> Bool {
         return UIDevice.currentDevice().systemVersion.compare("8.0", options: NSStringCompareOptions.NumericSearch) != NSComparisonResult.OrderedAscending
     }
+
     func close(){
         if database.isAccessibilityElement {
             database.close()

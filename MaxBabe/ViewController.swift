@@ -175,7 +175,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.detailView = UIScrollView(frame: self.view.bounds)
-        self.detailView.contentSize = CGSizeMake(self.detailView.frame.size.width,self.detailView.frame.size.height*2)
+        self.detailView.contentSize = CGSizeMake(self.screenWidth,self.screenHeight*2)
         self.detailView.backgroundColor = UIColor.clearColor()//UIColor(white: 0, alpha: 0.8)
         self.detailView.delegate = self
         self.detailView.pagingEnabled = true
@@ -183,10 +183,17 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         if self.city.city_name == nil {
             self.detailView.scrollEnabled = false
         }
-        self.detailView.alwaysBounceVertical = false
+        if center.ios8() {
+            self.detailView.alwaysBounceVertical = false
+        }else{  
+            self.detailView.alwaysBounceVertical = true
+        }
+
+        
         self.detailView.alwaysBounceHorizontal = false
         self.detailView.showsHorizontalScrollIndicator = false
         self.detailView.showsVerticalScrollIndicator = false
+
         
         self.page2 = UIView(frame: CGRect(x: 0, y: screenHeight , width: self.view.bounds.size.width, height: screenHeight))
         self.page2.backgroundColor = Global.colorOfhour()
@@ -490,7 +497,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
             }
         }
         self.center.start(updateViews: {
-            //            self.updateView()
+//            self.updateView()
         })
     }
     
@@ -857,10 +864,10 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         colorOfhour =  Global.colorOfhour()
         colorOfhour.colorWithAlphaComponent(1)
         self.page2.backgroundColor = colorOfhour
-        self.viewLay.backgroundColor = colorOfhour
+        self.viewLay.backgroundColor = UIColor.clearColor()
     }
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y <= screenHeight/2 {
+        if scrollView.contentOffset.y <= screenHeight*2/5 {
             scrollView.setContentOffset(CGPointMake(0, 0), animated: true)
         }
     }
@@ -895,7 +902,7 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.openShareBtn.alpha = percent
         self.openSettingBtn.alpha = percent
         self.page2.alpha = 1-percent
-        self.viewLay.backgroundColor = self.viewLay.backgroundColor?.colorWithAlphaComponent(1-percent)
+//        self.viewLay.backgroundColor = self.viewLay.backgroundColor?.colorWithAlphaComponent(1-percent)
         
     }
     
@@ -1229,8 +1236,10 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         var lowMax = highData.reduce(Int.max, combine: { min($0, $1) })
         var maxDiff = highMax - lowMax
         
-        var high_granularity:CGFloat = 4             //0.0075 * screenHeight         // 5px
-        
+        var high_granularity:CGFloat = 3             //0.0075 * screenHeight         // 5px
+        if self.modelName == "iPhone 6 Plus" || DeviceType.IS_IPHONE_6P {
+            high_granularity = 4.5
+        }
         if maxDiff > 10 && maxDiff <= 34 {
             high_granularity = 2             //0.003 * screenHeight         // 2px
         }else if maxDiff > 34 {
@@ -1243,14 +1252,23 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         lowMax = lowData.reduce(Int.max, combine: { min($0, $1) })
         maxDiff = highMax - lowMax
         
-        var low_granularity:CGFloat = 4             //0.0075 * screenHeight         // 5px
-        
+        var low_granularity:CGFloat = 3             //0.0075 * screenHeight         // 5px
+        if self.modelName == "iPhone 6 Plus" || DeviceType.IS_IPHONE_6P {
+            low_granularity = 4.5
+        }
         if maxDiff > 10 && maxDiff <= 34 {
             low_granularity = 2             //0.003 * screenHeight         // 2px
         }else if maxDiff > 34 {
             low_granularity = 1             //0.0015 * screenHeight         // 1px
         }
         
+        if "iPhone 4S" == self.modelName  || "iPhone 4" == self.modelName || DeviceType.IS_IPHONE_4_OR_LESS{
+            low_baseline = 50
+            high_baseline = 100
+            high_granularity = 1
+            low_granularity = 1
+            curveTopBaseLine = high_baseline + high_granularity * 8 + 10
+        }
         
         for idx in 1...5 {
             var bar:UIView! = UIView()
@@ -1448,8 +1466,8 @@ class ViewController: UIViewController,UIScrollViewDelegate{
         self.page2.addConstraint(NSLayoutConstraint(item: self.layer_center, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
         
         // layer_center top margin
-        if self.modelName == "iPhone 6 Plus" {
-            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 90))
+        if self.modelName == "iPhone 6 Plus" || DeviceType.IS_IPHONE_6P {
+            self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 50))
         }else{
             self.page2.addConstraint(NSLayoutConstraint(item: layer_center, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.page2, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 20))
         }
@@ -1556,7 +1574,7 @@ extension ViewController : SSPullToRefreshViewDelegate{
     func pullToRefreshViewDidStartLoading(view: SSPullToRefreshView!) {
         self.ptf.startLoading()
         self.center.start(updateViews: {
-            //            self.updateView()
+//                        self.updateView()
             //finishLoadingAnimated(true, completion: nil)
         })
         self.ptf.finishLoading()

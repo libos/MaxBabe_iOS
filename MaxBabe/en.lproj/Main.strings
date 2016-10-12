@@ -21,7 +21,7 @@
 "2lB-ZT-VEX.text" = "微信好友";
 
 /* Class = "UILabel"; text = "登陆"; ObjectID = "2vi-Ra-gMz"; */
-"2vi-Ra-gMz.text" = "登陆";
+"2vi-Ra-gMz.text" = "登录";
 
 /* Class = "UILabel"; text = "Instagram"; ObjectID = "4T3-ia-bUt"; */
 "4T3-ia-bUt.text" = "Instagram";
@@ -195,7 +195,7 @@
 "awX-qA-lTw.normalTitle" = "登录";
 
 /* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "bu7-2N-26Q"; */
-"bu7-2N-26Q.placeholder" = "Nickname";
+"bu7-2N-26Q.placeholder" = "Required";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "dgt-J4-rsa"; */
 "dgt-J4-rsa.placeholder" = "Email";
@@ -261,7 +261,7 @@
 "mb8-uR-YQM.text" = "可爱的麦宝会时刻提醒你最新的天气情况哦！";
 
 /* Class = "UIButton"; normalTitle = "登陆"; ObjectID = "nhX-uY-x3h"; */
-"nhX-uY-x3h.normalTitle" = "登陆";
+"nhX-uY-x3h.normalTitle" = "登录";
 
 /* Class = "UILabel"; text = "找回密码"; ObjectID = "oay-Ru-e6i"; */
 "oay-Ru-e6i.text" = "找回密码";
@@ -270,7 +270,7 @@
 "ogW-LP-OSH.normalTitle" = "登录";
 
 /* Class = "UITextField"; placeholder = "Phone"; ObjectID = "pUe-hq-lRH"; */
-"pUe-hq-lRH.placeholder" = "Phone";
+"pUe-hq-lRH.placeholder" = "Optional";
 
 /* Class = "UILabel"; text = "仅在WIFI环境下更新"; ObjectID = "qN1-kE-Ule"; */
 "qN1-kE-Ule.text" = "仅在WIFI环境下更新";
@@ -297,7 +297,7 @@
 "uUn-gb-TgA.text" = "152****8888";
 
 /* Class = "UILabel"; text = "登陆"; ObjectID = "udL-gr-vwm"; */
-"udL-gr-vwm.text" = "登陆";
+"udL-gr-vwm.text" = "登录";
 
 /* Class = "UILabel"; text = "QQ"; ObjectID = "v9v-b7-Wbx"; */
 "v9v-b7-Wbx.text" = "QQ";

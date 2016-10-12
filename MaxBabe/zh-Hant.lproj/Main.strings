@@ -194,7 +194,7 @@
 "awX-qA-lTw.normalTitle" = "登入";
 
 /* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "bu7-2N-26Q"; */
-"bu7-2N-26Q.placeholder" = "Nickname";
+"bu7-2N-26Q.placeholder" = "必填";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "dgt-J4-rsa"; */
 "dgt-J4-rsa.placeholder" = "Email";
@@ -269,7 +269,7 @@
 "ogW-LP-OSH.normalTitle" = "登入";
 
 /* Class = "UITextField"; placeholder = "Phone"; ObjectID = "pUe-hq-lRH"; */
-"pUe-hq-lRH.placeholder" = "Phone";
+"pUe-hq-lRH.placeholder" = "選填";
 
 /* Class = "UILabel"; text = "僅在WIFI環境下更新"; ObjectID = "qN1-kE-Ule"; */
 "qN1-kE-Ule.text" = "僅在WIFI環境下更新";

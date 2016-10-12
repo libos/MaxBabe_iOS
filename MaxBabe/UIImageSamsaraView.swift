@@ -21,7 +21,7 @@ class UIImageSamsaraView: UIView {
     
     var images: [UIImage]?
     var _currentIndex:Int = 0
-    
+//    var loginBtns:[UIButton] = []
     var currentIndex: Int {
         get{
             return _currentIndex
@@ -129,7 +129,7 @@ extension UIImageSamsaraView: UICollectionViewDataSource {
                 view.removeFromSuperview()
             }
         }
-        
+        cell.clipsToBounds = false
         let imageView = UIImageView(frame: cell.bounds)
         imageView.image = images?[indexPath.row]
         imageView.layer.shadowColor = UIColor.blackColor().CGColor
@@ -159,7 +159,8 @@ extension UIImageSamsaraView: UICollectionViewDataSource {
             cell.addConstraint(NSLayoutConstraint(item: loginBtn, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 38))
             cell.addConstraint(NSLayoutConstraint(item: loginBtn, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: cell, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 12))
             cell.addConstraint(NSLayoutConstraint(item: loginBtn, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: cell, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
-            self.bringSubviewToFront(loginBtn)
+            cell.bringSubviewToFront(loginBtn)
+//            loginBtns.append(loginBtn)
         }
    
 

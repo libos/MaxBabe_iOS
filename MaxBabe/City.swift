@@ -53,10 +53,11 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         if center.ios8() {
             locationManager.requestAlwaysAuthorization()
         }
-        
+
         if self.city_name == nil {
             loadFromDefaults()
             if self.city_name == nil {
+
                 self.updateLoction()
             }
         }
@@ -122,6 +123,7 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
 
             if(!flag)
             {
+              setCityName("北京")
               println("反geo检索发送失败");
             }
         }
@@ -147,6 +149,12 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
         var stGroup = NSUserDefaults(suiteName: "group.maxtain.MaxBabe")
         stGroup!.setValue(self.city_name, forKey: Global.cityCityName)
         stGroup!.setValue(center.s2t(self.city_name)!, forKey: Global.cityCityDisplayName)
+        if self.district == nil {
+            self.district = ""
+        }
+        if self.province == nil {
+            self.province = ""
+        }
         stGroup!.setValue(center.s2t(self.district)!, forKey: Global.cityDistrict)
         stGroup!.setValue(self.province, forKey: Global.cityProvince)
         stGroup!.setBool(true, forKey: Global.widget_first_start_app)
@@ -158,8 +166,13 @@ class City: NSObject,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate {
             let addr = result.addressDetail
             self.district = addr.district
             self.province = addr.province
-            setCityName(addr.city)
+            if addr.city != "" {
+                setCityName(addr.city)
+            }else{
+                setCityName("北京")
+            }
           }else {
+            setCityName("北京")
             println("抱歉，未找到结果")
           }
     }

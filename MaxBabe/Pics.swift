@@ -40,9 +40,9 @@ class Pics {
         let reso = "xx"
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMonth | .CalendarUnitWeekday, fromDate: now)
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitDay | .CalendarUnitWeekday, fromDate: now)
         let hour = String(format: "%02d",  components.hour)
-        let month = String(format: "%02d", components.month)
+        let month = String(format: "%02d", components.day)
         let week  = String(format: "%02d", components.weekday-1)
         
         var aqi = "48"
@@ -62,7 +62,7 @@ class Pics {
         var params:Dictionary = ["id":city!,"auth":auth.md5,"user":"1","hour":hour,"month":month,"week":week,"aqi":aqi,"temp":temp,
             "weather":weather,"reso":reso,"sunrise":"\(sunrise)","sunset":"\(sunset)","presunset":"\(presunset)"]
 
-//        println(params.description)
+        println(params.description)
         let manager = AFHTTPRequestOperationManager()
         
         manager.responseSerializer.acceptableContentTypes = NSSet(object: "text/html") as Set<NSObject>

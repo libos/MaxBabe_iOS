@@ -37,7 +37,7 @@ class Background {
     
     func save(){
         if !self.hasSelf() {
-            if !database.executeUpdate("insert into background (id, bid, filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.bid!.toInt()!,self.background!,self.bmd5!,1,self.bweather!.toInt()!,self.bgehour!.toInt()!,self.blehour!.toInt()!,self.bgemonth!.toInt()!,self.blemonth!.toInt()!,self.bgeweek!.toInt()!,self.bleweek!.toInt()!,self.bgetemp!.toInt()!,self.bletemp!.toInt()!,self.bgeaqi!.toInt()!,self.bleaqi!.toInt()!]) {
+            if !database.executeUpdate("insert into background (id, bid, filename, path, md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.bid!.toInt()!,self.background!,self.bmd5!,1,self.bweather!.toInt()!,self.bgehour!.toInt()!,self.blehour!.toInt()!,self.bgeweek!.toInt()!,self.bleweek!.toInt()!,self.bgemonth!.toInt()!,self.blemonth!.toInt()!,self.bgetemp!.toInt()!,self.bletemp!.toInt()!,self.bgeaqi!.toInt()!,self.bleaqi!.toInt()!]) {
                 
                 println("insert 2 table failed: \(database.lastErrorMessage())")
             }
@@ -49,7 +49,7 @@ class Background {
     }
     func save_nofile(){
         if !self.hasSelf() {
-            if !database.executeUpdate("insert into background (id, bid, filename, path,md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.bid!.toInt()!,self.background!,"",self.bmd5!,0,self.bweather!,self.bgehour!.toInt()!,self.blehour!.toInt()!,self.bgemonth!.toInt()!,self.blemonth!.toInt()!,self.bgeweek!.toInt()!,self.bleweek!.toInt()!,self.bgetemp!.toInt()!,self.bletemp!.toInt()!,self.bgeaqi!.toInt()!,self.bleaqi!.toInt()!]) {
+            if !database.executeUpdate("insert into background (id, bid, filename, path,md5, download, weather, ge_hour, le_hour, ge_week, le_week, ge_month, le_month, ge_temp, le_temp,  ge_aqi, le_aqi) values (NULL,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?)", withArgumentsInArray: [self.bid!.toInt()!,self.background!,"",self.bmd5!,0,self.bweather!,self.bgehour!.toInt()!,self.blehour!.toInt()!,self.bgeweek!.toInt()!,self.bleweek!.toInt()!,self.bgemonth!.toInt()!,self.blemonth!.toInt()!,self.bgetemp!.toInt()!,self.bletemp!.toInt()!,self.bgeaqi!.toInt()!,self.bleaqi!.toInt()!]) {
                 
                 println("insert background table failed: \(database.lastErrorMessage())")
             }
@@ -75,7 +75,7 @@ class Background {
     }
     
     func hasSelf() -> Bool{
-        if let rs = database.executeQuery("select count(*) from background where bid = ?", withArgumentsInArray: [self.bid!]) {
+        if let rs = database.executeQuery("select count(*) from background where bid = ? and download=1", withArgumentsInArray: [self.bid!]) {
             if rs.next(){
                 var totalCount:Int32 = rs.intForColumnIndex(0)
 //                println("TotalCount:\(totalCount)\n");
